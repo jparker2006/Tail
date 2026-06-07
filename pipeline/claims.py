@@ -126,3 +126,89 @@ def claim2_lenses(fills: list[dict], R: int, mm_set: set, K: int = 10) -> dict:
     return {"rho_gross_vs_pnl": rho_gross, "rho_netsize_vs_pnl": rho_net,
             "by_net": breakdown(lambda w: abs(agg[w]["net"])),
             "by_gross": breakdown(lambda w: agg[w]["gross_notional"])}
+
+
+def lagged_xcorr(a: np.ndarray, b: np.ndarray, L: int) -> dict:
+    """ρ(τ) = corr(a[t], b[t+τ]); τ>0 means a leads b."""
+    az = (a - a.mean()) / (a.std() + 1e-12)
+    bz = (b - b.mean()) / (b.std() + 1e-12)
+    n = len(az)
+    out = {}
+    for tau in range(-L, L + 1):
+        x, y = (az[:n - tau], bz[tau:]) if tau >= 0 else (az[-tau:], bz[:n + tau])
+        out[tau] = float(np.mean(x * y)) if len(x) > 1 else 0.0
+    return out
+
+
+def claim3(fills: list[dict], R: int, mm_set: set, bin_s: int = 300,
+           max_lag_bins: int = 12, B: int = 5000, seed: int = 7) -> dict:
+    """Echo coda: do small wallets trade same-direction shortly AFTER big wallets?
+
+    Non-causal. Big = top-decile gross, small = bottom-50%. Lagged cross-correlation of
+    big->small net flow, circular-shift null band, plus a price-chasing confound probe.
+    """
+    nonmm = [f for f in fills if f["proxy_wallet"] not in mm_set]
+    gn: dict[str, float] = defaultdict(float)
+    for f in nonmm:
+        gn[f["proxy_wallet"]] += f["usdc_notional"]
+    ranked = sorted(gn, key=gn.get)
+    n = len(ranked)
+    big = set(ranked[int(0.9 * n):])          # top decile by gross
+    small = set(ranked[:int(0.5 * n)])         # bottom half
+
+    ts = [f["ts"] for f in nonmm]
+    t0 = min(ts)
+    nb = (max(ts) - t0) // bin_s + 1
+    big_flow = np.zeros(nb)
+    small_flow = np.zeros(nb)
+    last_p = np.full(nb, np.nan)
+    fbins = []
+    for f in nonmm:
+        b = (f["ts"] - t0) // bin_s
+        fbins.append(b)
+        sn = f["d"] * f["usdc_notional"]       # token-0 directional (not truth-signed)
+        if f["proxy_wallet"] in big:
+            big_flow[b] += sn
+        elif f["proxy_wallet"] in small:
+            small_flow[b] += sn
+        last_p[b] = f["p_yes"]
+    # carry price forward; trim to the active window (0.5–99.5 pct of fills)
+    cur = last_p[0] if not np.isnan(last_p[0]) else 0.0
+    for i in range(nb):
+        if np.isnan(last_p[i]):
+            last_p[i] = cur
+        else:
+            cur = last_p[i]
+    lo, hi = int(np.percentile(fbins, 0.5)), int(np.percentile(fbins, 99.5))
+    bf, sf, pp = big_flow[lo:hi + 1], small_flow[lo:hi + 1], last_p[lo:hi + 1]
+    dprice = np.diff(pp, prepend=pp[0])
+
+    rhos = lagged_xcorr(bf, sf, max_lag_bins)
+    L = max_lag_bins
+    peak_tau = max(range(1, L + 1), key=lambda t: rhos[t])
+    peak = rhos[peak_tau]
+    nonpos_best = max(rhos[t] for t in range(-L, 1))
+
+    # circular-shift null on small flow
+    rng = np.random.default_rng(seed)
+    m = len(sf)
+    null_peaks = []
+    for _ in range(B):
+        k = int(rng.integers(L + 1, m - L - 1))
+        rr = lagged_xcorr(bf, np.roll(sf, k), L)
+        null_peaks.append(max(rr[t] for t in range(1, L + 1)))
+    null_peaks = np.array(null_peaks)
+    p95 = float(np.percentile(null_peaks, 95))
+    pval = float((null_peaks >= peak).mean())
+
+    # price-chasing confound: does small flow follow PRICE as much as big-wallet flow?
+    conf = lagged_xcorr(dprice, sf, max_lag_bins)
+    conf_peak = max(conf[t] for t in range(1, L + 1))
+
+    f3 = (peak >= 0.15) and (peak > p95) and (peak > nonpos_best)
+    return {"bin_s": bin_s, "n_bins_active": int(m), "n_big": len(big), "n_small": len(small),
+            "rho_curve": {str(k): v for k, v in rhos.items()},
+            "peak_rho": peak, "peak_lag_bins": peak_tau, "peak_lag_min": peak_tau * bin_s / 60,
+            "nonpos_best_rho": nonpos_best, "null_p95": p95, "pval": pval,
+            "confound_price_peak_rho": conf_peak, "rho0": rhos[0],
+            "f3_pass": bool(f3)}
