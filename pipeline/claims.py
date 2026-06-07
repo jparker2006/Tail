@@ -34,10 +34,12 @@ def wallet_pnls(fills: list[dict], R: int, mm_set: set) -> dict:
 
 
 def claim2(fills: list[dict], R: int, mm_set: set, K: int = 10, B: int = 10000,
-           seed: int = 12345) -> dict:
+           seed: int = 12345, rank_by: str = "net") -> dict:
     agg = wallet_pnls(fills, R, mm_set)
     wallets = list(agg)
-    ranked = sorted(wallets, key=lambda w: abs(agg[w]["net"]), reverse=True)  # resolution-blind
+    keyf = ((lambda w: agg[w]["gross_notional"]) if rank_by == "gross"
+            else (lambda w: abs(agg[w]["net"])))           # both resolution-blind
+    ranked = sorted(wallets, key=keyf, reverse=True)
     topK = ranked[:K]
     topset = set(topK)
     observed = sum(agg[w]["pnl"] for w in topK)
@@ -94,5 +96,33 @@ def claim2(fills: list[dict], R: int, mm_set: set, K: int = 10, B: int = 10000,
                         "decile": w_decile[w]} for w in topK],
         "nullA": a, "nullB": b, "nullC": c,
         "beats_A": observed > a["p95"], "beats_B": observed > b["p95"],
-        "beats_C": observed > c["p95"], "verdict": verdict,
+        "beats_C": observed > c["p95"], "verdict": verdict, "rank_by": rank_by,
     }
+
+
+def claim2_lenses(fills: list[dict], R: int, mm_set: set, K: int = 10) -> dict:
+    """Non-circular complementary views of Claim 2."""
+    from scipy.stats import spearmanr
+    agg = wallet_pnls(fills, R, mm_set)
+    wallets = list(agg)
+    sign = 1 if R == 1 else -1
+    gross = np.array([agg[w]["gross_notional"] for w in wallets])
+    netabs = np.array([abs(agg[w]["net"]) for w in wallets])
+    pnl = np.array([agg[w]["pnl"] for w in wallets])
+    rho_gross = float(spearmanr(gross, pnl).statistic)
+    rho_net = float(spearmanr(netabs, pnl).statistic)
+
+    def breakdown(keyf):
+        top = sorted(wallets, key=keyf, reverse=True)[:K]
+        pos = [agg[w]["pnl"] for w in top if agg[w]["pnl"] > 0]
+        neg = [agg[w]["pnl"] for w in top if agg[w]["pnl"] < 0]
+        gtot = sum(agg[w]["gross_notional"] for w in top)
+        net_truth = sign * sum(agg[w]["net"] for w in top)  # >0 = leaned toward truth
+        return {"n_right": len(pos), "n_wrong": len(neg),
+                "sum_pos": sum(pos), "sum_neg": sum(neg),
+                "net_toward_truth": net_truth,
+                "net_toward_truth_frac": (net_truth / gtot) if gtot else None}
+
+    return {"rho_gross_vs_pnl": rho_gross, "rho_netsize_vs_pnl": rho_net,
+            "by_net": breakdown(lambda w: abs(agg[w]["net"])),
+            "by_gross": breakdown(lambda w: agg[w]["gross_notional"])}

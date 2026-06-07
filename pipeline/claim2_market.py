@@ -45,6 +45,23 @@ def main() -> None:
         out[K] = res
         show(res)
 
+    # robustness ranking: gross aggressive volume
+    print("\n=== robustness ranking: top movers by GROSS aggressive volume (K=10) ===")
+    show(claims.claim2(fills, R, mm_set, K=10, rank_by="gross"))
+
+    # complementary non-circular lenses
+    L = claims.claim2_lenses(fills, R, mm_set, K=10)
+    print("\n=== COMPLEMENTARY LENSES ===")
+    print(f"  Spearman(size, PnL) across {len(out[10]['top_movers'])>0 and 'all directional wallets'}:")
+    print(f"    gross volume vs PnL : ρ = {L['rho_gross_vs_pnl']:+.3f}")
+    print(f"    |net size|   vs PnL : ρ = {L['rho_netsize_vs_pnl']:+.3f}   (≈0 => size doesn't predict being right)")
+    for tag, b in (("by |net size|", L["by_net"]), ("by gross volume", L["by_gross"])):
+        print(f"  top-10 {tag}: right {b['n_right']}/10, wrong {b['n_wrong']}/10 | "
+              f"winners +${b['sum_pos']:,.0f} vs losers ${b['sum_neg']:,.0f}")
+        print(f"      net position toward truth: {b['net_toward_truth']:+,.0f} shares "
+              f"({(b['net_toward_truth_frac'] or 0)*100:+.0f}% of their gross) "
+              f"-> biggest money leaned {'TOWARD' if b['net_toward_truth']>0 else 'AWAY FROM'} the winner")
+
     primary = out[10]
     print("\n=== F2 (kills Claim 2 if top-10 fail to beat Null B at 95th pct) ===")
     print(f"  observed ${primary['observed_pnl']:,.0f}  vs  Null-B p95 ${primary['nullB']['p95']:,.0f}")
@@ -56,8 +73,8 @@ def main() -> None:
         print("  --> Claim 2 NOT SUPPORTED on this market")
 
     ingest.save_raw(f"{SLUG}_claim2.json",
-                    {k: {kk: vv for kk, vv in v.items() if kk != "top_movers"} | {"top_movers": v["top_movers"]}
-                     for k, v in out.items()})
+                    {"by_K": out, "lenses": L,
+                     "gross_ranked_K10": claims.claim2(fills, R, mm_set, K=10, rank_by="gross")})
 
 
 if __name__ == "__main__":
