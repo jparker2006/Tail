@@ -15,10 +15,13 @@ Data API probe for liquidity assessment. Pagination/caching/on-chain land in lat
 from __future__ import annotations
 
 import json
+import os
 import time
 from typing import Any
 
 import requests
+
+RAW_DIR = os.path.normpath(os.path.join(os.path.dirname(__file__), "..", "data", "raw"))
 
 GAMMA = "https://gamma-api.polymarket.com"
 DATA = "https://data-api.polymarket.com"
@@ -129,6 +132,60 @@ def data_trades_page(condition_id: str, limit: int = 10000, offset: int = 0,
 def data_holders(condition_id: str, limit: int = 1000) -> list[dict]:
     out = _get(f"{DATA}/holders", params={"market": condition_id, "limit": limit})
     return out if isinstance(out, list) else [out]
+
+
+def pull_all_trades(condition_id: str, taker_only: bool = True, page: int = 1000,
+                    max_offset: int = 9000) -> tuple[list[dict], dict]:
+    """Page /trades for a market, split by side to extend past the ~10k offset ceiling.
+
+    The Data API caps a page at 1000 rows and the offset+limit window at ~10k, so the most
+    rows reachable for one filter is ~10k. Splitting BUY/SELL (disjoint row sets, since each
+    fill row carries the proxy's own side) roughly doubles reach to ~20k. The market is
+    resolved/static so offset paging is stable (no shifting rows). `truncated` flags any side
+    that exhausted the offset window still returning full pages.
+    """
+    all_rows: list[dict] = []
+    per_side: dict[str, int] = {}
+    truncated = False
+    for side in ("BUY", "SELL"):
+        offset, got = 0, 0
+        while True:
+            try:
+                batch = data_trades_page(condition_id, limit=page, offset=offset, side=side,
+                                         taker_only=taker_only)
+            except requests.HTTPError as e:
+                # The API returns 400 once offset runs past its window — treat as ceiling.
+                if e.response is not None and e.response.status_code == 400:
+                    truncated = True
+                    break
+                raise
+            all_rows.extend(batch)
+            got += len(batch)
+            if len(batch) < page:
+                break
+            offset += page
+            if offset > max_offset:
+                truncated = True
+                break
+        per_side[side] = got
+    return all_rows, {"taker_only": taker_only, "per_side": per_side,
+                      "total": len(all_rows), "truncated": truncated}
+
+
+def save_raw(name: str, obj: Any) -> str:
+    os.makedirs(RAW_DIR, exist_ok=True)
+    path = os.path.join(RAW_DIR, name)
+    with open(path, "w") as f:
+        json.dump(obj, f)
+    return path
+
+
+def load_raw(name: str) -> Any:
+    path = os.path.join(RAW_DIR, name)
+    if not os.path.exists(path):
+        return None
+    with open(path) as f:
+        return json.load(f)
 
 
 def probe_liquidity(condition_id: str) -> dict:
