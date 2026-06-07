@@ -89,86 +89,116 @@ def _addr(topic: str) -> str:
 
 
 def decode_receipt(receipt: dict | None, token_ids, exchange: str) -> dict:
-    """Pull aggressor / makers / asset / price for OUR market's fill out of a tx receipt."""
-    out = {"ok": False, "taker": None, "makers": [], "asset_id": None, "price": None,
-           "is_buy": None, "n_orderfilled": 0, "has_ordersmatched": False}
+    """Decode OUR market's fill from a tx receipt.
+
+    matchOrders emits one OrderFilled per *order* — including the taker's own order — plus an
+    OrdersMatched naming the real aggressor (takerOrderMaker). We split the taker self-leg
+    (price / direction / taker shares) from the genuine resting-maker legs (each LP's share
+    amount), so the MM filter can weigh wallets by volume-as-aggressor vs volume-as-LP.
+    """
+    out = {"ok": False, "taker": None, "asset_id": None, "price": None, "is_buy": None,
+           "taker_shares": None, "maker_legs": [], "n_makers": 0, "has_ordersmatched": False}
     if not receipt:
         return out
     token_ids = {str(t) for t in token_ids}
+    legs: list[tuple] = []  # (maker_addr, m_asset, t_asset, m_amt, t_amt)
+    taker = None
+    asset_id = None
     for log in receipt.get("logs", []):
         try:
             if log["address"].lower() != exchange:
                 continue
             t0 = log["topics"][0].lower()
-            data = bytes.fromhex(log["data"][2:]) if len(log.get("data", "0x")) > 2 else b""
+            raw = log.get("data", "0x")
+            data = bytes.fromhex(raw[2:]) if len(raw) > 2 else b""
             if t0 == ORDERFILLED_SIG:
-                m_asset, t_asset, m_amt, t_amt, _fee = abi_decode(
-                    ["uint256"] * 5, data)
-                tok = (str(m_asset) if str(m_asset) in token_ids
-                       else str(t_asset) if str(t_asset) in token_ids else None)
-                if tok is None:
+                m_asset, t_asset, m_amt, t_amt, _fee = abi_decode(["uint256"] * 5, data)
+                if str(m_asset) in token_ids:
+                    asset_id = str(m_asset)
+                elif str(t_asset) in token_ids:
+                    asset_id = str(t_asset)
+                else:
                     continue
-                out["n_orderfilled"] += 1
-                out["makers"].append(_addr(log["topics"][2]))
-                out["asset_id"] = tok
-                if m_asset == 0:
-                    out["is_buy"] = True
-                    out["price"] = (m_amt / t_amt) if t_amt else None
-                elif t_asset == 0:
-                    out["is_buy"] = False
-                    out["price"] = (t_amt / m_amt) if m_amt else None
+                legs.append((_addr(log["topics"][2]), m_asset, t_asset, m_amt, t_amt))
             elif t0 == ORDERSMATCHED_SIG:
-                m_asset, t_asset, _m_amt, _t_amt = abi_decode(["uint256"] * 4, data)
-                tok = (str(m_asset) if str(m_asset) in token_ids
-                       else str(t_asset) if str(t_asset) in token_ids else None)
-                if tok is None:
-                    continue
-                out["has_ordersmatched"] = True
-                out["taker"] = _addr(log["topics"][2])
+                m_asset, t_asset, _m, _t = abi_decode(["uint256"] * 4, data)
+                if str(m_asset) in token_ids or str(t_asset) in token_ids:
+                    taker = _addr(log["topics"][2])
+                    out["has_ordersmatched"] = True
         except (KeyError, IndexError, ValueError):
             continue
-    out["ok"] = out["asset_id"] is not None
+    if asset_id is None:
+        return out
+    out["asset_id"] = asset_id
+    out["taker"] = taker
+    tok = int(asset_id)
+    # Taker self-leg: price, direction, taker shares.
+    for (addr, m_asset, t_asset, m_amt, t_amt) in legs:
+        if taker and addr == taker:
+            if m_asset == 0:            # taker paid collateral -> BUY the token
+                out["is_buy"] = True
+                out["price"] = (m_amt / t_amt) if t_amt else None
+                out["taker_shares"] = t_amt / 1e6
+            elif t_asset == 0:          # taker received collateral -> SELL the token
+                out["is_buy"] = False
+                out["price"] = (t_amt / m_amt) if m_amt else None
+                out["taker_shares"] = m_amt / 1e6
+            break
+    # Genuine resting-maker legs (exclude the taker self-leg): each LP's token shares.
+    for (addr, m_asset, t_asset, m_amt, t_amt) in legs:
+        if taker and addr == taker:
+            continue
+        shares = (m_amt if m_asset == tok else t_amt) / 1e6
+        out["maker_legs"].append([addr, shares])
+    out["n_makers"] = len(out["maker_legs"])
+    out["ok"] = True
     return out
 
 
-def build_join(tape: list[dict], token_ids, exchange: str, slug: str,
-               max_workers: int = 4) -> dict:
-    """Fetch+decode receipts for every tx in `tape`, cached to a resumable JSONL.
+def fetch_receipts(tape: list[dict], slug: str, max_workers: int = 4) -> dict:
+    """Fetch raw Polygon receipts for every tx in `tape`, cached to a resumable JSONL.
 
-    Returns {tx_hash: decoded}.
+    Caching the RAW receipts (not just a decode) lets later steps re-decode for free.
+    Returns {tx_hash: receipt}.
     """
-    cache_path = os.path.join(RAW_DIR, f"{slug}_onchain.jsonl")
-    cached: dict = {}
+    cache_path = os.path.join(RAW_DIR, f"{slug}_receipts.jsonl")
+    receipts: dict = {}
     if os.path.exists(cache_path):
         with open(cache_path) as f:
             for line in f:
                 if line.strip():
                     d = json.loads(line)
-                    if d.get("ok"):  # only trust successful decodes; retry the rest
-                        cached[d["tx"]] = d
-    txs = list(dict.fromkeys(r["transactionHash"] for r in tape))  # unique, in order
-    todo = [t for t in txs if t not in cached]
+                    if d.get("receipt"):
+                        receipts[d["tx"]] = d["receipt"]
+    txs = list(dict.fromkeys(r["transactionHash"] for r in tape))
+    todo = [t for t in txs if t not in receipts]
     if todo:
         os.makedirs(RAW_DIR, exist_ok=True)
 
-        def work(tx: str) -> dict:
-            rec = rpc_call("eth_getTransactionReceipt", [tx], retry_on_null=True)
-            d = decode_receipt(rec, token_ids, exchange)
-            d["tx"] = tx
-            return d
+        def work(tx: str):
+            return tx, rpc_call("eth_getTransactionReceipt", [tx], retry_on_null=True)
 
         done = 0
         with open(cache_path, "a") as f, ThreadPoolExecutor(max_workers=max_workers) as ex:
             futs = {ex.submit(work, tx): tx for tx in todo}
             for fut in as_completed(futs):
                 try:
-                    d = fut.result()
-                except Exception as e:  # noqa: BLE001 — record failure, keep going
-                    d = {"tx": futs[fut], "ok": False, "error": str(e)}
-                cached[d["tx"]] = d
-                f.write(json.dumps(d) + "\n")
-                f.flush()
+                    tx, rec = fut.result()
+                except Exception:  # noqa: BLE001 — leave for a later retry
+                    tx, rec = futs[fut], None
+                if rec:
+                    receipts[tx] = rec
+                    f.write(json.dumps({"tx": tx, "receipt": rec}) + "\n")
+                    f.flush()
                 done += 1
                 if done % 250 == 0:
-                    print(f"  ... {done}/{len(todo)} receipts")
-    return cached
+                    print(f"  ... {done}/{len(todo)} receipts fetched")
+    return receipts
+
+
+def build_join(tape: list[dict], token_ids, exchange: str, slug: str,
+               max_workers: int = 4) -> dict:
+    """Fetch (cached) raw receipts and decode each. Returns {tx_hash: decoded}."""
+    receipts = fetch_receipts(tape, slug, max_workers=max_workers)
+    return {tx: {**decode_receipt(rec, token_ids, exchange), "tx": tx}
+            for tx, rec in receipts.items()}
