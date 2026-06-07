@@ -188,6 +188,25 @@ def load_raw(name: str) -> Any:
         return json.load(f)
 
 
+def breadth_probe(proxy: str, this_condition_id: str, limit: int = 1000) -> dict:
+    """MM filter signal B: how broadly does this wallet trade across OTHER markets?
+
+    One page of the wallet's trades (taker AND maker, takerOnly=false) — enough to detect a
+    cross-market market maker. Returns distinct-market count and this market's share of the
+    page's notional. A broad MM shows many markets + a tiny share here.
+    """
+    rows = _get(f"{DATA}/trades", params={"user": proxy, "limit": limit,
+                                          "takerOnly": "false"})
+    rows = rows if isinstance(rows, list) else []
+    markets = {r.get("conditionId") for r in rows if r.get("conditionId")}
+    def notion(r):
+        return float(r.get("price", 0)) * float(r.get("size", 0))
+    tot = sum(notion(r) for r in rows)
+    here = sum(notion(r) for r in rows if r.get("conditionId") == this_condition_id)
+    return {"breadth": len(markets), "n_rows": len(rows), "capped": len(rows) >= limit,
+            "this_market_share": (here / tot) if tot > 0 else None}
+
+
 def probe_liquidity(condition_id: str) -> dict:
     """Cheap Step-1.1 assessment: one trades page (count + distinct wallets + capped flag)
     and holder counts per outcome token. NOT the full pull — that's Step 1.2."""
