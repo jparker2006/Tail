@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.env
+
+# Cached raw data (re-pullable; not committed). Computed outputs in data/out/ ARE tracked.
+data/raw/
+
+# OS / editor
+.DS_Store
+.vscode/
+.idea/
+
+# Demo (Phase 4)
+demo/node_modules/
+demo/.next/
+demo/out/

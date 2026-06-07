@@ -1,0 +1,8 @@
+# Tail pipeline — minimal, free, deterministic. No web3.py (heavy); we hit JSON-RPC directly
+# via requests and decode logs with eth-abi/eth-utils.
+requests>=2.31
+eth-abi>=5.0
+eth-utils>=4.0
+numpy>=1.26
+scipy>=1.11
+matplotlib>=3.8
