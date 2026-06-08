@@ -283,3 +283,67 @@ volume distribution**, is fixed **before any outcome**, and lands in git. *(Supe
 percentile-rule clause in §5; that clause is retained above as the original frozen text for
 provenance. The numeric floor + tier boundaries are appended here once the full enumeration is
 reviewed and approved.)*
+
+### A2 — 2026-06-07, post-classification, pre-analysis (no outcome computed)
+
+Step-2.2 built and calibrated the event-driven vs recurring-algorithmic classifier
+(`pipeline/taxonomy.py`) on the cached V1 head frame. This freezes the taxonomy, the tier
+structure, the per-tier sample sizes, and the audit protocol. Metadata only; no outcome
+computed.
+
+**A2.1 — Taxonomy classifier (pre-registered, conservative).** A market is `event` (eligible
+for the headline corpus) **only if NO recurrence signal fires**; anything ambiguous ⇒
+`recurring` (kept OUT of the headline, fed to the labelled secondary group). Signals — any one
+⇒ recurring:
+- **S1** per-match / betting-line — `^<league>-<team>-<team>-YYYY-MM-DD`, a generic
+  `<prefix>-<team>-<team>-YYYY-MM-DD`, an `…-vs-…-YYYY-MM-DD` head-to-head, or a
+  `-total-/-spread-/-moneyline-/-ml-/over/under-` line token;
+- **S2** crypto — intraday cadence (`updown`, `-5m/15m/1h/4h/1d-`, `<coin>-up/down`) or a
+  price-threshold series (coin name **and** a price/threshold word);
+- **S3** weather series (temperature / rainfall / snowfall);
+- **S4** intraday duration (createdAt→endDate < 24h);
+- **S5** recurring template — normalized-slug template (years/months/numbers/timestamps masked)
+  recurring **≥ 20×** in the classified frame.
+
+Template counts are **rebuilt over the full per-tier enumerated frame at selection** (maximising
+S5 recall, especially in the low tiers). Documented gray zone: macro-event families (FOMC
+bps-threshold variants split by template frequency). Boundary sensitivity reported
+(`template_min ∈ {10,20,40}` × `intraday ∈ {24,72}h`; T4 event-driven held 433–502). We do
+**not** add further ad-hoc patterns — that would over-fit the rule to already-seen examples.
+
+**A2.2 — Tiers + V1 filter (frozen).** Four volume tiers, **$25k absolute floor** (trader-safe:
+discovery spot-check found ≥76 distinct takers even at ~$30k): **T1 $25k–$100k, T2 $100k–$1M,
+T3 $1M–$10M, T4 > $10M.** V1-era filter = `endDate < migration cutoff` (conservative proxy); the
+exact cutoff is pinned and V2-exchange exclusion verified on the on-chain validation subset
+(A1.2).
+
+**A2.3 — Primary (event-driven) sample (frozen).** Post-filter V1 event-driven population: T1
+~1,650, T2 ~2,700, T3 2,220, T4 460. Draw **T1 = 500, T2 = 500, T3 = 500** (uniform random
+within tier, fixed seed) and **T4 = take-all (~460)** ⇒ ≈ **1,960** event markets.
+**Expansion rule (rule-based, NOT optional stopping):** after a tier is processed, if its F2′ or
+F3′ per-tier proportion statistic has a 95% CI half-width **> 0.05**, that tier is expanded
+**once** to **N = 1,000** by drawing the next markets from the **same frozen frame in the same
+seeded order**. T4 cannot expand (take-all); its weaker mega-tier precision is **disclosed, not
+patched**.
+
+**A2.4 — Secondary (recurring) sample (frozen).** Same four tiers, **250 per tier** (uniform
+random, fixed seed); T4 recurring population is only **66 ⇒ take-all ~66** (the mega-tier
+event-vs-recurring contrast is inherently weaker there — disclosed). ≈ **1,000** recurring
+markets. Used **only** for the **within-tier** event-vs-recurring concentration contrast
+(isolating type-effect from volume-effect); never pooled into the headline.
+
+**A2.5 — Bidirectional classifier audit (pre-registered).** A random sample drawn from **both**
+the event-labelled and recurring-labelled populations is ground-truth adjudicated **once**, to
+measure **both** error directions:
+- **false-inclusion** (recurring mislabelled `event` — headline contamination), and
+- **false-exclusion** (a genuine one-off event market — e.g. a single marquee fight or knockout
+  match **outcome** — mislabelled `recurring` — a representativeness skew away from one-off
+  sports toward elections/geopolitics).
+
+Both rates are reported, and the classifier must demonstrably **separate one-off match/fight
+outcomes from recurring per-game series templates**. The headline F1′ is reported **both** on
+the auto-classified event corpus **and** with audit-flagged residuals removed by a
+**deterministic rule frozen in git** (never case-by-case eyeballing); robustness across both is
+the contamination test. **Pre-committed escalation:** if the audit shows material conflation of
+one-off match outcomes with recurring series, the per-match signal is replaced by a principled
+**cardinality rule** (team-masked template cardinality) and re-validated before use.
