@@ -3,604 +3,644 @@
   "n": 40,
   "markets": [
     {
-      "slug": "will-ai16z-be-the-next-coin-listed-on-robinhood1",
-      "question": "Will $AI16Z be the next coin listed on Robinhood?",
-      "conditionId": "0xed7420301797a1777e865aad084b9aa1a3a66516c7d7621fb2702a63bc702cd4",
+      "slug": "will-lewis-hamilton-win-the-2025-f1-italian-grand-prix",
+      "question": "Will Lewis Hamilton win the 2025 F1 Italian Grand Prix?",
+      "conditionId": "0xddf1721f978d8b1358f58758474a62f899b487d74773f8abbfe421d2e54b62c5",
       "clobTokenIds": [
-        "563057372901063471178747191567990360827465760636669149542772623215790646506",
-        "103677981103741280558126803338116341245098472349016046666734941824942489074631"
+        "47729197383215186401533127317453079816687500772585014118145044263067761148263",
+        "808758626872145136123917394463568415717441203583640197925906740764233655567"
       ],
-      "volumeNum": 25222.874225,
+      "volumeNum": 39370.627127,
       "tier": "T1",
       "negRisk": true,
       "mkt_class": "event",
+      "ladder_key": "will-lewis-hamilton-win-the-2025-f1-italian-grand-prix",
+      "resolved_index": 1,
+      "endDate": "2025-09-08T00:00:00Z"
+    },
+    {
+      "slug": "israel-x-hamas-ceasefire-cancelled-by-next-friday",
+      "question": "Israel x Hamas ceasefire cancelled by next Friday?",
+      "conditionId": "0x06fa3bc0c4b9a628307b71739c1738c174148e5d26fbbdbfd6f7ee1e09452c59",
+      "clobTokenIds": [
+        "103333517097526739455963239334519923619668618544749901630493522061999759465850",
+        "28513273898478778228481667198368581994569933830931359014858600230409212642783"
+      ],
+      "volumeNum": 69984.52306,
+      "tier": "T1",
+      "negRisk": false,
+      "mkt_class": "event",
+      "ladder_key": "israel-x-hamas-ceasefire-cancelled-by-next-friday",
+      "resolved_index": 1,
+      "endDate": "2025-03-14T12:00:00Z"
+    },
+    {
+      "slug": "will-mrbeasts-next-video-get-between-35m-and-39pt9m-views",
+      "question": "Will MrBeast's next video get between 35m and 39.9m views?",
+      "conditionId": "0xf839f64c408c560931af8e1b4a4ebf052ab86cc893817cef1aeec77df11c2e91",
+      "clobTokenIds": [
+        "44423584308374539638937621696110229819120486793100054709640631986608974310695",
+        "38195038652563078637276640820252746030247336529188061552598773822380704108608"
+      ],
+      "volumeNum": 30115.999514,
+      "tier": "T1",
+      "negRisk": true,
+      "mkt_class": "event",
+      "ladder_key": "will-mrbeasts-next-video-get-between-35m-and-<N>m-views",
+      "resolved_index": 1,
+      "endDate": "2025-06-22T00:00:00Z"
+    },
+    {
+      "slug": "who-will-advance-arsenal-or-bayern-munich",
+      "question": "Champions League: Arsenal vs Bayern Munich",
+      "conditionId": "0x82f136141485d0ad46b8a2a5a2ac88bf629f426dc5f60677d50224a646ad4625",
+      "clobTokenIds": [
+        "9296161706739870104552573918115117030548443311309063812265081972884898915705",
+        "64184272950172082367490755808289386521152992096408324264251639235574700017364"
+      ],
+      "volumeNum": 42446.45,
+      "tier": "T1",
+      "negRisk": false,
+      "mkt_class": "event",
+      "ladder_key": "who-will-advance-arsenal-or-bayern-munich",
+      "resolved_index": 1,
+      "endDate": "2024-04-17T12:00:00Z"
+    },
+    {
+      "slug": "will-spolu-get-less-than-17-of-the-vote-in-the-czech-election",
+      "question": "Will SPOLU get less than 17% of the vote in the Czech election?",
+      "conditionId": "0x713ea992aaefa7a072531ba86128c04bdde200096d157e52ef91620f3c1582cc",
+      "clobTokenIds": [
+        "12578390775922436388108189929377176721364218439347460687051764264703203724980",
+        "18109615014970641009610784118380553086894151047019957855600039317579776650882"
+      ],
+      "volumeNum": 61563.350074,
+      "tier": "T1",
+      "negRisk": true,
+      "mkt_class": "event",
+      "ladder_key": "will-spolu-get-less-than-<N>-of-the-vote-in-the-czech-election",
+      "resolved_index": 1,
+      "endDate": "2025-10-03T00:00:00Z"
+    },
+    {
+      "slug": "will-myles-garrett-break-the-single-season-sack-record",
+      "question": "Will Myles Garrett break the NFL sack record?",
+      "conditionId": "0x2e993f42a3ac901cae5eb778af77d946dd51b1887d078970c825e63aec475d0c",
+      "clobTokenIds": [
+        "96750778454518704266524043754420280880047246524025048820670359383571878835529",
+        "9162561412818542080471428847164647459618828742292038294345234735643336113230"
+      ],
+      "volumeNum": 55294.891771,
+      "tier": "T1",
+      "negRisk": false,
+      "mkt_class": "event",
+      "ladder_key": "will-myles-garrett-break-the-single-season-sack-record",
+      "resolved_index": 0,
+      "endDate": "2026-01-04T00:00:00Z"
+    },
+    {
+      "slug": "liberal-democrats-win-the-second-most-seats-in-next-uk-election",
+      "question": "Liberal Democrats win the second most seats in next UK election? ",
+      "conditionId": "0x1b1b9e20c4f1a24a4b5f9d927e23964a8575cb5078a4b92744d9f0496d6d79d8",
+      "clobTokenIds": [
+        "103684160269243147249897626189021807043665255383783201836450053739160149896617",
+        "93579277307976364731610091133667060369154224598178441548582711070042491942438"
+      ],
+      "volumeNum": 81654.21,
+      "tier": "T1",
+      "negRisk": true,
+      "mkt_class": "event",
+      "ladder_key": "liberal-democrats-win-the-second-most-seats-in-next-uk-election",
+      "resolved_index": 1,
+      "endDate": "2024-07-04T12:00:00Z"
+    },
+    {
+      "slug": "highest-temperature-in-paris-on-march-29-2026-11c",
+      "question": "Will the highest temperature in Paris be 11\u00b0C on March 29?",
+      "conditionId": "0xbdfaee61022089a7a9db9ceaca02e9932dd22d826bffd78965c12d02359be2e4",
+      "clobTokenIds": [
+        "61898382484099353898635140149057250213922138417277264319774259638867230232705",
+        "66561887222087905516136924667598545842065536961998489973823543516295490461472"
+      ],
+      "volumeNum": 37873.17301300003,
+      "tier": "T1",
+      "negRisk": true,
+      "mkt_class": "recurring",
+      "ladder_key": null,
+      "resolved_index": 1,
+      "endDate": "2026-03-29T12:00:00Z"
+    },
+    {
+      "slug": "eth-updown-15m-1769417100",
+      "question": "Ethereum Up or Down - January 26, 3:45AM-4:00AM ET",
+      "conditionId": "0x7343ea892f824572b92bbd0eb10ed7fcf8ef03c53ec25f88a10ba3110ed2de42",
+      "clobTokenIds": [
+        "62543610238533436636410157767265601483278013563025739153589495378178177633284",
+        "110848096038728924287595502793872287700822638390672488097572273346284256375620"
+      ],
+      "volumeNum": 69741.36522,
+      "tier": "T1",
+      "negRisk": false,
+      "mkt_class": "recurring",
+      "ladder_key": null,
+      "resolved_index": 0,
+      "endDate": "2026-01-26T09:00:00Z"
+    },
+    {
+      "slug": "will-the-price-of-bitcoin-be-between-114000-116000-on-september-29",
+      "question": "Will the price of Bitcoin be between $114,000 and $116,000 on September 29?",
+      "conditionId": "0x390af378ba7ebbb911ba1b3f731781ad50f516fc115d1a7462299a0761a31dab",
+      "clobTokenIds": [
+        "111313814306331896798520214179515310438422609219643578604840796847388711699347",
+        "79624383852465239232193287624045119321255732843195515480207394288413711827255"
+      ],
+      "volumeNum": 95483.159966,
+      "tier": "T1",
+      "negRisk": true,
+      "mkt_class": "recurring",
+      "ladder_key": null,
+      "resolved_index": 1,
+      "endDate": "2025-09-29T16:00:00Z"
+    },
+    {
+      "slug": "eth-updown-15m-1762224300",
+      "question": "Ethereum Up or Down - November 3, 9:45PM-10:00PM ET",
+      "conditionId": "0xa906f10c19bc7fc898bfad505d3f395077b371db2a158aaed080f8bd425c1c38",
+      "clobTokenIds": [
+        "17398368229075904289904416206408440314212242680904728304967794216813549118657",
+        "258698556778611143986907048448277939172287083763894156637476616136121923096"
+      ],
+      "volumeNum": 49046.425562,
+      "tier": "T1",
+      "negRisk": false,
+      "mkt_class": "recurring",
+      "ladder_key": null,
+      "resolved_index": 1,
+      "endDate": "2025-11-04T03:00:00Z"
+    },
+    {
+      "slug": "will-the-price-of-ethereum-be-between-2400-and-2500-on-july-11",
+      "question": "Will the price of Ethereum be between $2400 and $2500 on July 11?",
+      "conditionId": "0xc6afa0d0b40d8cf6166c838f4b9a3e60640d1332719eec8bb2af78ad7c076873",
+      "clobTokenIds": [
+        "23059060806534088883411723151456698693966207991306043558799280197146061187330",
+        "109244725234974952222269025716990510623851996733360977258655478385602116271936"
+      ],
+      "volumeNum": 62160.933949,
+      "tier": "T1",
+      "negRisk": true,
+      "mkt_class": "recurring",
+      "ladder_key": null,
+      "resolved_index": 1,
+      "endDate": "2025-07-11T16:00:00Z"
+    },
+    {
+      "slug": "will-ronnie-brunswijk-be-the-next-president-of-suriname-after-the-election",
+      "question": "Will Ronnie Brunswijk be the next president of Suriname after the election?",
+      "conditionId": "0x556970c9398843d3437a027ac55961fc445a38ce605658cf6cf38b6b7784f74c",
+      "clobTokenIds": [
+        "41440186413017898486744029335165924491296285431509701005264629408625382802537",
+        "867120030737778362406620246392661182987264708958188075536191457143522877699"
+      ],
+      "volumeNum": 217299.813078,
+      "tier": "T2",
+      "negRisk": true,
+      "mkt_class": "event",
+      "ladder_key": "will-ronnie-brunswijk-be-the-next-president-of-suriname-after-the-election",
+      "resolved_index": 1,
+      "endDate": "2025-05-31T12:00:00Z"
+    },
+    {
+      "slug": "trump-declassifies-new-ufo-files-by-april-30",
+      "question": "Trump declassifies new UFO files by April 30?",
+      "conditionId": "0x2529b3e51721d203b78afc5a0e03f491f04274c876d979da491f8b62fbd2eb2d",
+      "clobTokenIds": [
+        "111444429154062241012067025058436407827619691294301328854654438059849702498165",
+        "25908508928288395607032054316135624843036120115066394926968287213307412021035"
+      ],
+      "volumeNum": 249401.28714699997,
+      "tier": "T2",
+      "negRisk": false,
+      "mkt_class": "event",
+      "ladder_key": "trump-declassifies-new-ufo-files-by-april-<N>",
+      "resolved_index": 1,
+      "endDate": "2026-03-31T00:00:00Z"
+    },
+    {
+      "slug": "will-rory-mcilroy-win-the-2025-open-championship",
+      "question": "Will Rory McIlroy win The 2025 Open Championship?",
+      "conditionId": "0xd488ca41f869029f9d554c5b0fafdc7df2d67b29c136c91bbc3d51fc6d1cc398",
+      "clobTokenIds": [
+        "111286117461084857532918378098050043381175253816715003945389341740079937049947",
+        "107822244581522248032705390106332659546168381771794837610563180604489989226991"
+      ],
+      "volumeNum": 204303.884404,
+      "tier": "T2",
+      "negRisk": true,
+      "mkt_class": "event",
+      "ladder_key": "will-rory-mcilroy-win-the-2025-open-championship",
       "resolved_index": 1,
       "endDate": "2025-12-31T12:00:00Z"
     },
     {
-      "slug": "will-nh-be-the-first-primary-in-2024-dem-nomination",
-      "question": "Will NH be the first primary in 2024 Dem. nomination?",
-      "conditionId": "0x58409eec51da7b31cb2a9eff1c54e2feb25380877468704d730224f19c66f750",
+      "slug": "will-trump-and-elon-say-paper-straw-during-their-feb-18-interview",
+      "question": "Will Trump and Elon say \"Paper Straw\" during their Feb 18 interview?",
+      "conditionId": "0x000e14d57f237efca90247b1e2e18193113827764a0d85d7364245d8c31f3979",
       "clobTokenIds": [
-        "8721795175621725149807730347295464429234833383506361322008387784033212763623",
-        "6829972685411051092516679085404296090815215343570339499501502906796551904463"
+        "2770452408239763521047486923569299631737370751332043111430237430641393831885",
+        "108079031350675923472855411057456677190338254279089814193034424267515999515445"
       ],
-      "volumeNum": 26770.73,
-      "tier": "T1",
+      "volumeNum": 142501.059715,
+      "tier": "T2",
       "negRisk": false,
       "mkt_class": "event",
+      "ladder_key": "will-trump-and-elon-say-paper-straw-during-their-feb-<N>-interview",
       "resolved_index": 1,
-      "endDate": "2024-08-22T12:00:00Z"
+      "endDate": "2025-02-18T12:00:00Z"
     },
     {
-      "slug": "will-the-republican-candidate-win-georgia-by-2pt0-3pt0",
-      "question": "Will the Republican candidate win Georgia by 2.0%-3.0%?",
-      "conditionId": "0x62374d261898cdadf3f768f3ebaeb51e0834a62cd1f3762ab6a34434e77e01d6",
+      "slug": "will-real-madrid-beat-al-hilal",
+      "question": "Will Real Madrid beat Al Hilal?",
+      "conditionId": "0xee6e97f822d3ef588288fa163b03bc4c10080fb918b112adff68db1ffcb16097",
       "clobTokenIds": [
-        "49860291049081081903048021392241947732409863599053338608717229354169707010947",
-        "1051639784753569457569301442635503570552053159929833574862062566400903357154"
+        "89052325378848840063165066848994044867342820725275845660322731524544182199225",
+        "39131161618619101403920484944003339442785446217928889250044773425209954045118"
       ],
-      "volumeNum": 31084.487911,
-      "tier": "T1",
+      "volumeNum": 605596.409341,
+      "tier": "T2",
       "negRisk": true,
       "mkt_class": "event",
+      "ladder_key": "will-real-madrid-beat-al-hilal",
+      "resolved_index": 1,
+      "endDate": "2025-06-18T00:00:00Z"
+    },
+    {
+      "slug": "will-eth-hard-fork-before-june",
+      "question": "Will ETH hard fork before June?",
+      "conditionId": "0xb77793059aa0f24e1638ef95c656bad1d0109e70753dcfa6923193f1f8ae262a",
+      "clobTokenIds": [
+        "29247779984818091460084796343023274474222170481368194174456231296927121654557",
+        "15527911029869680468664433341721311501587835642004572781028882745771670131980"
+      ],
+      "volumeNum": 134475.130909,
+      "tier": "T2",
+      "negRisk": false,
+      "mkt_class": "event",
+      "ladder_key": "will-eth-hard-fork-before-june",
       "resolved_index": 0,
-      "endDate": "2024-11-05T12:00:00Z"
+      "endDate": "2025-05-31T12:00:00Z"
     },
     {
-      "slug": "phillies-vs-dodgers-series-winner",
-      "question": "Phillies vs. Dodgers Series Winner",
-      "conditionId": "0x4cd133c5b61c485f0554ee746b786b95e0a90702ec6fe1e93724bc7638b33035",
+      "slug": "will-jordi-alexander-win-the-synthetix-trading-competition-648",
+      "question": "Will Jordi Alexander win the Synthetix trading competition?",
+      "conditionId": "0x76103c3aaa40292123d5ac61452fc94ac66b0593fcd2a667401f89370cc27764",
       "clobTokenIds": [
-        "88502766639845398183260102597389668281203273273901473763432104863403374507235",
-        "6612753446097912510386780646725596572751478229692295499370048604917773823664"
+        "29058613983454473990371418447061828331641216515535851950839378937780037072191",
+        "4134966643622803745582813889761020709332611942269413508227187865694365078097"
       ],
-      "volumeNum": 60490.049447,
-      "tier": "T1",
-      "negRisk": false,
-      "mkt_class": "event",
-      "resolved_index": 1,
-      "endDate": "2025-10-11T00:00:00Z"
-    },
-    {
-      "slug": "will-yuki-tsunoda-win-the-2025-f1-belgian-grand-prix",
-      "question": "Will Yuki Tsunoda win the 2025 F1 Belgian Grand Prix?",
-      "conditionId": "0x4557bc926ed4c5cce8b60f34d50353a5a60e4e0d9f46eeab2fd1498bf124d8d6",
-      "clobTokenIds": [
-        "20146910968042909643343803254524473980270145631158882272234271193099260966271",
-        "104721195955424261526243948233032635849399064292187547113531665099977349397626"
-      ],
-      "volumeNum": 37114.11306,
-      "tier": "T1",
-      "negRisk": true,
-      "mkt_class": "event",
-      "resolved_index": 1,
-      "endDate": "2025-07-27T00:00:00Z"
-    },
-    {
-      "slug": "will-trump-say-fake-news-during-whca-dinner-events-682-189-889-856-469",
-      "question": "Will Trump say \"Fake News\" during WHCA Dinner events?",
-      "conditionId": "0x2f1782849d516cbb9f967c6e01b45cfb1d23102ea9cad0d8cc686a1095e0033f",
-      "clobTokenIds": [
-        "75155606112988048994424238705301069997645675175559325945175624049568620430220",
-        "3098276386342723708923187615940202113960441366290974809129803639453844238346"
-      ],
-      "volumeNum": 49315.496243,
-      "tier": "T1",
-      "negRisk": false,
-      "mkt_class": "event",
-      "resolved_index": 1,
-      "endDate": "2026-04-25T00:00:00Z"
-    },
-    {
-      "slug": "will-the-dhs-shutdown-end-between-february-24-27-2026",
-      "question": "Will the DHS shutdown end between February 24-27, 2026?",
-      "conditionId": "0xed5acea27b1676033b98976d24a73ecae30bb78f9b0ade085b09c93fb15b33f7",
-      "clobTokenIds": [
-        "93419527226857080482833151223453477205719338175648534397109269190079780290201",
-        "29507433564000407004699071488140763133749811178857569360530647434289631183208"
-      ],
-      "volumeNum": 70334.232497,
-      "tier": "T1",
-      "negRisk": true,
-      "mkt_class": "event",
-      "resolved_index": 1,
-      "endDate": "2026-03-31T00:00:00Z"
-    },
-    {
-      "slug": "will-the-price-of-bitcoin-be-between-62000-64000-on-february-25",
-      "question": "Will the price of Bitcoin be between $62,000 and $64,000 on February 25?",
-      "conditionId": "0x9fd79057f0831ea2d52c1e3777b1e128bfa63a9010020f0d19a6c03fb0f397c9",
-      "clobTokenIds": [
-        "83679043678932032473732550522189326168083909658429125753589759440249528339439",
-        "103611697339646254677156858876611246268314905706902305301434644871185983082349"
-      ],
-      "volumeNum": 71266.81541,
-      "tier": "T1",
-      "negRisk": true,
-      "mkt_class": "recurring",
-      "resolved_index": 1,
-      "endDate": "2026-02-25T17:00:00Z"
-    },
-    {
-      "slug": "atp-ficovic-marrero-2026-04-02",
-      "question": "San Luis Potosi: Juan Pablo Ficovich vs Ivan Marrero",
-      "conditionId": "0x11a3d9be7c25e887374799b18e1f56de32414aeb47e76e1167ba5d141f6227d1",
-      "clobTokenIds": [
-        "30369169446560092024069586092678619293775193484677903416411855022501221487016",
-        "91395915292209300587311559829385315356448718148781754077504106887309741463297"
-      ],
-      "volumeNum": 34507.109277999996,
-      "tier": "T1",
-      "negRisk": false,
-      "mkt_class": "recurring",
-      "resolved_index": 0,
-      "endDate": "2026-04-09T16:00:00Z"
-    },
-    {
-      "slug": "highest-temperature-in-london-on-april-23-2026-14c",
-      "question": "Will the highest temperature in London be 14\u00b0C on April 23?",
-      "conditionId": "0x71383d9aa86d1bec332605925997c49716a51224702053abd4fb0f1d8c6881cc",
-      "clobTokenIds": [
-        "7542950884885221914204062564299894982343707257813896681772360915180845696522",
-        "12795722721938927808439819980436256791769041114807696790837334631732717933723"
-      ],
-      "volumeNum": 25707.81024899998,
-      "tier": "T1",
-      "negRisk": true,
-      "mkt_class": "recurring",
-      "resolved_index": 1,
-      "endDate": "2026-04-23T12:00:00Z"
-    },
-    {
-      "slug": "ethereum-above-4600-on-october-1",
-      "question": "Will the price of Ethereum be above $4,600 on October 1?",
-      "conditionId": "0x4a4825258c5f4b77afb3ff780c0b15e53ceb8b20f24f2420a6ed4c4df1e61a8a",
-      "clobTokenIds": [
-        "88747819456868819993904762921897305860291888332309350760499623420729749765537",
-        "12397398694866322363445557417199888848176056465676594709873811755925845119518"
-      ],
-      "volumeNum": 82717.512133,
-      "tier": "T1",
-      "negRisk": false,
-      "mkt_class": "recurring",
-      "resolved_index": 1,
-      "endDate": "2025-10-01T16:00:00Z"
-    },
-    {
-      "slug": "ere-gro-spa-2025-10-19-gro",
-      "question": "Will FC Groningen win on 2025-10-19?",
-      "conditionId": "0xdc8e2a05a733e4ab2548f37a738835170983ec2e607978d4d0edb883e06b7bc3",
-      "clobTokenIds": [
-        "10777712375573528065844805242984467846785066468047705933203338846812458564067",
-        "62173261765380974930348732646002111804688575706752625288740782932839773771566"
-      ],
-      "volumeNum": 51225.920302,
-      "tier": "T1",
-      "negRisk": true,
-      "mkt_class": "recurring",
-      "resolved_index": 1,
-      "endDate": "2025-10-19T12:30:00Z"
-    },
-    {
-      "slug": "will-the-green-party-win-the-second-most-seats-in-the-next-canadian-election",
-      "question": "Will the Green Party win the second most seats in the next Canadian election?",
-      "conditionId": "0x6fdb5a3c2b2e161cc0ef10302fccfcae1f38d38ea0d906e385e604ba15b616fa",
-      "clobTokenIds": [
-        "75511409954171714861207255712675340801241780290814577210107632058833844993902",
-        "108565719107873379119139738847112364875398869172515888026910258650317362947648"
-      ],
-      "volumeNum": 760887.649673,
+      "volumeNum": 154495.219832,
       "tier": "T2",
       "negRisk": true,
       "mkt_class": "event",
+      "ladder_key": "will-jordi-alexander-win-the-synthetix-trading-competition-<N>",
       "resolved_index": 1,
-      "endDate": "2025-10-20T12:00:00Z"
-    },
-    {
-      "slug": "will-russia-capture-pokrovsk-by-june-30",
-      "question": "Will Russia capture Pokrovsk by June 30?",
-      "conditionId": "0xb303fceda7906a905f697c1f9eac462da9cd8c9b1a8d18898363437a7be31561",
-      "clobTokenIds": [
-        "50391907985844971368730434370554275352555306650304559981296724287110163889372",
-        "28414938735362964078307100001374150957816395319940009652318455849499629150252"
-      ],
-      "volumeNum": 577005.485231,
-      "tier": "T2",
-      "negRisk": false,
-      "mkt_class": "event",
-      "resolved_index": 1,
-      "endDate": "2025-06-30T12:00:00Z"
-    },
-    {
-      "slug": "will-matt-goodwin-reform-win-the-gorton-and-denton-by-election",
-      "question": "Will Matt Goodwin \u2013 Reform win the Gorton and Denton by-election?",
-      "conditionId": "0xc326c9da546795d5056c894e298b1699b1679e446d651d7ec1b77cb61da1834f",
-      "clobTokenIds": [
-        "113622788643013050496509851215656923619411650732139042394999130415741811254977",
-        "103400154364028889971903059944512600771492466615602606765372351069597279721932"
-      ],
-      "volumeNum": 177291.325977,
-      "tier": "T2",
-      "negRisk": true,
-      "mkt_class": "event",
-      "resolved_index": 1,
-      "endDate": "2026-02-26T00:00:00Z"
-    },
-    {
-      "slug": "will-jd-vance-say-tariff-during-bitcoin-2025-appearance-on-may-28",
-      "question": "Will JD Vance say \"Tariff\" during Bitcoin 2025 appearance on May 28?",
-      "conditionId": "0x5a90924ac5cfd307f72a7ee29977b0acb9cd5a305b885f2198e4f32c56f27e1d",
-      "clobTokenIds": [
-        "66324848683631845704633832521647298277494145798403209786357457288508846533387",
-        "34940284360141029083932593400744670033875161460591518224022922731859164925723"
-      ],
-      "volumeNum": 116465.829435,
-      "tier": "T2",
-      "negRisk": false,
-      "mkt_class": "event",
-      "resolved_index": 1,
-      "endDate": "2025-05-28T12:00:00Z"
-    },
-    {
-      "slug": "will-zohran-mamdanis-rcv-margin-of-victory-be-8-or-less-in-the-new-york-city-mayoral-democratic-primary",
-      "question": "Will Zohran Mamdani\u2019s RCV margin of victory be 8% or less in the New York City Mayoral Democratic Primary?",
-      "conditionId": "0xf9038c77411b5ad1ab72b4b5c735657aa6c6c0c2321e9eb0b8d37999b20da99c",
-      "clobTokenIds": [
-        "103296387155516892708752945365894630763218758613067472872843788174020983419924",
-        "75361712991222688359550208764435339658508151703534689443288918342572600136946"
-      ],
-      "volumeNum": 205230.488118,
-      "tier": "T2",
-      "negRisk": true,
-      "mkt_class": "event",
-      "resolved_index": 1,
-      "endDate": "2025-07-31T00:00:00Z"
-    },
-    {
-      "slug": "champions-league-quarterfinals-psg-vs-aston-villa",
-      "question": "Champions League Quarterfinals: PSG vs. Aston Villa",
-      "conditionId": "0x3b7f6e5a49a4662f0f2a4323e7ba0d940baa637a175580b8f7c633fe07f0ba3c",
-      "clobTokenIds": [
-        "18309545988733009672306452390839570351927637631376626741302207615339877221801",
-        "109088500345962445188733752973628914632789085266654551870544263999266267828532"
-      ],
-      "volumeNum": 147460.953945,
-      "tier": "T2",
-      "negRisk": false,
-      "mkt_class": "event",
-      "resolved_index": 0,
-      "endDate": "2025-03-16T12:00:00Z"
-    },
-    {
-      "slug": "will-abigail-spanberger-win-by-15-18",
-      "question": "Will Abigail Spanberger win by 15-18%?",
-      "conditionId": "0x9aa7b1c75610b6faf91e9d1e0c80448f6babdb57c7f65f592935195d336acf3d",
-      "clobTokenIds": [
-        "66551311040583521007781060080112727294020110355141715924112120147621068090251",
-        "110669833279437287845564275335207130087656525919248814747096303234564029982217"
-      ],
-      "volumeNum": 667659.383997,
-      "tier": "T2",
-      "negRisk": true,
-      "mkt_class": "event",
-      "resolved_index": 0,
-      "endDate": "2025-11-04T00:00:00Z"
-    },
-    {
-      "slug": "fl1-psg-ogc-2025-11-01-psg",
-      "question": "Will Paris Saint-Germain FC win on 2025-11-01?",
-      "conditionId": "0x82a2868f6e16f0f9b76568731430f56965179333a78c9f880faa673cb23c81e8",
-      "clobTokenIds": [
-        "95751465746177754768452789671196595063794917062028844218998347713126292627230",
-        "30037739591551707779838733845138507678191653123360491984854202129724617219101"
-      ],
-      "volumeNum": 126795.113311,
-      "tier": "T2",
-      "negRisk": true,
-      "mkt_class": "recurring",
-      "resolved_index": 0,
-      "endDate": "2025-11-01T16:00:00Z"
-    },
-    {
-      "slug": "btc-updown-5m-1771939200",
-      "question": "Bitcoin Up or Down - February 24, 8:20AM-8:25AM ET",
-      "conditionId": "0x123af9f53bb14066239664aebe2ba8b342d6a7cd50137774e98a877a5632087f",
-      "clobTokenIds": [
-        "20668228185566206184072446350132876468358913027746200819639003439396221882804",
-        "31330750211213485759474831522765684708889300885792399901473091185500284553329"
-      ],
-      "volumeNum": 115839.12604,
-      "tier": "T2",
-      "negRisk": false,
-      "mkt_class": "recurring",
-      "resolved_index": 1,
-      "endDate": "2026-02-24T13:25:00Z"
-    },
-    {
-      "slug": "will-the-price-of-bitcoin-be-between-64000-66000-on-february-25",
-      "question": "Will the price of Bitcoin be between $64,000 and $66,000 on February 25?",
-      "conditionId": "0xc26b9f5aba8cab9091dedc85fe37682a93bc3f692dca2719414863c235d9778c",
-      "clobTokenIds": [
-        "46282770558123101730002281534951056779476454902600402093218800096051420015035",
-        "68354239438444974189208198838155994440575535826807280566128498034866215094874"
-      ],
-      "volumeNum": 207968.638177,
-      "tier": "T2",
-      "negRisk": true,
-      "mkt_class": "recurring",
-      "resolved_index": 1,
-      "endDate": "2026-02-25T17:00:00Z"
-    },
-    {
-      "slug": "ethereum-above-2700-on-december-22",
-      "question": "Will the price of Ethereum be above $2,700 on December 22?",
-      "conditionId": "0xef22e8866866af6d397004ed99ae8246f1d8fc01dd34ffa0b1bd28dde77cc45e",
-      "clobTokenIds": [
-        "37585223578588570001932508793222107192437128064725692712509720592467903599900",
-        "60244492695381925913166760438619015042943324901756765643129146034282329768531"
-      ],
-      "volumeNum": 117229.634643,
-      "tier": "T2",
-      "negRisk": false,
-      "mkt_class": "recurring",
-      "resolved_index": 0,
-      "endDate": "2025-12-22T17:00:00Z"
-    },
-    {
-      "slug": "acn-zim-rsa-2025-12-29-rsa",
-      "question": "Will South Africa win on 2025-12-29?",
-      "conditionId": "0x6d34619b2ad991ea305b90735bd95995e37f11a817d20930b0becf58fcb287b0",
-      "clobTokenIds": [
-        "103137612716784266761532884834660740940713337340004776939202270603119931601065",
-        "51735535048075346453979723962186688265458972897727187064166373738710538984938"
-      ],
-      "volumeNum": 358542.77926,
-      "tier": "T2",
-      "negRisk": true,
-      "mkt_class": "recurring",
-      "resolved_index": 0,
-      "endDate": "2025-12-29T16:00:00Z"
-    },
-    {
-      "slug": "will-the-next-government-of-canada-be-a-conservative-majority",
-      "question": "Will the next Government of Canada be a Conservative majority?",
-      "conditionId": "0x14769e436a150dd79a62122626a45c5b6b872ac904b9eec55f5e970aeaab4784",
-      "clobTokenIds": [
-        "76185677145354178549678410812003208305674324422781761419122961736705023584042",
-        "115746165711842625943642967244395366105644434348018491441751896243369784142581"
-      ],
-      "volumeNum": 3455524.020791,
-      "tier": "T3",
-      "negRisk": true,
-      "mkt_class": "event",
-      "resolved_index": 1,
-      "endDate": "2025-04-28T12:00:00Z"
-    },
-    {
-      "slug": "will-trump-go-on-rogan-before-election",
-      "question": "Will Trump go on Joe Rogan before election?",
-      "conditionId": "0x6689c157a7c57f0ee8ab7feace215061cbb8828191854fe81f17976ef33b023e",
-      "clobTokenIds": [
-        "69957535606554334051493849773365565085200343213780884418403974246481158278196",
-        "55619052770411727287900353498060599339427684346964111421507451823240669029631"
-      ],
-      "volumeNum": 3228953.231524,
-      "tier": "T3",
-      "negRisk": false,
-      "mkt_class": "event",
-      "resolved_index": 0,
-      "endDate": "2024-11-04T12:00:00Z"
-    },
-    {
-      "slug": "will-jon-rahm-win-the-2026-masters-tournament",
-      "question": "Will Jon Rahm win the 2026 Masters tournament?",
-      "conditionId": "0x7876b15fcffcefea261e84f3f4d9e37bef6338edacc3f9cfe8f58b03e8bd7d9d",
-      "clobTokenIds": [
-        "14891744631569327882180091417355223283074176862943214903789359145380999929720",
-        "81100929577553674096369161538709763228943470380146968558688494703628734004408"
-      ],
-      "volumeNum": 1881078.5618490055,
-      "tier": "T3",
-      "negRisk": true,
-      "mkt_class": "event",
-      "resolved_index": 1,
-      "endDate": "2026-04-13T00:00:00Z"
-    },
-    {
-      "slug": "nicols-maduro-released-from-custody-by-january-9-2026",
-      "question": "Nicol\u00e1s Maduro released from custody by January 9, 2026?",
-      "conditionId": "0xdfc820cb9f888cfa933c5a7ff961f47da0c11e9a25055dfdf4f282d299830eb4",
-      "clobTokenIds": [
-        "99358420953315417833610527143974154757160380736245157123174710958777785607974",
-        "70934362220966069110228198970817611344197443248090228876654365195594921088546"
-      ],
-      "volumeNum": 1439202.144524,
-      "tier": "T3",
-      "negRisk": false,
-      "mkt_class": "event",
-      "resolved_index": 1,
-      "endDate": "2026-01-31T00:00:00Z"
-    },
-    {
-      "slug": "will-nancy-mace-win-the-2024-republican-vp-nomination",
-      "question": "Will Nancy Mace win the 2024 Republican VP nomination?",
-      "conditionId": "0x5acad359612174a78b4815a95412aff62fa35ef3411e1bd59fa2fdf7b7699601",
-      "clobTokenIds": [
-        "17818789483445898833651686029453636300167454644078447046253526125398275563747",
-        "82242495069434742804770131672980827014427244036714113508921250767465545782251"
-      ],
-      "volumeNum": 2126932.97,
-      "tier": "T3",
-      "negRisk": true,
-      "mkt_class": "event",
-      "resolved_index": 1,
-      "endDate": "2024-09-04T12:00:00Z"
-    },
-    {
-      "slug": "will-israel-enter-lebanon-before-November",
-      "question": "Will Israel invade Lebanon before November?",
-      "conditionId": "0x37a570f13c5e78f85eef34de2430736e15691dca8f5820946388bc15b9d956e7",
-      "clobTokenIds": [
-        "91875878567127100686098985204565681547997425723553249449568002274799624277200",
-        "55514205054100807047701069784075513572463184270177957971394302082051751224992"
-      ],
-      "volumeNum": 5313533.726507,
-      "tier": "T3",
-      "negRisk": false,
-      "mkt_class": "event",
-      "resolved_index": 0,
-      "endDate": "2024-10-31T12:00:00Z"
-    },
-    {
-      "slug": "will-karol-nawrocki-win-by-over-8",
-      "question": "Will Karol Nawrocki win by over 8%?",
-      "conditionId": "0x83803364b3bfa1e8d63c994be75dbed0e814506e10c9a2846e8c65c141e5b7cc",
-      "clobTokenIds": [
-        "44970876309939970132135736722138439874246915032687319610784840701685346287984",
-        "85009724686140599854061084193659977432667740394492953817780736111589364725961"
-      ],
-      "volumeNum": 1780613.553918,
-      "tier": "T3",
-      "negRisk": true,
-      "mkt_class": "recurring",
-      "resolved_index": 1,
-      "endDate": "2025-06-01T12:00:00Z"
-    },
-    {
-      "slug": "bitcoin-above-76000-on-november-15",
-      "question": "Bitcoin above $76,000 on November 15?",
-      "conditionId": "0xf1b9fbb1ed110000ba1b21d41b9184abb7d86536469a9a139ed5e78ad8fe090b",
-      "clobTokenIds": [
-        "49441832305687351320243590936419811025131403255932988517566408789123124212976",
-        "3699463335052041609400148181477661498034623390448067392201935968549313034165"
-      ],
-      "volumeNum": 1912596.79054,
-      "tier": "T3",
-      "negRisk": false,
-      "mkt_class": "recurring",
-      "resolved_index": 0,
-      "endDate": "2024-11-15T12:00:00Z"
-    },
-    {
-      "slug": "epl-liv-bur-2026-01-17-liv",
-      "question": "Will Liverpool FC win on 2026-01-17?",
-      "conditionId": "0xf96cbbb59caf722cad4b0d86e3cc81c322c225f84732b20984b1c87483da3c97",
-      "clobTokenIds": [
-        "108445267887231577246635173362936905884373620853591836310091293851633678931769",
-        "96132202347942132896418427775619645612448434758850783137338333252780684076627"
-      ],
-      "volumeNum": 1207594.527838,
-      "tier": "T3",
-      "negRisk": true,
-      "mkt_class": "recurring",
-      "resolved_index": 1,
-      "endDate": "2026-01-17T15:00:00Z"
-    },
-    {
-      "slug": "will-ethereum-dip-to-2200-in-november-2025",
-      "question": "Will Ethereum dip to $2,200 in November?",
-      "conditionId": "0xde8372cb80319b68af1bff86ab12a6eba95edb127a3651f9b9e146f2d7df05a1",
-      "clobTokenIds": [
-        "47607577257661869547729880516616846080279996854249568548017038419787436874503",
-        "87697372183829748952200981691251242029554503323609937109930268823561488755755"
-      ],
-      "volumeNum": 1509640.201087,
-      "tier": "T3",
-      "negRisk": false,
-      "mkt_class": "recurring",
-      "resolved_index": 1,
-      "endDate": "2025-12-01T05:00:00Z"
-    },
-    {
-      "slug": "will-the-brooklyn-nets-win-the-2025-nba-finals",
-      "question": "Will the Brooklyn Nets win the 2025 NBA Finals?",
-      "conditionId": "0x2ee656b8bc037e24df53a6b1e33bd9ad12c913c065f564d965ebbfc79b5a4a8b",
-      "clobTokenIds": [
-        "74808598649087154479962525915198898970439765661905419246136442620490456818907",
-        "58830303959343807887737446892913412681035722894592556971388696970828692123597"
-      ],
-      "volumeNum": 56529405.934386,
-      "tier": "T4",
-      "negRisk": true,
-      "mkt_class": "event",
-      "resolved_index": 1,
-      "endDate": "2025-06-23T12:00:00Z"
-    },
-    {
-      "slug": "over-1b-committed-to-the-megaeth-public-sale",
-      "question": "Over $1B committed to the MegaETH public sale?",
-      "conditionId": "0x31e0d4320eb9666e93e20f989061f3eee82e80de9caff260cdeb9c0a4946093b",
-      "clobTokenIds": [
-        "111923692478940463301382179582734497104620006899434472950425988974276360175989",
-        "5838539432810139813800814707355594232138879092348684894028239977524096523327"
-      ],
-      "volumeNum": 13431462.485535,
-      "tier": "T4",
-      "negRisk": false,
-      "mkt_class": "event",
-      "resolved_index": 0,
       "endDate": "2026-01-01T05:00:00Z"
     },
     {
-      "slug": "will-the-winnipeg-jets-win-the-2025-stanley-cup",
-      "question": "Will the Winnipeg Jets win the 2025 Stanley Cup?",
-      "conditionId": "0x2f4d4813b59746d5ced985170530331befb399a25acc8540061e0ac8224c9aa2",
+      "slug": "elon-musk-of-tweets-december-12-december-19-300-319",
+      "question": "Will Elon Musk post 300-319 tweets from December 12 to December 19, 2025?",
+      "conditionId": "0x0b48fc522dbd8405cc168b8eea9f81a9b3ef44e8035fcc4318c11eeab0c2678f",
       "clobTokenIds": [
-        "103413914712036228924063773109954427325178628441071237874092051422860026932077",
-        "58919763881181572913730409551581734702937764818728349847819853062538391002"
+        "109772486159582673077932327807953928077509271818222314385300880601764917994696",
+        "90583662969634727495026803391607905345201879000553640819040172875842129171658"
       ],
-      "volumeNum": 13460020.454528,
-      "tier": "T4",
-      "negRisk": true,
-      "mkt_class": "event",
-      "resolved_index": 1,
-      "endDate": "2025-06-23T12:00:00Z"
-    },
-    {
-      "slug": "us-forces-enter-iran-by-march-31-222-191-243-517-878-439-519",
-      "question": "US forces enter Iran by March 31?",
-      "conditionId": "0x306d10d4a4d51b41910dbc779ca00908bd917c131541c5c42bbbc736258d2d56",
-      "clobTokenIds": [
-        "42750054381142639205639663180818682570869285140532640407891991570656047928885",
-        "81697486240392901899167649997008736380137911909662773455994395620863894931973"
-      ],
-      "volumeNum": 73927762.4785615,
-      "tier": "T4",
-      "negRisk": false,
-      "mkt_class": "event",
-      "resolved_index": 1,
-      "endDate": "2026-03-31T00:00:00Z"
-    },
-    {
-      "slug": "epl-wol-liv-2026-03-03-liv",
-      "question": "Will Liverpool FC win on 2026-03-03?",
-      "conditionId": "0xefab7efad1b23fb4b43b422c3206d576d2250a132a4c0d1f6433edff31b6c594",
-      "clobTokenIds": [
-        "32480537000557660742313729505508416242252734571677416203499577770764790270235",
-        "108382510987083819214880473000069688346319547841486716310761738056684129176096"
-      ],
-      "volumeNum": 11995661.364783,
-      "tier": "T4",
+      "volumeNum": 921667.845695,
+      "tier": "T2",
       "negRisk": true,
       "mkt_class": "recurring",
+      "ladder_key": null,
       "resolved_index": 1,
-      "endDate": "2026-03-03T20:15:00Z"
+      "endDate": "2025-12-19T17:00:00Z"
     },
     {
-      "slug": "will-ethereum-reach-6000-in-january-2026",
-      "question": "Will Ethereum reach $6,000 in January?",
-      "conditionId": "0x49c6ce5c8bb91c380e5bf9c5d495a40178ac10377aa7bb5bbf0d40a34830bb2f",
+      "slug": "cbb-flam-alast-2026-02-02-total-140pt5",
+      "question": "Florida A&M Rattlers vs. Alabama State Hornets: O/U 140.5",
+      "conditionId": "0x42dbf2c25bef552aa742e2ac1fa126302d6a4cd0e25fd54ba703ccc9d9d018c2",
       "clobTokenIds": [
-        "66344181150389624257651475406390958773777454386975713590473194563592004058354",
-        "85314966135663911945383444595070372155331802770649765628594996080163644717023"
+        "45087622739394190607805974587328264570890129894866820118261079732614089415198",
+        "34500112193709235311139182473284693374544038603327338942042823427350307823328"
       ],
-      "volumeNum": 13219840.034141,
-      "tier": "T4",
+      "volumeNum": 105971.487212,
+      "tier": "T2",
       "negRisk": false,
       "mkt_class": "recurring",
+      "ladder_key": null,
+      "resolved_index": 0,
+      "endDate": "2026-02-03T00:00:00Z"
+    },
+    {
+      "slug": "will-the-price-of-solana-be-between-180-and-190-on-august-22",
+      "question": "Will the price of Solana be between $180 and $190 on August 22?",
+      "conditionId": "0x1941bab1823592e6030251fdd9f74a26e9da55c3ad21e2e6760e14e3fd51e19d",
+      "clobTokenIds": [
+        "55513226850063968854453984396078343871208027499517261388059017527002261730321",
+        "9276247805999479619274935658236178556132313205455549424764419210276116668678"
+      ],
+      "volumeNum": 103886.294959,
+      "tier": "T2",
+      "negRisk": true,
+      "mkt_class": "recurring",
+      "ladder_key": null,
       "resolved_index": 1,
+      "endDate": "2025-08-22T16:00:00Z"
+    },
+    {
+      "slug": "val-ef-vit-2026-04-16",
+      "question": "Valorant: Eternal Fire vs Team Vitality (BO3) - VCT EMEA Group Omega",
+      "conditionId": "0x6375a7d22df706664196f1495256f6c1bb9b8570c1d32dcf4470aaf7fd0f25fa",
+      "clobTokenIds": [
+        "103522838798618459012794333804843502269703041525701322003182151242818631714267",
+        "10001376547673547497531117385005344952382717230490055843951919233863851022891"
+      ],
+      "volumeNum": 371224.00941400003,
+      "tier": "T2",
+      "negRisk": false,
+      "mkt_class": "recurring",
+      "ladder_key": null,
+      "resolved_index": 0,
+      "endDate": "2026-04-16T21:00:00Z"
+    },
+    {
+      "slug": "lal-lev-elc-2026-01-23-lev",
+      "question": "Will Levante UD win on 2026-01-23?",
+      "conditionId": "0xbe5f5075e76572eceaea195ad01450ca6a836b1387ce3d19a201bd7a97fc2ace",
+      "clobTokenIds": [
+        "68431063869324407620890043122644748306458555737429298887791037550945979317258",
+        "24081579813762437174290398462363560161820534110080429361364601615135699230286"
+      ],
+      "volumeNum": 213987.800082,
+      "tier": "T2",
+      "negRisk": true,
+      "mkt_class": "recurring",
+      "ladder_key": null,
+      "resolved_index": 0,
+      "endDate": "2026-01-23T20:00:00Z"
+    },
+    {
+      "slug": "will-mike-johnson-be-the-first-elected-speaker-of-the-house-for-the-119th-congress",
+      "question": "Will Mike Johnson be the first elected Speaker of the House for the 119th congress?",
+      "conditionId": "0x64a87c7559aef832f6630af3e501919fb47a5d0107dbb1eb2236f71f910e5bdf",
+      "clobTokenIds": [
+        "39881899903855950095187972183395460164922040446051561494839991744856269622262",
+        "112327976993669100926633417538362469277356074697005701329968431119131845652820"
+      ],
+      "volumeNum": 2104864.975851,
+      "tier": "T3",
+      "negRisk": true,
+      "mkt_class": "event",
+      "ladder_key": "will-mike-johnson-be-the-first-elected-speaker-of-the-house-for-the-119th-congress",
+      "resolved_index": 0,
+      "endDate": "2025-06-30T12:00:00Z"
+    },
+    {
+      "slug": "israel-x-hamas-ceasefire-cancelled-by-october-31",
+      "question": "Israel x Hamas ceasefire cancelled by October 31?",
+      "conditionId": "0x962c76d11abf9d8ef448281d25f3b8678d54866234a960f0f6e8879c7ae12f2b",
+      "clobTokenIds": [
+        "83953475968045339954505630096272358789438481317754044977459884299949866233030",
+        "75304633108377098637154243025702984257182901004689796425726018184954171607571"
+      ],
+      "volumeNum": 2502858.18776,
+      "tier": "T3",
+      "negRisk": false,
+      "mkt_class": "event",
+      "ladder_key": "israel-x-hamas-ceasefire-cancelled-by-october-<N>",
+      "resolved_index": 1,
+      "endDate": "2025-10-31T00:00:00Z"
+    },
+    {
+      "slug": "will-the-atlanta-braves-win-the-2025-world-series",
+      "question": "Will the Atlanta Braves win the 2025 World Series?",
+      "conditionId": "0x924efdc8795f4221f57c2b960a38aa00e0320a8a50000dc0ba118e1776a64ad2",
+      "clobTokenIds": [
+        "48210402705184864537477481108237823620277440641126631825604112317210413531333",
+        "75132302394601476800480832775694437673578818256994105908607310985100797506195"
+      ],
+      "volumeNum": 1375048.084163,
+      "tier": "T3",
+      "negRisk": true,
+      "mkt_class": "event",
+      "ladder_key": "will-the-atlanta-braves-win-the-2025-world-series",
+      "resolved_index": 1,
+      "endDate": "2025-10-31T12:00:00Z"
+    },
+    {
+      "slug": "will-donald-trump-visit-china-in-2025-1",
+      "question": "Will Donald Trump visit China in 2025?",
+      "conditionId": "0x29f5d34ac7112f90cf206ffe22f270450cf16c2690be2f744b5a1f2cb016db91",
+      "clobTokenIds": [
+        "98472312499561003106951400651225799090327453571676668952160833455446414876451",
+        "83290313008082347193482788560926679558833487077951555177752617467716747795066"
+      ],
+      "volumeNum": 1757843.47753,
+      "tier": "T3",
+      "negRisk": false,
+      "mkt_class": "event",
+      "ladder_key": "will-donald-trump-visit-china-in-2025-<N>",
+      "resolved_index": 1,
+      "endDate": "2025-12-31T12:00:00Z"
+    },
+    {
+      "slug": "will-joe-biden-be-d-nom-for-vp-on-election-day",
+      "question": "Will Joe Biden be D-nom for VP on Election Day?",
+      "conditionId": "0x600cf95bedf92ad19b05f4528595e8b4e25cce738b644646f9a49e4c84081b41",
+      "clobTokenIds": [
+        "4220113328737190877107404273251485294695393659788671096214669202843926551845",
+        "83409508593716781764952016233641696589935140957178765941374782826304976141880"
+      ],
+      "volumeNum": 8004700.213785,
+      "tier": "T3",
+      "negRisk": true,
+      "mkt_class": "event",
+      "ladder_key": "will-joe-biden-be-d-nom-for-vp-on-election-day",
+      "resolved_index": 1,
+      "endDate": "2024-11-04T12:00:00Z"
+    },
+    {
+      "slug": "will-the-new-york-knicks-make-the-nba-playoffs",
+      "question": "Will the New York Knicks make the NBA Playoffs?",
+      "conditionId": "0x9e5d7bafd9d00b609ee8ef5aa9d46fc15840469e3e0a9d75241e03ae6cfe7cba",
+      "clobTokenIds": [
+        "8985214710950633899571385266902837599149388585904016975864913893973843238627",
+        "19001434776734642866350603252929904300799028643581254305674978262188961335370"
+      ],
+      "volumeNum": 1119856.242334,
+      "tier": "T3",
+      "negRisk": false,
+      "mkt_class": "event",
+      "ladder_key": "will-the-new-york-knicks-make-the-nba-playoffs",
+      "resolved_index": 0,
+      "endDate": "2025-04-19T12:00:00Z"
+    },
+    {
+      "slug": "will-elon-musk-tweet-800-or-more-times-february-7-14",
+      "question": "Will Elon Musk tweet 800 or more times February 7-14?",
+      "conditionId": "0x806f7abef2f183ab5557e6996adc91b2c3dae3286d00a4efb38b2a05ebb124ce",
+      "clobTokenIds": [
+        "77642096255719778279573916217677780513247079517721655272118282483773636073574",
+        "69091927688466509241886040107670110997334773832189274982193753213969326107341"
+      ],
+      "volumeNum": 1151840.66595,
+      "tier": "T3",
+      "negRisk": true,
+      "mkt_class": "recurring",
+      "ladder_key": null,
+      "resolved_index": 0,
+      "endDate": "2025-02-14T12:00:00Z"
+    },
+    {
+      "slug": "will-ethereum-dip-to-2400-in-january-2026-453",
+      "question": "Will Ethereum dip to $2,400 in January?",
+      "conditionId": "0xe65e70a3433c8200a505459b415278535e58e8b333d44b5b0a7bc55333f6001e",
+      "clobTokenIds": [
+        "31438462201300453918501764598333009698767430526688129825737871015992914983577",
+        "86663084338346281880988163475705929414513852385873551370163028772953298521783"
+      ],
+      "volumeNum": 1703286.207254,
+      "tier": "T3",
+      "negRisk": false,
+      "mkt_class": "recurring",
+      "ladder_key": null,
+      "resolved_index": 0,
       "endDate": "2026-02-01T05:00:00Z"
+    },
+    {
+      "slug": "elon-musk-of-tweets-april-7-april-14-260-279",
+      "question": "Will Elon Musk post 260-279 tweets from April 7 to April 14, 2026?",
+      "conditionId": "0x4bab42b0d94075979419d9a75fcfd62a5408ef0e1943b527323ee947c8bcd96f",
+      "clobTokenIds": [
+        "87038867522338299589929809373695222802001467207258556051203193363951943698134",
+        "75287135998866909003676005992831616533675259343824469292468691125218910157371"
+      ],
+      "volumeNum": 1031882.9641030009,
+      "tier": "T3",
+      "negRisk": true,
+      "mkt_class": "recurring",
+      "ladder_key": null,
+      "resolved_index": 1,
+      "endDate": "2026-04-14T16:00:00Z"
+    },
+    {
+      "slug": "nba-okc-den-2026-02-01",
+      "question": "Thunder vs. Nuggets",
+      "conditionId": "0xdb264f66040a967e13a4de5ebdee5fcfb0f826454b4b409a807b9d7222c1cb68",
+      "clobTokenIds": [
+        "101971266276864678863554426688496696165714598981788215573271274390814686396324",
+        "30581071761245840879129805882065506608059865521780445703336625202064138182723"
+      ],
+      "volumeNum": 3859808.728006,
+      "tier": "T3",
+      "negRisk": false,
+      "mkt_class": "recurring",
+      "ladder_key": null,
+      "resolved_index": 0,
+      "endDate": "2026-02-02T02:30:00Z"
+    },
+    {
+      "slug": "will-ron-desantis-win-the-2024-us-presidential-election",
+      "question": "Will Ron DeSantis win the 2024 US Presidential Election?",
+      "conditionId": "0xad6d309aaa500d96855996e84da00dfb2379548a693ca684d0877cf94fec05d1",
+      "clobTokenIds": [
+        "54541905023211985194827443687227462634594584372996482268933020846517872533280",
+        "31047886014226264999763088291196820581455214827362848029616905203866058950804"
+      ],
+      "volumeNum": 46309049.202369,
+      "tier": "T4",
+      "negRisk": true,
+      "mkt_class": "event",
+      "ladder_key": "will-ron-desantis-win-the-2024-us-presidential-election",
+      "resolved_index": 1,
+      "endDate": "2024-11-05T12:00:00Z"
+    },
+    {
+      "slug": "israel-x-iran-ceasefire-before-july",
+      "question": "Israel x Iran ceasefire before July? ",
+      "conditionId": "0x3b2f19935f2a969634a7aca52b69cf653d957ec6243bdfcb97dd830003e90624",
+      "clobTokenIds": [
+        "55954094346759063594882554456572178663387691206618113097510839560547795312182",
+        "106802454252372647359585422974995064975803750651759225225383160391011881420316"
+      ],
+      "volumeNum": 51779894.19503,
+      "tier": "T4",
+      "negRisk": false,
+      "mkt_class": "event",
+      "ladder_key": "israel-x-iran-ceasefire-before-july",
+      "resolved_index": 0,
+      "endDate": "2025-06-30T23:55:00Z"
+    },
+    {
+      "slug": "will-the-patriots-win-super-bowl-2025",
+      "question": "Will the Patriots win Super Bowl 2025?",
+      "conditionId": "0xa8a63360ae663bec3cff1f34357c9a73378767f6ef1853f15de47701027fd141",
+      "clobTokenIds": [
+        "31300399306949971768449961247118568299701374047026733785221770769092315493347",
+        "75600188276302107134313150350605198202630590842724839689703495381032181513643"
+      ],
+      "volumeNum": 74275772.258203,
+      "tier": "T4",
+      "negRisk": true,
+      "mkt_class": "event",
+      "ladder_key": "will-the-patriots-win-super-bowl-2025",
+      "resolved_index": 1,
+      "endDate": "2025-02-09T12:00:00Z"
+    },
+    {
+      "slug": "will-biden-resign-by-july-31",
+      "question": "Will Biden announce resignation by July 31?",
+      "conditionId": "0x74f97b1c6caf682f5ef9ccd325b3344959bf8fd38fe565e5398ecfebb827b4c0",
+      "clobTokenIds": [
+        "40306861893772823895616275124362770343291841546672823347007588540373613934565",
+        "69063071740089984229647680607505897672493231430839272047761298094661798644548"
+      ],
+      "volumeNum": 11663215.12,
+      "tier": "T4",
+      "negRisk": false,
+      "mkt_class": "event",
+      "ladder_key": "will-biden-resign-by-july-<N>",
+      "resolved_index": 1,
+      "endDate": "2024-07-31T12:00:00Z"
+    },
+    {
+      "slug": "elon-musk-of-tweets-february-24-march-3-100-119",
+      "question": "Will Elon Musk post 100-119 tweets from February 24 to March 3, 2026?",
+      "conditionId": "0xbc3afd7382a138956257bc27fc769d9f0dc4d5336b9e685e5d286eb2af91bf45",
+      "clobTokenIds": [
+        "24921821369524819645922011416770855397251813459650659031958027079673550272479",
+        "1881269803573211016649626500136220800300468081100941263835510934684102778895"
+      ],
+      "volumeNum": 15713299.040921,
+      "tier": "T4",
+      "negRisk": true,
+      "mkt_class": "recurring",
+      "ladder_key": null,
+      "resolved_index": 1,
+      "endDate": "2026-03-03T17:00:00Z"
+    },
+    {
+      "slug": "will-bitcoin-reach-200k-in-november-2025",
+      "question": "Will Bitcoin reach $200,000 in November?",
+      "conditionId": "0xdc58d566cbbe1514a13d07692463a16ae0024fa20811a1bb8f48228884895355",
+      "clobTokenIds": [
+        "38294895519413927088355469115656141108867406062135002528725170063610435926164",
+        "70163233609644821170202098600566865581563283724883163020103912006298109779958"
+      ],
+      "volumeNum": 13588620.834388,
+      "tier": "T4",
+      "negRisk": false,
+      "mkt_class": "recurring",
+      "ladder_key": null,
+      "resolved_index": 1,
+      "endDate": "2025-12-01T05:00:00Z"
     }
   ]
 }

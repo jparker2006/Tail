@@ -60,24 +60,29 @@ def main() -> None:
             frame.append(m)
     print(f"  combined candidate frame: {len(frame)}")
 
-    # classify with full-frame template counts (A2.1 S5 recall)
-    tc = tx.build_template_counts(frame)
+    # classify (audit-revised: stream signals only, A3) then dedup event-driven ladders
     for m in frame:
-        cls, reasons, _ = tx.classify(m, tc)
+        cls, _ = tx.classify(m)
         m["mkt_class"] = cls
         m["v1"] = is_v1(m)
         m["tier"] = tier_of(m["volumeNum"])
+        m["ladder_dup"] = False
+    v1_event = [m for m in frame if m["v1"] and m["mkt_class"] == "event"]
+    n_clusters, n_dups = tx.dedupe_ladders(v1_event)
+    print(f"  ladder dedup (V1 event): {n_clusters} clusters collapsed, {n_dups} duplicates flagged")
 
-    # exact per-tier × class × era counts
-    print("\n  per-tier populations (V1-era only; the sampling frame):")
-    print(f"    {'tier':4} {'event':>8} {'recurring':>10} {'event-share':>12}")
+    # exact per-tier counts (event eligible = event AND not a ladder duplicate)
+    print("\n  per-tier populations (V1-era; event_elig excludes ladder-duplicates):")
+    print(f"    {'tier':4} {'event_elig':>10} {'ladder_dup':>11} {'recurring':>10}")
     pop = {}
     for name, lo, hi in TIERS:
-        e = sum(1 for m in frame if m["tier"] == name and m["v1"] and m["mkt_class"] == "event")
+        ee = sum(1 for m in frame if m["tier"] == name and m["v1"]
+                 and m["mkt_class"] == "event" and not m["ladder_dup"])
+        ed = sum(1 for m in frame if m["tier"] == name and m["v1"]
+                 and m["mkt_class"] == "event" and m["ladder_dup"])
         r = sum(1 for m in frame if m["tier"] == name and m["v1"] and m["mkt_class"] == "recurring")
-        pop[name] = {"event": e, "recurring": r}
-        sh = 100 * e / max(e + r, 1)
-        print(f"    {name:4} {e:>8} {r:>10} {sh:>11.0f}%")
+        pop[name] = {"event": ee, "event_ladder_dup": ed, "recurring": r}
+        print(f"    {name:4} {ee:>10} {ed:>11} {r:>10}")
 
     # V2 split (for disclosure)
     v2 = sum(1 for m in frame if not m["v1"])

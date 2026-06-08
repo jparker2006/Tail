@@ -4,20 +4,24 @@
   "n_frame": 187525,
   "per_tier_v1": {
     "T1": {
-      "event": 11983,
-      "recurring": 72147
+      "event": 10889,
+      "event_ladder_dup": 2165,
+      "recurring": 71076
     },
     "T2": {
-      "event": 8986,
-      "recurring": 49581
+      "event": 8196,
+      "event_ladder_dup": 1356,
+      "recurring": 49015
     },
     "T3": {
-      "event": 2178,
-      "recurring": 4140
+      "event": 2044,
+      "event_ladder_dup": 242,
+      "recurring": 4032
     },
     "T4": {
-      "event": 449,
-      "recurring": 87
+      "event": 461,
+      "event_ladder_dup": 31,
+      "recurring": 44
     }
   },
   "n_v2_excluded": 37974,

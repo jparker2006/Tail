@@ -108,12 +108,26 @@ def main() -> None:
     print(f"    B1 belief-ladders (FOMC/strikes/inflation patterns): {b1n}/300")
     print(f"    B2 bare per-game match outcomes (no line token)     : {b2n}/300")
 
+    # revised classifier (post-A3) vs the SAME hand-adjudicated ground truth
+    import taxonomy as tx
+    rfi = sum(1 for r in rows if tx.classify({"slug": r["slug"]})[0] == "event"
+              and r["truth"] == "recurring")
+    rfe = sum(1 for r in rows if tx.classify({"slug": r["slug"]})[0] == "recurring"
+              and r["truth"] == "event")
+    n_re = sum(1 for r in rows if r["truth"] == "recurring")
+    n_ev = sum(1 for r in rows if r["truth"] == "event")
+    print(f"\n  REVISED classifier (A3) vs same ground truth: "
+          f"false-incl {rfi}/{n_re} ({100*rfi/n_re:.1f}%), false-excl {rfe}/{n_ev} "
+          f"({100*rfe/n_ev:.1f}%), agreement {300-rfi-rfe}/300")
+
     with open(os.path.join(OUT, "audit_results.json"), "w") as f:
         json.dump({"n": len(rows),
-                   "false_inclusion": rate("event", "recurring"),
-                   "false_exclusion": rate("recurring", "event"),
+                   "initial_classifier": {"false_inclusion": rate("event", "recurring"),
+                                          "false_exclusion": rate("recurring", "event")},
+                   "revised_classifier_A3": {"false_inclusion": [rfi, n_re],
+                                             "false_exclusion": [rfe, n_ev]},
                    "rows": rows}, f, indent=2)
-    print("\n  full labels -> data/out/audit_results.json")
+    print("  full labels -> data/out/audit_results.json")
 
 
 if __name__ == "__main__":

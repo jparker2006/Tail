@@ -30,7 +30,7 @@ AUDIT_EVENT = {"T1": 38, "T2": 38, "T3": 37, "T4": 37}
 AUDIT_RECUR = {"T1": 38, "T2": 38, "T3": 37, "T4": 37}
 
 FIELDS = ("slug", "question", "conditionId", "clobTokenIds", "volumeNum", "tier",
-          "negRisk", "mkt_class", "resolved_index", "endDate")
+          "negRisk", "mkt_class", "ladder_key", "resolved_index", "endDate")
 
 
 def slim(m):
@@ -62,8 +62,12 @@ def balanced_by_negrisk(rng, pool, k):
 def main() -> None:
     frame = ingest.load_raw("corpus_frame_classified.json")
     v1 = [m for m in frame if m.get("v1")]
-    pools = {(t, c): [m for m in v1 if m["tier"] == t and m["mkt_class"] == c]
-             for t in TIERS for c in ("event", "recurring")}
+    pools = {}
+    for t in TIERS:
+        # event eligibility excludes ladder duplicates (A3); recurring is the stream group
+        pools[(t, "event")] = [m for m in v1 if m["tier"] == t and m["mkt_class"] == "event"
+                               and not m.get("ladder_dup")]
+        pools[(t, "recurring")] = [m for m in v1 if m["tier"] == t and m["mkt_class"] == "recurring"]
     rng = random.Random(SEED)
 
     primary, secondary = [], []
@@ -83,19 +87,15 @@ def main() -> None:
         validation += balanced_by_negrisk(rng, list(sel_by[(t, "event")]), ev_k)
         validation += balanced_by_negrisk(rng, list(sel_by[(t, "recurring")]), rec_k)
 
-    # audit sample (from FULL V1 labelled pools — estimates the classifier's error rates)
-    audit = []
-    for t in TIERS:
-        audit += [{**slim(m), "audit_pool": "event"}
-                  for m in take(rng, pools[(t, "event")], AUDIT_EVENT[t])]
-        audit += [{**slim(m), "audit_pool": "recurring"}
-                  for m in take(rng, pools[(t, "recurring")], AUDIT_RECUR[t])]
-
+    # NOTE: audit_sample.json is the FROZEN independent test set drawn + hand-adjudicated in
+    # 2.3b/2.3c (it had to be drawn from the pre-revision classification to catch its errors).
+    # It is intentionally NOT regenerated here.
     os.makedirs(OUT, exist_ok=True)
     for name, lst in [("corpus_primary", primary), ("corpus_secondary", secondary),
-                      ("validation_subset", validation), ("audit_sample", audit)]:
+                      ("validation_subset", validation)]:
         with open(os.path.join(OUT, f"{name}.json"), "w") as f:
             json.dump({"seed": SEED, "n": len(lst), "markets": lst}, f, indent=2)
+    audit = json.load(open(os.path.join(OUT, "audit_sample.json")))["markets"]
 
     def by_tier(lst):
         return {t: sum(1 for m in lst if m["tier"] == t) for t in TIERS}

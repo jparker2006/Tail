@@ -1,13 +1,25 @@
 {
   "n": 300,
-  "false_inclusion": [
-    10,
-    150
-  ],
-  "false_exclusion": [
-    24,
-    150
-  ],
+  "initial_classifier": {
+    "false_inclusion": [
+      10,
+      150
+    ],
+    "false_exclusion": [
+      24,
+      150
+    ]
+  },
+  "revised_classifier_A3": {
+    "false_inclusion": [
+      2,
+      136
+    ],
+    "false_exclusion": [
+      0,
+      164
+    ]
+  },
   "rows": [
     {
       "slug": "will-anyone-say-polymarket-during-south-parks-prediction-market-episode-556",

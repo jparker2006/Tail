@@ -347,3 +347,48 @@ the auto-classified event corpus **and** with audit-flagged residuals removed by
 the contamination test. **Pre-committed escalation:** if the audit shows material conflation of
 one-off match outcomes with recurring series, the per-match signal is replaced by a principled
 **cardinality rule** (team-masked template cardinality) and re-validated before use.
+
+### A3 — 2026-06-07, post-audit classifier revision + corpus re-freeze (no outcomes)
+
+Step-2.3c's bidirectional audit (n=300, hand-adjudicated; `data/out/audit_results.json`) found
+the A2.1 classifier had **7% false-inclusion** (stock/commodity up/down + tweet-count series that
+S2/S5 missed) and **16% false-exclusion, 59% of it in T4** — the S5 generic-template signal was
+dumping FOMC-by-bps + strikes-by-date **belief** markets into "recurring." Adjudication surfaced
+two boundaries, ruled:
+
+**B1 — belief-ladders are event-driven, then deduped.** FOMC-by-bps, strikes-by-date, inflation-
+by-N are belief markets, not algorithmic streams ⇒ event. But they are **pseudoreplicates** (the
+same macro/geopolitical traders span the whole ladder; one FOMC meeting ≈ 13 correlated markets)
+and F1′/F2′/F3′ assume market independence, so each ladder collapses to one representative.
+
+**B2 — bare per-game match outcomes are recurring.** A nightly regular-season game (`nba-X-Y-date`,
+no line token) is a high-frequency systematic stream ⇒ recurring; notable one-offs (a numbered UFC
+card, a knockout tie) remain event (the audit confirmed marquee matches were absent from the
+false-exclusions).
+
+**Unifying principle (what S5 was too blunt to see):** *templated SLICES of a small number of
+notable events* (→ event, dedup the slices) vs *a high-frequency STREAM of many distinct low-stakes
+outcomes* (→ recurring). Both are templated; slices-of-one ≠ stream-of-many.
+
+**Classifier revision (`pipeline/taxonomy.py`):**
+- `recurring` iff a STREAM signal fires: **S1** per-game/lines, **S2** asset up/down + price-
+  threshold (now ANY ticker — crypto, stocks, commodities), **S3** weather, **S6** tweet-count
+  series (new). Else `event`.
+- **Dropped S4** (intraday-duration — misfired on one-off same-day speeches) and **S5's exclusion
+  role**. **Removed** the `over|under` line tokens (too generic — hit "win-by-over-N" margin
+  slugs); added `euroleague`.
+- **S5 repurposed → ladder dedup:** event markets cluster by template stem (slice numbers masked,
+  the event's month/year kept); all but the most-liquid member of each cluster are flagged
+  `ladder_dup` and excluded from the independent event sample.
+
+**Validation:** revised classifier agrees with the hand-adjudicated ground truth on **298/300
+(99%)** — false-inclusion **1.5%** (2 residual edge cases: a tennis match with no date token, a
+`will-`-prefixed commodity), false-exclusion **0%**. A2.5's residual-removal robustness check is
+satisfied structurally: the ladder dedup IS the deterministic removal, false-exclusion is nil, and
+the ~1.5% residual contamination is reported as a known bound.
+
+**Re-freeze (same seed 20260607):** primary (event) **1,961** (T1/T2/T3 = 500, T4 take-all 461);
+secondary (recurring) **794** (250/250/250, T4 take-all **44** — thinner mega-tier contrast post-
+revision, disclosed); validation 40. **`audit_sample` is preserved** as the frozen independent test
+set (it had to be drawn from the pre-revision classification to catch its errors). Ladder dedup
+flagged **3,794** duplicates across **1,197** clusters in the V1 event population.
