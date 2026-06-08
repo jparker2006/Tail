@@ -76,6 +76,59 @@ def bar1(slug: str, exchange: str) -> dict:
     return res
 
 
+def _reconcile(A: dict, B: dict) -> dict:
+    """Fill-level reconciliation of two keyed tapes on (tx,wallet,token,side), raw-int shares."""
+    kA, kB = set(A), set(B)
+    both = kA & kB
+    sh = sum(1 for k in both if A[k]["shares_int"] == B[k]["shares_int"])
+    return {"n_A": len(A), "n_B": len(B), "in_both": len(both),
+            "only_A": len(kA - kB), "only_B": len(kB - kA),
+            "shares_exact": sh, "shares_exact_rate": sh / len(both) if both else None,
+            "exact": bool(len(kA - kB) == 0 and len(kB - kA) == 0 and both and sh == len(both))}
+
+
+def bar2(slug: str, exchange: str, from_block: int, to_block: int) -> dict:
+    """Certify the subgraph's BEYOND-ceiling fills against on-chain getLogs.
+
+    Trust chain (so a mismatch is never ambiguous):
+      2a  getLogs vs /trades on the recency overlap — validates the NEW getLogs extraction
+          against the gold standard on the region /trades can see.
+      2b  getLogs vs subgraph on the FULL tape — getLogs now trusted, so a beyond-ceiling match
+          genuinely certifies the subgraph and any mismatch is attributed to the subgraph.
+    """
+    import onchain
+    trades = _load_trades(slug)
+    tokens = sorted({str(r["asset"]) for r in trades})
+    span = to_block - from_block
+
+    def prog(end, hi, seen, kept):
+        pct = 100 * (end - from_block) / span
+        if int(pct) % 10 == 0 and int(pct) != getattr(prog, "_last", -1):
+            prog._last = int(pct)
+            print(f"    getLogs {pct:3.0f}%  ({seen:,} legs scanned, {kept} kept for nba)",
+                  flush=True)
+
+    print(f"  reconstructing nba tape via getLogs ({span} blocks, CTF exchange)…", flush=True)
+    legs = onchain.fetch_orderfilled_logs(exchange, from_block, to_block, token_ids=tokens,
+                                          on_progress=prog)
+    getlogs = _keyed(sg.map_aggressor_fills(legs, tokens, exchange))
+    subg = _keyed(sg.market_tape(tokens, exchange))
+    trd = _agg_trades(trades)
+
+    r2a = _reconcile(getlogs, trd)          # getLogs (A) vs /trades (B): only_B must be 0
+    r2b = _reconcile(getlogs, subg)         # getLogs (A) vs subgraph (B): exact both ways
+    res = {"bar": "2_vs_getlogs", "slug": slug, "from_block": from_block, "to_block": to_block,
+           "n_legs": len(legs), "n_getlogs_fills": len(getlogs), "n_subgraph_fills": len(subg),
+           "n_trades_partial": len(trd),
+           "bar2a_getlogs_vs_trades_overlap": r2a, "bar2b_getlogs_vs_subgraph_full": r2b,
+           # 2a passes if getLogs covers every /trades key exactly (getLogs ⊇ /trades, exact)
+           "bar2a_pass": bool(r2a["only_B"] == 0 and r2a["shares_exact_rate"] == 1.0),
+           "bar2b_pass": r2b["exact"],
+           "detruncation_factor": len(subg) / max(len(trd), 1)}
+    res["pass"] = bool(res["bar2a_pass"] and res["bar2b_pass"])
+    return res
+
+
 def main() -> None:
     mode = sys.argv[1] if len(sys.argv) > 1 else "bar1"
     if mode == "bar1":
@@ -105,6 +158,28 @@ def main() -> None:
         json.dump(prev, open(path, "w"), indent=2)
         print(f"\n  --> bar 1 (both paths) {'PASS' if all_pass else 'FAIL'}  "
               f"-> data/out/subgraph_validation.json")
+
+    elif mode == "bar2":
+        # nba-okc-den: truncated (4947/trades, recency-biased), CTF, short ~6-day block range.
+        FROM, TO = 82181759, 82451744
+        r = bar2("nba-okc-den-2026-02-01", sg.CTF_EXCHANGE_V1, FROM, TO)
+        print("\n=== Subgraph verification — bar 2 (beyond-ceiling, vs on-chain getLogs) ===")
+        print(f"  getLogs legs {r['n_legs']} -> mapped fills {r['n_getlogs_fills']} | "
+              f"subgraph fills {r['n_subgraph_fills']} | /trades partial {r['n_trades_partial']}")
+        a, b = r["bar2a_getlogs_vs_trades_overlap"], r["bar2b_getlogs_vs_subgraph_full"]
+        print(f"  2a getLogs vs /trades overlap: /trades keys not in getLogs {a['only_B']} "
+              f"| shares exact {a['shares_exact']}/{a['in_both']} -> "
+              f"{'PASS' if r['bar2a_pass'] else 'FAIL'}")
+        print(f"  2b getLogs vs subgraph (full): only-getlogs {b['only_A']} only-subgraph {b['only_B']} "
+              f"| shares exact {b['shares_exact']}/{b['in_both']} -> "
+              f"{'PASS' if r['bar2b_pass'] else 'FAIL'}")
+        print(f"  de-truncation: subgraph recovered {r['detruncation_factor']:.2f}x the /trades tape")
+        print(f"  --> bar 2 {'PASS' if r['pass'] else 'FAIL'}")
+        path = os.path.join(OUT, "subgraph_validation.json")
+        prev = json.load(open(path)) if os.path.exists(path) else {}
+        prev["bar2"] = r
+        json.dump(prev, open(path, "w"), indent=2)
+        print("  saved -> data/out/subgraph_validation.json")
 
 
 if __name__ == "__main__":

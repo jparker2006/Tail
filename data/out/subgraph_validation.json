@@ -42,5 +42,39 @@
     "collateral_reldiff_p99": 0.0,
     "pass": true,
     "exchange_path": "negrisk"
+  },
+  "bar2": {
+    "bar": "2_vs_getlogs",
+    "slug": "nba-okc-den-2026-02-01",
+    "from_block": 82181759,
+    "to_block": 82451744,
+    "n_legs": 17252,
+    "n_getlogs_fills": 7382,
+    "n_subgraph_fills": 7382,
+    "n_trades_partial": 4947,
+    "bar2a_getlogs_vs_trades_overlap": {
+      "n_A": 7382,
+      "n_B": 4947,
+      "in_both": 4947,
+      "only_A": 2435,
+      "only_B": 0,
+      "shares_exact": 4947,
+      "shares_exact_rate": 1.0,
+      "exact": false
+    },
+    "bar2b_getlogs_vs_subgraph_full": {
+      "n_A": 7382,
+      "n_B": 7382,
+      "in_both": 7382,
+      "only_A": 0,
+      "only_B": 0,
+      "shares_exact": 7382,
+      "shares_exact_rate": 1.0,
+      "exact": true
+    },
+    "bar2a_pass": true,
+    "bar2b_pass": true,
+    "detruncation_factor": 1.4922175055589246,
+    "pass": true
   }
 }

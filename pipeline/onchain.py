@@ -202,3 +202,55 @@ def build_join(tape: list[dict], token_ids, exchange: str, slug: str,
     receipts = fetch_receipts(tape, slug, max_workers=max_workers)
     return {tx: {**decode_receipt(rec, token_ids, exchange), "tx": tx}
             for tx, rec in receipts.items()}
+
+
+def fetch_orderfilled_logs(exchange: str, from_block: int, to_block: int, token_ids=None,
+                           chunk: int = 1000, on_progress=None) -> list[dict]:
+    """Verifier-grade complete-tape reconstruction: eth_getLogs OrderFilled for `exchange` over
+    [from_block, to_block], chunked + RPC-rotated. The asset id is NON-indexed (in log.data), so
+    getLogs can't filter by market — the exchange-wide sweep returns EVERY market's fills (~tens
+    of millions over a 6-day window). `token_ids` filters to one market INLINE so memory stays
+    bounded (retaining only that market's ~thousands of legs); without it, all legs are kept.
+
+    Returns leg dicts shaped exactly like the subgraph's orderFilledEvents, so the SAME validated
+    mapper consumes both. Halves the window on a range/result-size error and grows it back on
+    success — adapting to each free RPC's getLogs cap without a hardcoded guess.
+    """
+    tokens = {str(t) for t in token_ids} if token_ids else None
+    legs: list[dict] = []
+    seen = 0
+    start, cur = from_block, chunk
+    while start <= to_block:
+        end = min(start + cur - 1, to_block)
+        try:
+            raw = rpc_call("eth_getLogs", [{"address": exchange, "topics": [ORDERFILLED_SIG],
+                                            "fromBlock": hex(start), "toBlock": hex(end)}],
+                           max_tries=4)
+        except RuntimeError:
+            if cur > 1:                      # window too big for this provider -> shrink
+                cur = max(cur // 2, 1)
+                continue
+            raise
+        for log in raw:
+            seen += 1
+            t = log["topics"]
+            d = log.get("data", "0x")
+            try:
+                data = bytes.fromhex(d[2:]) if len(d) > 2 else b""
+                m_asset, t_asset, m_amt, t_amt, _fee = abi_decode(["uint256"] * 5, data)
+            except (ValueError, KeyError, IndexError):
+                continue
+            ma, ta = str(m_asset), str(t_asset)
+            if tokens is not None and ma not in tokens and ta not in tokens:
+                continue                     # drop other markets' fills immediately
+            legs.append({"transactionHash": log["transactionHash"],
+                         "maker": _addr(t[2]), "taker": _addr(t[3]),
+                         "makerAssetId": ma, "takerAssetId": ta,
+                         "makerAmountFilled": str(m_amt), "takerAmountFilled": str(t_amt),
+                         "timestamp": int(log["blockNumber"], 16)})
+        if on_progress:
+            on_progress(end, to_block, seen, len(legs))
+        start = end + 1
+        if cur < chunk:                      # recovered -> grow the window back
+            cur = min(cur * 2, chunk)
+    return legs
