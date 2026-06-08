@@ -152,3 +152,38 @@ def fetch_market_legs_checked(token_ids) -> tuple[list[dict], dict]:
 def market_tape(token_ids, exchange: str) -> list[dict]:
     """Convenience: complete canonical aggressor tape for a market (raw-integer fills)."""
     return map_aggressor_fills(fetch_market_legs(token_ids), token_ids, exchange)
+
+
+def market_rows(token_ids, exchange: str, taker_only: bool, legs=None) -> list[dict]:
+    """Complete tape as `/trades`-shaped rows — a drop-in for `ingest.pull_all_trades` on
+    truncated markets (A5). `token_ids` MUST be canonical order [outcome-0, outcome-1].
+
+    Each OrderFilled leg is rendered from its MAKER's perspective (maker gives makerAsset,
+    receives takerAsset):
+      taker_only=True  -> only the aggressor self-legs (taker == Exchange, maker == aggressor):
+                          the aggressor tape (== map_aggressor_fills, validated bar 1/2).
+      taker_only=False -> every leg: the maker-inclusive flatness substrate — self-legs give the
+                          aggressor's fill, resting-maker legs give each LP's fill (one pull,
+                          both views). Rows feed schema.normalize_fills unchanged.
+    """
+    idx = {str(t): i for i, t in enumerate(token_ids)}
+    ex = exchange.lower()
+    legs = legs if legs is not None else fetch_market_legs(token_ids)
+    rows: list[dict] = []
+    for leg in legs:
+        if taker_only and leg["taker"].lower() != ex:
+            continue
+        wallet = leg["maker"].lower()
+        m_asset, t_asset = str(leg["makerAssetId"]), str(leg["takerAssetId"])
+        m_amt, t_amt = int(leg["makerAmountFilled"]), int(leg["takerAmountFilled"])
+        if m_asset in idx and t_asset == "0":        # maker GAVE token -> SELL it
+            token, side, shares, collat = m_asset, "SELL", m_amt, t_amt
+        elif t_asset in idx and m_asset == "0":      # maker RECEIVED token -> BUY it
+            token, side, shares, collat = t_asset, "BUY", t_amt, m_amt
+        else:
+            continue
+        rows.append({"proxyWallet": wallet, "asset": token, "outcomeIndex": idx[token],
+                     "side": side, "size": shares / 1e6,
+                     "price": (collat / shares) if shares else 0.0,
+                     "transactionHash": leg["transactionHash"], "timestamp": leg["timestamp"]})
+    return rows

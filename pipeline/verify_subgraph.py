@@ -154,6 +154,48 @@ def bar2(slug: str, exchange: str, from_block: int, to_block: int) -> dict:
     return res
 
 
+def _load_full(slug: str) -> list[dict]:
+    """Cached maker-inclusive (takerOnly=false) tape — `_full` (param run) or `_trades_all` (P1)."""
+    for name in (f"{slug}_full.json", f"{slug}_trades_all.json"):
+        p = os.path.join(RAW, name)
+        if os.path.exists(p):
+            d = json.load(open(p))
+            return d["rows"] if isinstance(d, dict) and "rows" in d else d
+    raise FileNotFoundError(f"no cached full tape for {slug}")
+
+
+def substrate(slug: str, exchange: str) -> dict:
+    """Integration-time: the subgraph FULL tape (flatness substrate the MM filter consumes) vs
+    /trades takerOnly=false on an UN-TRUNCATED market — the maker-inclusive analog of bar 1.
+
+    /trades is lossy two ways the subgraph isn't (recency truncation; silent dust-fill drops), so
+    the bar is: subgraph ⊇ /trades, every shared fill exact (raw-int shares), residual only-subgraph
+    fills all sub-1-share dust (real on-chain, immaterial to flatness)."""
+    trd = _load_full(slug)
+    a2o = {str(r["asset"]): int(r["outcomeIndex"]) for r in trd}
+    tokens = [a for a, _ in sorted(a2o.items(), key=lambda kv: kv[1])]
+    sgr = sg.market_rows(tokens, exchange, taker_only=False)
+
+    def agg(rows):
+        o = {}
+        for r in rows:
+            k = (r["transactionHash"], r["proxyWallet"].lower(), str(r["asset"]), r["side"])
+            o[k] = o.get(k, 0) + round(float(r["size"]) * 1e6)
+        return o
+
+    T, G = agg(trd), agg(sgr)
+    both = set(T) & set(G)
+    sh = sum(1 for k in both if T[k] == G[k])
+    extras = [G[k] for k in (set(G) - set(T))]
+    extra_max = max(extras, default=0) / 1e6
+    res = {"slug": slug, "n_trades_keys": len(T), "n_subgraph_keys": len(G), "in_both": len(both),
+           "only_trades": len(set(T) - set(G)), "only_subgraph": len(set(G) - set(T)),
+           "shares_exact": sh, "extras_max_shares": extra_max,
+           "extras_sum_shares": sum(extras) / 1e6}
+    res["pass"] = bool(res["only_trades"] == 0 and sh == len(both) and extra_max < 1.0)
+    return res
+
+
 def main() -> None:
     mode = sys.argv[1] if len(sys.argv) > 1 else "bar1"
     if mode == "bar1":
@@ -183,6 +225,28 @@ def main() -> None:
         json.dump(prev, open(path, "w"), indent=2)
         print(f"\n  --> bar 1 (both paths) {'PASS' if all_pass else 'FAIL'}  "
               f"-> data/out/subgraph_validation.json")
+
+    elif mode == "substrate":
+        # Maker-inclusive substrate vs /trades on UN-TRUNCATED full tapes, both exchange paths.
+        targets = [("will-trump-and-elon-say-paper-straw-during-their-feb-18-interview",
+                    sg.CTF_EXCHANGE_V1, "ctf"),
+                   ("will-ronnie-brunswijk-be-the-next-president-of-suriname-after-the-election",
+                    sg.NEGRISK_EXCHANGE_V1, "negrisk")]
+        print("=== Subgraph verification — flatness substrate (full tape vs /trades) ===")
+        path = os.path.join(OUT, "subgraph_validation.json")
+        prev = json.load(open(path)) if os.path.exists(path) else {}
+        all_pass = True
+        for slug, exch, label in targets:
+            r = substrate(slug, exch)
+            r["exchange_path"] = label
+            all_pass = all_pass and r["pass"]
+            print(f"\n  [{label}] {slug[:46]}")
+            print(f"    in-both {r['in_both']}/{r['in_both']} | shares exact {r['shares_exact']} | "
+                  f"only-/trades {r['only_trades']} | extras {r['only_subgraph']} "
+                  f"(max {r['extras_max_shares']:.4f} sh) -> {'PASS' if r['pass'] else 'FAIL'}")
+            prev[f"substrate_{label}"] = r
+        json.dump(prev, open(path, "w"), indent=2)
+        print(f"\n  --> substrate (both paths) {'PASS' if all_pass else 'FAIL'}  -> subgraph_validation.json")
 
     elif mode == "bar2":
         # nba-okc-den: truncated (4947/trades, recency-biased), CTF, short ~6-day block range.

@@ -90,5 +90,31 @@
     "completeness_pass": true,
     "detruncation_factor": 1.4922175055589246,
     "pass": true
+  },
+  "substrate_ctf": {
+    "slug": "will-trump-and-elon-say-paper-straw-during-their-feb-18-interview",
+    "n_trades_keys": 499,
+    "n_subgraph_keys": 499,
+    "in_both": 499,
+    "only_trades": 0,
+    "only_subgraph": 0,
+    "shares_exact": 499,
+    "extras_max_shares": 0.0,
+    "extras_sum_shares": 0.0,
+    "pass": true,
+    "exchange_path": "ctf"
+  },
+  "substrate_negrisk": {
+    "slug": "will-ronnie-brunswijk-be-the-next-president-of-suriname-after-the-election",
+    "n_trades_keys": 2898,
+    "n_subgraph_keys": 2899,
+    "in_both": 2898,
+    "only_trades": 0,
+    "only_subgraph": 1,
+    "shares_exact": 2898,
+    "extras_max_shares": 0.0082,
+    "extras_sum_shares": 0.0082,
+    "pass": true,
+    "exchange_path": "negrisk"
   }
 }
