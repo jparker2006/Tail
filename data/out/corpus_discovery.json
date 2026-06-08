@@ -1,0 +1,204 @@
+{
+  "head_frame_n": 8219,
+  "head_v1": 6282,
+  "head_v2": 1937,
+  "head_negRisk": 3100,
+  "band_stats": [
+    {
+      "band": [
+        50000000,
+        null
+      ],
+      "n": 122,
+      "v1": 106,
+      "v2": 16,
+      "negRisk": 92,
+      "ceiling": false,
+      "mode": "full"
+    },
+    {
+      "band": [
+        25000000,
+        50000000
+      ],
+      "n": 142,
+      "v1": 118,
+      "v2": 24,
+      "negRisk": 107,
+      "ceiling": false,
+      "mode": "full"
+    },
+    {
+      "band": [
+        10000000,
+        25000000
+      ],
+      "n": 410,
+      "v1": 302,
+      "v2": 108,
+      "negRisk": 276,
+      "ceiling": false,
+      "mode": "full"
+    },
+    {
+      "band": [
+        5000000,
+        10000000
+      ],
+      "n": 840,
+      "v1": 629,
+      "v2": 211,
+      "negRisk": 429,
+      "ceiling": false,
+      "mode": "full"
+    },
+    {
+      "band": [
+        2500000,
+        5000000
+      ],
+      "n": 1620,
+      "v1": 1291,
+      "v2": 329,
+      "negRisk": 584,
+      "ceiling": false,
+      "mode": "full"
+    },
+    {
+      "band": [
+        1000000,
+        2500000
+      ],
+      "n": 5085,
+      "v1": 3836,
+      "v2": 1249,
+      "negRisk": 1612,
+      "ceiling": false,
+      "mode": "full"
+    },
+    {
+      "band": [
+        500000,
+        1000000
+      ],
+      "count_estimate": ">= 5000",
+      "mode": "bracket"
+    },
+    {
+      "band": [
+        250000,
+        500000
+      ],
+      "count_estimate": ">= 10000 (ceiling/abundant)",
+      "mode": "bracket"
+    },
+    {
+      "band": [
+        100000,
+        250000
+      ],
+      "count_estimate": ">= 10000 (ceiling/abundant)",
+      "mode": "bracket"
+    },
+    {
+      "band": [
+        50000,
+        100000
+      ],
+      "count_estimate": ">= 10000 (ceiling/abundant)",
+      "mode": "bracket"
+    },
+    {
+      "band": [
+        25000,
+        50000
+      ],
+      "count_estimate": ">= 10000 (ceiling/abundant)",
+      "mode": "bracket"
+    }
+  ],
+  "spot_check": [
+    {
+      "level": 30000,
+      "volume": 32999,
+      "slug": "will-the-highest-temperature-in-new-york-city-be-between-49-50f-on-november-20",
+      "distinct_takers_in_page": 119,
+      "trades_in_page": 395,
+      "capped": false
+    },
+    {
+      "level": 30000,
+      "volume": 32999,
+      "slug": "nba-mem-lal-2026-01-02-total-239pt5",
+      "distinct_takers_in_page": 76,
+      "trades_in_page": 155,
+      "capped": false
+    },
+    {
+      "level": 60000,
+      "volume": 65999,
+      "slug": "marine-le-pen-next-prime-minister-of-france",
+      "distinct_takers_in_page": 213,
+      "trades_in_page": 429,
+      "capped": false
+    },
+    {
+      "level": 60000,
+      "volume": 65998,
+      "slug": "eth-updown-15m-1763344800",
+      "distinct_takers_in_page": 147,
+      "trades_in_page": 340,
+      "capped": false
+    },
+    {
+      "level": 120000,
+      "volume": 131998,
+      "slug": "btc-updown-5m-1774635300",
+      "distinct_takers_in_page": 653,
+      "trades_in_page": 1000,
+      "capped": false
+    },
+    {
+      "level": 120000,
+      "volume": 131994,
+      "slug": "highest-temperature-in-seoul-on-april-3-2026-19corhigher",
+      "distinct_takers_in_page": 340,
+      "trades_in_page": 1000,
+      "capped": false
+    },
+    {
+      "level": 300000,
+      "volume": 329963,
+      "slug": "will-the-price-of-bitcoin-be-greater-than-110000-on-may-16",
+      "distinct_takers_in_page": 421,
+      "trades_in_page": 1000,
+      "capped": false
+    },
+    {
+      "level": 300000,
+      "volume": 329927,
+      "slug": "will-christian-gonzalez-win-the-super-bowl-lx-mvp",
+      "distinct_takers_in_page": 65,
+      "trades_in_page": 1000,
+      "capped": false
+    },
+    {
+      "level": 1500000,
+      "volume": 1649996,
+      "slug": "will-elon-musk-be-the-first-elected-speaker-of-the-house-for-the-119th-congress",
+      "distinct_takers_in_page": 307,
+      "trades_in_page": 1000,
+      "capped": false
+    },
+    {
+      "level": 1500000,
+      "volume": 1649898,
+      "slug": "nba-atl-okc-2025-12-29",
+      "distinct_takers_in_page": 442,
+      "trades_in_page": 1000,
+      "capped": false
+    }
+  ],
+  "v2_era_cutoff": "2026-04-01",
+  "note": "Discovery only \u2014 no floor frozen, no market selected, no outcome computed. Floor + tiers proposed from this distribution for approval."
+}

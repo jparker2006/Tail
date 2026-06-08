@@ -230,3 +230,56 @@ pre-committed:
    against a claim.
 4. **Negatives published** with equal prominence; the corpus result is pre-committed to
    publication whichever way it falls.
+
+---
+
+## Amendments
+
+### A1 — 2026-06-07, post-discovery, pre-analysis (no outcome computed)
+
+Step-2.1 discovery (read-only Gamma characterization) produced findings that revise four
+frozen items. Each amendment uses **only market metadata** (volume / dates / structure flags),
+is made **before any market outcome is computed**, and is recorded here and in git so nothing
+is swapped silently.
+
+**A1.1 — §0 scope gains an explicit lower bound (CLOB filter).** The V1 universe is bounded
+*below* by the pre-2022 AMM/FPMM era as well as above by V2. A market enters the corpus only
+if **`enableOrderBook == True`** — the empirical CLOB discriminator (present/True on order-book
+markets, absent on the 2020-era AMM markets). The V2 upper bound is unchanged (on-chain
+V2-exchange-activity exclusion).
+
+**A1.2 — Role at scale: broad 2-signal corpus + on-chain validation subset.** Full per-market
+on-chain role joins do not scale on free archive RPC, and the maker-inclusive /trades tape
+truncates on the high-volume head. Therefore:
+- The corpus headline runs on the **2-signal MM filter** (flatness + breadth) over the
+  maker-inclusive Data-API /trades tape.
+- A **stratified validation subset of 30–50 markets** — spanning the volume tiers, topical
+  categories, **and** negRisk / non-negRisk — gets the **full 3-signal on-chain role join** to
+  validate the 2-signal filter.
+- **Validation criterion = the downstream verdict, not the labels:** the 2-signal filter is
+  accepted iff it agrees with the 3-signal join on the per-market **Gini / N_half (F1) verdict**
+  across the subset — not merely on which wallets are tagged MM.
+- **Pre-committed escalation:** if they materially disagree on that downstream verdict, expand
+  the on-chain set toward the tiered head before trusting the broad corpus.
+- On-chain is also reserved for any mega-market whose /trades tape exceeds the pagination
+  ceiling.
+
+**A1.3 — negRisk included; NegRisk-Exchange decoder validated first.** negRisk markets (~40% of
+the head, incl. the marquee 2024 election markets) stay in the corpus for representativeness.
+The V1 **NegRisk-Exchange on-chain decoder is validated on the validation subset BEFORE** any
+negRisk market's role is used. **Pre-committed fallback:** if it does not validate, negRisk
+markets are **segregated as a separate caveated tier (or dropped)** — never trusted on an
+unvalidated path.
+
+**A1.4 — §5 floor: absolute floor + volume tiers, superseding the percentile rule.** Discovery
+showed a *uniformly liquid* candidate universe (the top ~6000 CLOB∧binary∧resolved markets are
+all > $1.3M volume), which makes a percentile cut on a junk-inclusive universe uninterpretable.
+The §5 representativeness floor is amended to an **absolute volume floor** plus **volume-tier
+strata**, with the floor and tier boundaries set from the **actual discovered volume
+distribution** (each tier sized for adequate power), reported and frozen at the discovery
+checkpoint **before any outcome is computed**. The hard analyzability floor (`n_directional ≥
+30`) is unchanged. This remains legitimate pre-registration because the choice uses **only the
+volume distribution**, is fixed **before any outcome**, and lands in git. *(Supersedes the
+percentile-rule clause in §5; that clause is retained above as the original frozen text for
+provenance. The numeric floor + tier boundaries are appended here once the full enumeration is
+reviewed and approved.)*
