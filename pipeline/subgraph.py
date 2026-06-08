@@ -43,7 +43,16 @@ _session.headers.update({"User-Agent": "tail-research/0.1 (prediction-market stu
                          "Content-Type": "application/json"})
 
 
-def _gq(query: str, variables: dict, max_retries: int = 6) -> dict:
+def is_timeout(msg: str) -> bool:
+    """A load-induced subgraph timeout (recoverable at lower concurrency) — Goldsky emits several
+    wordings ('Query timed out', 'statement timeout', 'canceling statement due to ...'). Shared by
+    the retry logic AND run_corpus's failure categorization so a timeout never masquerades as a bug.
+    """
+    s = msg.lower()
+    return "timed out" in s or "timeout" in s or "canceling statement" in s
+
+
+def _gq(query: str, variables: dict, max_retries: int = 8) -> dict:
     backoff = 1.0
     for _ in range(max_retries):
         try:
@@ -56,7 +65,7 @@ def _gq(query: str, variables: dict, max_retries: int = 6) -> dict:
         j = r.json()
         if "errors" in j and not j.get("data"):
             msg = str(j["errors"])
-            if "statement timeout" in msg or "canceling statement" in msg:
+            if is_timeout(msg):
                 # load-induced: back off HARDER (don't hammer a loaded shard), ≥3s, grow to 45s
                 time.sleep(max(backoff, 3.0)); backoff = min(backoff * 2, 45); continue
             raise RuntimeError(f"subgraph error: {j['errors'][:1]}")

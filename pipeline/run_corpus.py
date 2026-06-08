@@ -55,8 +55,9 @@ def process(m: dict) -> dict:
                 "recovery_ratio": det.get("recovery_ratio"), "gamma_flag": det.get("gamma_flag")}
     except Exception as e:  # noqa: BLE001
         msg = str(e)
-        # a load-timeout is recoverable at lower concurrency — NOT a coverage gap
-        kind = "timeout" if ("statement timeout" in msg or "canceling statement" in msg) else "error"
+        # a load-timeout is recoverable at lower concurrency — NOT a coverage gap (shared predicate)
+        import subgraph
+        kind = "timeout" if subgraph.is_timeout(msg) else "error"
         return {**base, "secs": round(time.time() - t0, 1), "status": kind, "error": msg[:160]}
 
 
