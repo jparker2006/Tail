@@ -135,6 +135,9 @@ def lagged_xcorr(a: np.ndarray, b: np.ndarray, L: int) -> dict:
     n = len(az)
     out = {}
     for tau in range(-L, L + 1):
+        if abs(tau) >= n:                  # lag exceeds available bins -> no overlap (ρ undefined)
+            out[tau] = 0.0                 # (guards against az[:n-tau] negative-index wraparound)
+            continue
         x, y = (az[:n - tau], bz[tau:]) if tau >= 0 else (az[-tau:], bz[:n + tau])
         out[tau] = float(np.mean(x * y)) if len(x) > 1 else 0.0
     return out
@@ -183,8 +186,16 @@ def claim3(fills: list[dict], R: int, mm_set: set, bin_s: int = 300,
     bf, sf, pp = big_flow[lo:hi + 1], small_flow[lo:hi + 1], last_p[lo:hi + 1]
     dprice = np.diff(pp, prepend=pp[0])
 
-    rhos = lagged_xcorr(bf, sf, max_lag_bins)
     L = max_lag_bins
+    m = len(sf)
+    if m < 2 * L + 3:        # too few active bins for a lead-lag + valid circular-shift null window
+        return {"bin_s": bin_s, "n_bins_active": int(m), "n_big": len(big), "n_small": len(small),
+                "peak_rho": None, "peak_lag_bins": None, "peak_lag_min": None,
+                "nonpos_best_rho": None, "null_p95": None, "pval": None,
+                "confound_price_peak_rho": None, "rho0": None, "f3_pass": False,
+                "status": "insufficient_bins"}
+
+    rhos = lagged_xcorr(bf, sf, max_lag_bins)
     peak_tau = max(range(1, L + 1), key=lambda t: rhos[t])
     peak = rhos[peak_tau]
     nonpos_best = max(rhos[t] for t in range(-L, 1))

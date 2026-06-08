@@ -49,6 +49,9 @@ def _gq(query: str, variables: dict, max_retries: int = 6) -> dict:
             time.sleep(backoff); backoff = min(backoff * 2, 30); continue
         j = r.json()
         if "errors" in j and not j.get("data"):
+            msg = str(j["errors"])
+            if "statement timeout" in msg or "canceling statement" in msg:
+                time.sleep(backoff); backoff = min(backoff * 2, 30); continue  # transient shard load
             raise RuntimeError(f"subgraph error: {j['errors'][:1]}")
         return j["data"]
     raise RuntimeError("subgraph GET failed after retries")

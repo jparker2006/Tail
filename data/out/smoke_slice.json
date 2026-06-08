@@ -1,0 +1,114 @@
+[
+  {
+    "slug": "fed-decreases-interest-rates-by-50-bps-after-september-2025-meeting",
+    "tier": "T4",
+    "volumeNum": 49890284.071409,
+    "negRisk": true,
+    "mkt_class": "event"
+  },
+  {
+    "slug": "will-matthew-stafford-win-nfl-mvp-for-the-2024-25-season",
+    "tier": "T4",
+    "volumeNum": 18886263.2792296,
+    "negRisk": true,
+    "mkt_class": "event"
+  },
+  {
+    "slug": "khamenei-out-as-supreme-leader-of-iran-by-january-31",
+    "tier": "T4",
+    "volumeNum": 49748804.334599,
+    "negRisk": false,
+    "mkt_class": "event"
+  },
+  {
+    "slug": "nfl-sea-ne-2026-02-08",
+    "tier": "T4",
+    "volumeNum": 36281747.672415,
+    "negRisk": false,
+    "mkt_class": "recurring"
+  },
+  {
+    "slug": "will-bitcoin-reach-130000-by-december-31-2025-911-832",
+    "tier": "T4",
+    "volumeNum": 13211425.234841,
+    "negRisk": false,
+    "mkt_class": "recurring"
+  },
+  {
+    "slug": "will-ethereum-reach-4400-in-february-2026",
+    "tier": "T3",
+    "volumeNum": 8802970.895394,
+    "negRisk": false,
+    "mkt_class": "recurring"
+  },
+  {
+    "slug": "elon-musk-of-tweets-february-27-march-6-0-19",
+    "tier": "T4",
+    "volumeNum": 23864336.99083,
+    "negRisk": true,
+    "mkt_class": "recurring"
+  },
+  {
+    "slug": "will-hillary-clinton-win-the-2024-us-presidential-election",
+    "tier": "T4",
+    "volumeNum": 93307167.686999,
+    "negRisk": true,
+    "mkt_class": "event"
+  },
+  {
+    "slug": "will-iowa-win-the-2026-ncaa-tournament",
+    "tier": "T2",
+    "volumeNum": 998161.4390240014,
+    "negRisk": true,
+    "mkt_class": "event"
+  },
+  {
+    "slug": "will-mistral-have-the-best-ai-model-for-coding-on-march-31",
+    "tier": "T2",
+    "volumeNum": 161221.281617,
+    "negRisk": true,
+    "mkt_class": "event"
+  },
+  {
+    "slug": "trump-invokes-war-powers-against-venezuela-by-january-9-737",
+    "tier": "T2",
+    "volumeNum": 982231.387876,
+    "negRisk": false,
+    "mkt_class": "event"
+  },
+  {
+    "slug": "bitcoin-up-or-down-on-july-29",
+    "tier": "T2",
+    "volumeNum": 963672.725072,
+    "negRisk": false,
+    "mkt_class": "recurring"
+  },
+  {
+    "slug": "btc-updown-5m-1774617900",
+    "tier": "T2",
+    "volumeNum": 158705.26835400003,
+    "negRisk": false,
+    "mkt_class": "recurring"
+  },
+  {
+    "slug": "will-bitcoin-reach-100k-december-22-28",
+    "tier": "T1",
+    "volumeNum": 93344.030586,
+    "negRisk": false,
+    "mkt_class": "recurring"
+  },
+  {
+    "slug": "will-ben-carson-win-the-2024-republican-vp-nomination",
+    "tier": "T3",
+    "volumeNum": 4993587.5,
+    "negRisk": true,
+    "mkt_class": "event"
+  },
+  {
+    "slug": "nfl-buf-hou-2025-11-20",
+    "tier": "T3",
+    "volumeNum": 4908500.114159,
+    "negRisk": false,
+    "mkt_class": "recurring"
+  }
+]
