@@ -1,0 +1,16 @@
+{
+  "bar1": {
+    "bar": "1_vs_trades",
+    "slug": "biden-drops-out-in-july",
+    "n_trades_keys": 2716,
+    "n_subgraph_keys": 2716,
+    "in_both": 2716,
+    "only_trades": 0,
+    "only_subgraph": 0,
+    "shares_exact": 2716,
+    "shares_exact_rate": 1.0,
+    "collateral_reldiff_median": 0.0,
+    "collateral_reldiff_p99": 0.0,
+    "pass": true
+  }
+}
