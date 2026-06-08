@@ -410,3 +410,69 @@ criterion already strips MM-label noise); the T4 single-flip trigger covers the 
 expand T4 on-chain — if the larger sample agrees, the flip was boundary noise (filter confirmed);
 if it also diverges, a corrupted mega tier was caught before the headline. NegRisk-decoder
 validation (A1.3) gates the negRisk markets within the subset.
+
+### A5 — 2026-06-08, truncation handling: de-truncation via the orderbook subgraph (pre-integration freeze)
+
+**Context (verified).** `/trades` enforces a hard `offset ≤ 3000` with a 1000-row page cap → max
+reach **4000 rows = 8000/market** per `(market, side)`, returned **recency-first**. High-volume V1
+markets therefore return **truncated and time-biased** (nba-okc-den retained only the closing ~7%
+of its timeline; the missing fills are the early price discovery). No free-API workaround exists —
+`/trades` exposes no working token or timestamp filter (both verified ignored), and the
+"side × token 4-way" lever assumed in earlier planning **does not exist**. ~25% of the
+volume-stratified validation subset (≈all of T4) is truncated.
+
+**This supersedes the partial-tape provisions.** The earlier "analyze the available tape, carry
+`trades_truncated`, report with/without" path is **withdrawn**: a recency slice measures a
+market's closing frenzy, not the market, and the bias varies per market with no correction.
+Handling is now **binary per market**:
+
+1. **Recover.** A `trades_truncated` market is **de-truncated to a COMPLETE tape** and analyzed
+   normally — no partial-tape analysis is ever reported. Source: the **Goldsky orderbook
+   subgraph** (`orderbook-subgraph/0.0.1`), which indexes the full V1 era (earliest fill
+   2022-11-21 → 2026-04-28 migration cutoff = the corpus boundary) with cursor pagination and
+   **no offset cap**. Its per-order `OrderFilled` legs map to canonical taker-oriented aggressor
+   fills via the aggressor **self-leg** (`taker == Exchange == OrdersMatched.takerOrderMaker`),
+   correct under the mint/merge mechanic. The aggressor tape *and* the maker-inclusive flatness
+   substrate come from **one pull, not two**: the full legs **are** the substrate, and the
+   aggressor collapse is a view over those same legs.
+
+2. **Completeness-gate, then exclude.** Every recovered tape is gated before it is trusted:
+   - **Pagination-exact (primary, tolerance-free):** the paginated leg count must equal the
+     subgraph's own `Σ tradesQuantity` aggregate (indexer-computed) — catches an incomplete read
+     *on our side* exactly (validated on nba: 17252 == 17252).
+   - **Volume cross-check (loose secondary):** recovered collateral volume vs Gamma `volumeNum`
+     at a loose tolerance — a coarse backstop for a gross *subgraph* indexing omission the
+     aggregate alone can't catch (a dropped fill lowers `tradesQuantity` too). **The tolerance is
+     not a free parameter: it is calibrated once, before the batch, from the Gamma-vs-recovered
+     discrepancy observed on the known-complete (un-truncated, exact-count-verified) markets — set
+     to admit that benign definitional gap while still flagging a gross omission — and reported
+     as-derived, never tuned to corpus F1/F2/F3 outcomes.**
+   - A market failing either is escalated to a per-market **getLogs spot-check**; one still
+     uncompletable is **excluded** as a **coverage gap**, headline reported **with and without**
+     it. Given full-V1, uncapped, count-independent pagination, this branch is **expected empty**.
+
+**Trust gated by two pre-registered bars — both PASSED before any corpus market is de-truncated**
+(`pipeline/verify_subgraph.py`, `data/out/subgraph_validation.json`):
+- **Bar 1** — mapped subgraph fills match the trusted un-truncated `/trades` tape **exactly**, on
+  **both** exchange paths: CTF (biden 2716/2716) and NegRisk (atlanta-braves 6946/6946).
+- **Bar 2** — truncated nba (CTF): on-chain `getLogs` certifies beyond-ceiling with no ambiguity —
+  (2a) getLogs vs `/trades` overlap exact (4947/4947), (2b) subgraph vs now-trusted getLogs on the
+  full aggressor tape exact (7382/7382, incl. 2435 beyond-ceiling), (2c) **raw legs** reconcile
+  exactly (17252/17252), validating the **maker-leg flatness substrate**, not just the aggressor
+  collapse. 1.49× de-truncation. `getLogs` (exchange-wide `OrderFilled` sweep, token-filtered
+  inline) is the bounded independent verifier / gap-filler — never the bulk source.
+
+**Disclosed residual (negRisk beyond-ceiling).** Bar 2's getLogs certification is **CTF-only**
+(nba). NegRisk completeness *past the ceiling* is therefore not *directly* getLogs-certified; it
+rests on bar 1's exact at/below-ceiling negRisk match (atlanta-braves) + the subgraph's
+exchange-agnostic, uncapped, count-independent pagination + the per-market completeness gate
+above. A narrow, stated residual — not a silent assumption.
+
+**Reconciliation discipline.** All comparisons are on **mapped canonical aggressor fills** (not
+raw dual-leg rows — a raw compare mis-counts ~2× by construction) and **raw 6-dp integer token
+amounts** (not decimal-scaled floats). Aggregates (n_fills, Gini, F1) match by construction once
+fills do.
+
+**Corpus impact.** A5 changes only how truncated members' tapes are *sourced*, not corpus
+composition: the frozen primary/secondary draws are preserved; truncated members are recovered in
+place (expected: all of them).
