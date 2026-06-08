@@ -95,6 +95,21 @@ def enumerate_band_full(vmin, vmax):
             return out, True
 
 
+def enumerate_range_full(vmin, vmax, _depth=0):
+    """Fully enumerate candidates in [vmin, vmax) past Gamma's 10k offset ceiling.
+
+    Pages volume-desc; on hitting the ceiling, keeps what it got and recurses into
+    [vmin, min_volume_reached) — peeling ≤10k markets per pass with no re-fetching.
+    """
+    cands, ceil = enumerate_band_full(vmin, vmax)
+    if not ceil or not cands:
+        return cands
+    min_reached = min(c["volumeNum"] for c in cands)
+    if min_reached <= vmin + 1 or _depth > 40:
+        return cands
+    return cands + enumerate_range_full(vmin, min_reached, _depth + 1)
+
+
 def bracket_count(vmin, vmax):
     """Cheaply bracket a band's size by probing descending offsets (avoids full paging)."""
     for off in (9900, 4900, 2400, 900, 400, 100, 0):

@@ -1,0 +1,25 @@
+{
+  "migration_cutoff": "2026-04-28",
+  "floor": 25000,
+  "n_frame": 187525,
+  "per_tier_v1": {
+    "T1": {
+      "event": 11983,
+      "recurring": 72147
+    },
+    "T2": {
+      "event": 8986,
+      "recurring": 49581
+    },
+    "T3": {
+      "event": 2178,
+      "recurring": 4140
+    },
+    "T4": {
+      "event": 449,
+      "recurring": 87
+    }
+  },
+  "n_v2_excluded": 37974,
+  "note": "Exact V1 sampling frame. No market selected yet, no outcome computed."
+}
