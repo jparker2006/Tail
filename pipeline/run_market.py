@@ -25,6 +25,7 @@ import schema
 import mm_filter
 import attribution
 import claims
+import subgraph
 
 RESULTS = os.path.join(ingest.RAW_DIR, "results")
 MIN_DIRECTIONAL = 30          # analyzability floor (A1.2); below -> reported thin, not a null
@@ -66,6 +67,55 @@ def _tape(cid: str, slug: str, taker_only: bool):
     return rows, meta
 
 
+def _exchange_for(m: dict) -> str:
+    return subgraph.NEGRISK_EXCHANGE_V1 if m.get("negRisk") else subgraph.CTF_EXCHANGE_V1
+
+
+def _subgraph_tapes(m: dict, n_trades_taker: int):
+    """Recover the COMPLETE taker+full tapes from the subgraph (A5), one legs pull, cached.
+
+    Gated for completeness: paginated legs == the subgraph's own Σ tradesQuantity AND non-empty
+    AND recovers ≥ what /trades saw. A failure marks the market for the A5 exclude branch."""
+    slug = m["slug"]
+    cached = ingest.load_raw(f"{slug}_subgraph.json")
+    if cached is not None:
+        return cached["taker"], cached["full"], cached["meta"]
+    tokens = [str(t) for t in m["clobTokenIds"]]
+    exch = _exchange_for(m)
+    legs, comp = subgraph.fetch_market_legs_checked(tokens)
+    taker = subgraph.market_rows(tokens, exch, taker_only=True, legs=legs)
+    full = subgraph.market_rows(tokens, exch, taker_only=False, legs=legs)
+    recovered_ok = bool(comp["complete"] and comp["n_legs"] > 0
+                        and len(taker) >= n_trades_taker)
+    meta = {**comp, "n_taker": len(taker), "n_full": len(full),
+            "recovery_ratio": (len(taker) / n_trades_taker) if n_trades_taker else None,
+            "recovered_ok": recovered_ok,
+            "gamma_volume": float(m.get("volumeNum") or 0)}
+    ingest.save_raw(f"{slug}_subgraph.json", {"taker": taker, "full": full, "meta": meta})
+    return taker, full, meta
+
+
+def _market_tapes(m: dict):
+    """Hybrid tape acquisition (A5): /trades primary; subgraph only when /trades is truncated.
+
+    Returns (taker_rows, full_rows, meta). meta['source'] ∈ {'trades','subgraph','excluded'}."""
+    cid, slug = m["conditionId"], m["slug"]
+    taker_rows, t_meta = _tape(cid, slug, taker_only=True)
+    full_rows, f_meta = _tape(cid, slug, taker_only=False)
+    truncated = bool(t_meta.get("truncated") or f_meta.get("truncated"))
+    meta = {"source": "trades", "trades_truncated": truncated,
+            "n_trades_taker": len(taker_rows)}
+    if not truncated:
+        return taker_rows, full_rows, meta
+    sg_taker, sg_full, comp = _subgraph_tapes(m, len(taker_rows))
+    meta.update({"source": "subgraph" if comp["recovered_ok"] else "excluded",
+                 "recovery_ratio": comp["recovery_ratio"],
+                 "subgraph_complete": comp["complete"], "n_legs": comp["n_legs"],
+                 "trades_quantity": comp["trades_quantity"],
+                 "scaled_collateral_volume": comp["scaled_collateral_volume"]})
+    return sg_taker, sg_full, meta
+
+
 def run_market(m: dict, use_cache: bool = True) -> dict:
     slug, cid = m["slug"], m["conditionId"]
     os.makedirs(RESULTS, exist_ok=True)
@@ -76,16 +126,25 @@ def run_market(m: dict, use_cache: bool = True) -> dict:
 
     market = _market_for_truth(m)
     volume = float(m.get("volumeNum") or 0)
-    taker_rows, t_meta = _tape(cid, slug, taker_only=True)
-    full_rows, f_meta = _tape(cid, slug, taker_only=False)
-    truncated = bool(t_meta.get("truncated") or f_meta.get("truncated"))
+    taker_rows, full_rows, tape_meta = _market_tapes(m)    # hybrid: /trades, or subgraph if truncated
 
     fills, R = schema.normalize_fills(taker_rows, {}, market)
     aggressors = {f["proxy_wallet"] for f in fills}
     result = {"slug": slug, "conditionId": cid, "tier": m.get("tier"),
               "mkt_class": m.get("mkt_class"), "negRisk": m.get("negRisk"),
               "volumeNum": volume, "R_yes": R, "n_fills": len(fills),
-              "n_aggressors": len(aggressors), "trades_truncated": truncated}
+              "n_aggressors": len(aggressors),
+              "trades_truncated": tape_meta["trades_truncated"],
+              "tape_source": tape_meta["source"]}
+    if tape_meta["source"] in ("subgraph", "excluded"):
+        result["detruncation"] = {k: tape_meta.get(k) for k in
+                                  ("recovery_ratio", "subgraph_complete", "n_legs",
+                                   "trades_quantity", "scaled_collateral_volume")}
+    if tape_meta["source"] == "excluded":                  # A5 coverage gap (reported with/without)
+        result["status"] = "excluded"
+        with open(rpath, "w") as f:
+            json.dump(result, f)
+        return result
 
     # flatness substrate from the maker-inclusive tape
     full_fills, _ = schema.normalize_fills(full_rows, {}, market)

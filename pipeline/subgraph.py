@@ -169,7 +169,8 @@ def market_rows(token_ids, exchange: str, taker_only: bool, legs=None) -> list[d
     idx = {str(t): i for i, t in enumerate(token_ids)}
     ex = exchange.lower()
     legs = legs if legs is not None else fetch_market_legs(token_ids)
-    rows: list[dict] = []
+    # aggregate legs to /trades granularity: one row per (tx, wallet, token, side)
+    acc: dict[tuple, dict] = {}
     for leg in legs:
         if taker_only and leg["taker"].lower() != ex:
             continue
@@ -182,8 +183,12 @@ def market_rows(token_ids, exchange: str, taker_only: bool, legs=None) -> list[d
             token, side, shares, collat = t_asset, "BUY", t_amt, m_amt
         else:
             continue
-        rows.append({"proxyWallet": wallet, "asset": token, "outcomeIndex": idx[token],
-                     "side": side, "size": shares / 1e6,
-                     "price": (collat / shares) if shares else 0.0,
-                     "transactionHash": leg["transactionHash"], "timestamp": leg["timestamp"]})
-    return rows
+        key = (leg["transactionHash"], wallet, token, side)
+        a = acc.setdefault(key, {"shares": 0, "collat": 0, "ts": int(leg["timestamp"])})
+        a["shares"] += shares
+        a["collat"] += collat
+        a["ts"] = min(a["ts"], int(leg["timestamp"]))
+    return [{"proxyWallet": w, "asset": tok, "outcomeIndex": idx[tok], "side": side,
+             "size": a["shares"] / 1e6, "price": (a["collat"] / a["shares"]) if a["shares"] else 0.0,
+             "transactionHash": tx, "timestamp": a["ts"]}
+            for (tx, w, tok, side), a in acc.items()]

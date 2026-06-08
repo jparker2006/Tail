@@ -1,0 +1,29 @@
+{
+  "nba_regression": {
+    "n_fills": 7382,
+    "expected_n_fills": 7382,
+    "n_fills_match": true,
+    "tape_source": "subgraph",
+    "recovery_ratio": 1.4922175055589246,
+    "status": "ok",
+    "gini_interval": 0.8501932475235714,
+    "n_half_frac": 0.008782435129740519,
+    "f1_survives": true
+  },
+  "negrisk_recovery": {
+    "slug": "elon-musk-of-tweets-april-7-april-14-260-279",
+    "tape_source": "subgraph",
+    "recovery_ratio": 1.0439358503174072,
+    "subgraph_complete": true,
+    "status": "ok",
+    "n_fills": 6249,
+    "gini_interval": 0.8511511513149874
+  },
+  "synthetic_failure": {
+    "n_legs": 0,
+    "trades_quantity": 0,
+    "recovered_ok": false,
+    "routes_to_exclude": true
+  },
+  "all_pass": true
+}
