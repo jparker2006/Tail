@@ -87,10 +87,15 @@ def _subgraph_tapes(m: dict, n_trades_taker: int):
     full = subgraph.market_rows(tokens, exch, taker_only=False, legs=legs)
     recovered_ok = bool(comp["complete"] and comp["n_legs"] > 0
                         and len(taker) >= n_trades_taker)
+    vol = float(m.get("volumeNum") or 0)
+    scv_ratio = (comp.get("scaled_collateral_volume", 0) / vol) if vol else None
+    # A5 secondary backstop: a near-total omission flags for getLogs spot-check (does NOT gate
+    # recovered_ok — the exact ΣtradesQuantity count check already proved pagination completeness).
+    gamma_flag = bool(scv_ratio is not None and scv_ratio < subgraph.GAMMA_TOL_LOW)
     meta = {**comp, "n_taker": len(taker), "n_full": len(full),
             "recovery_ratio": (len(taker) / n_trades_taker) if n_trades_taker else None,
-            "recovered_ok": recovered_ok,
-            "gamma_volume": float(m.get("volumeNum") or 0)}
+            "recovered_ok": recovered_ok, "gamma_volume": vol,
+            "scv_over_gamma": scv_ratio, "gamma_flag": gamma_flag}
     ingest.save_raw(f"{slug}_subgraph.json", {"taker": taker, "full": full, "meta": meta})
     return taker, full, meta
 
@@ -112,7 +117,8 @@ def _market_tapes(m: dict):
                  "recovery_ratio": comp["recovery_ratio"],
                  "subgraph_complete": comp["complete"], "n_legs": comp["n_legs"],
                  "trades_quantity": comp["trades_quantity"],
-                 "scaled_collateral_volume": comp["scaled_collateral_volume"]})
+                 "scaled_collateral_volume": comp["scaled_collateral_volume"],
+                 "scv_over_gamma": comp.get("scv_over_gamma"), "gamma_flag": comp.get("gamma_flag")})
     return sg_taker, sg_full, meta
 
 
@@ -139,7 +145,8 @@ def run_market(m: dict, use_cache: bool = True) -> dict:
     if tape_meta["source"] in ("subgraph", "excluded"):
         result["detruncation"] = {k: tape_meta.get(k) for k in
                                   ("recovery_ratio", "subgraph_complete", "n_legs",
-                                   "trades_quantity", "scaled_collateral_volume")}
+                                   "trades_quantity", "scaled_collateral_volume",
+                                   "scv_over_gamma", "gamma_flag")}
     if tape_meta["source"] == "excluded":                  # A5 coverage gap (reported with/without)
         result["status"] = "excluded"
         with open(rpath, "w") as f:

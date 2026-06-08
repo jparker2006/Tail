@@ -32,6 +32,12 @@ CTF_EXCHANGE_V1 = "0x4bfb41d5b3570defd03c39a9a4d8de6bd8b8982e"      # binary (ne
 NEGRISK_EXCHANGE_V1 = "0xc5d563a36ae78145c45a50134d48a1215220f80a"  # negRisk=True
 EXCHANGES = {CTF_EXCHANGE_V1, NEGRISK_EXCHANGE_V1}
 
+# A5 Gamma cross-check (loose secondary backstop). Calibrated from known-complete markets across
+# both classes, admitting the worst-case definitional gap; see data/out/gamma_calibration.json.
+# One-sided: flag (NOT auto-exclude) a recovered market whose on-chain collateral / Gamma volume
+# falls below this — a possible gross subgraph omission for a getLogs spot-check.
+GAMMA_TOL_LOW = 0.0069
+
 _session = requests.Session()
 _session.headers.update({"User-Agent": "tail-research/0.1 (prediction-market study)",
                          "Content-Type": "application/json"})

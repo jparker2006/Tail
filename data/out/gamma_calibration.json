@@ -1,0 +1,10 @@
+{
+  "rule": "A5 Gamma cross-check: one-sided lower bound; flag (NOT auto-exclude -> getLogs spot-check) if recovered scaledCollateralVolume/Gamma volumeNum < tol_low. Derived from known-complete (un-truncated validation) markets, both classes, set to admit the worst-case definitional gap (extreme-price HFT markets). Reported as-derived, never tuned to corpus F1/F2/F3 outcomes.",
+  "n": 30,
+  "min": 0.01372494919579659,
+  "median": 0.9655957317688126,
+  "max": 1.2259283833115093,
+  "tol_low": 0.0069,
+  "margin": "min observed / 2",
+  "worst_case_market": "elon-musk-of-tweets-february-24-march-3-100-119"
+}
