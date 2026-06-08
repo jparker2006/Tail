@@ -57,7 +57,8 @@ def _gq(query: str, variables: dict, max_retries: int = 6) -> dict:
         if "errors" in j and not j.get("data"):
             msg = str(j["errors"])
             if "statement timeout" in msg or "canceling statement" in msg:
-                time.sleep(backoff); backoff = min(backoff * 2, 30); continue  # transient shard load
+                # load-induced: back off HARDER (don't hammer a loaded shard), ≥3s, grow to 45s
+                time.sleep(max(backoff, 3.0)); backoff = min(backoff * 2, 45); continue
             raise RuntimeError(f"subgraph error: {j['errors'][:1]}")
         return j["data"]
     raise RuntimeError("subgraph GET failed after retries")
@@ -75,6 +76,7 @@ def fetch_market_legs(token_ids) -> list[dict]:
     """
     tokens = [str(t) for t in token_ids]
     legs: dict[str, dict] = {}
+    pages = 0
     for field in ("makerAssetId", "takerAssetId"):
         q = ("query($t:[String!],$last:ID!){ orderFilledEvents(first:1000, orderBy:id, "
              "where:{" + field + "_in:$t, id_gt:$last}){ " + _LEG_FIELDS + " } }")
@@ -86,6 +88,10 @@ def fetch_market_legs(token_ids) -> list[dict]:
             for r in rows:
                 legs[r["id"]] = r
             last = rows[-1]["id"]
+            pages += 1
+            if pages % 50 == 0:        # heartbeat for big recoveries (mega-market visibility)
+                print(f"    [subgraph] {len(legs):,} legs ({pages} pages, {tokens[0][:10]}…)",
+                      flush=True)
             if len(rows) < 1000:
                 break
     return list(legs.values())
