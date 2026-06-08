@@ -1,0 +1,14 @@
+{
+  "slug": "will-mrbeasts-next-video-get-between-35m-and-39pt9m-views",
+  "negRisk": true,
+  "tier": "T1",
+  "exchange": "0xc5d563a36ae78145c45a50134d48a1215220f80a",
+  "n_tx": 103,
+  "n_decoded_ok": 103,
+  "ok_rate": 1.0,
+  "price_in_01_rate": 1.0,
+  "ordersmatched_rate": 1.0,
+  "price_vs_tape_median_absdiff": 0.0,
+  "price_vs_tape_p90_absdiff": 0.0,
+  "taker_match_rate": 1.0
+}

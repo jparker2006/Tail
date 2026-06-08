@@ -392,3 +392,21 @@ secondary (recurring) **794** (250/250/250, T4 take-all **44** — thinner mega-
 revision, disclosed); validation 40. **`audit_sample` is preserved** as the frozen independent test
 set (it had to be drawn from the pre-revision classification to catch its errors). Ladder dedup
 flagged **3,794** duplicates across **1,197** clusters in the V1 event population.
+
+### A4 — 2026-06-07, validation-gate operationalization (pre-run freeze)
+
+Operationalizes the A1.2 escalation trigger for Step 2.5 (2-signal `/trades` vs 3-signal
+on-chain MM filter on the 40-market validation subset), frozen **before** the run. Agreement is
+judged on each market's **downstream F1 verdict** (survives vs falsified: Gini ≥ 0.60 AND
+N_half/n ≤ 0.05), not on MM labels. **Escalate (T4-first) if ANY of:**
+- the per-market F1 verdict flips between the 2- and 3-signal filters on **> 15%** of the 40, OR
+- the **median |ΔGini|** across the 40 exceeds **0.05**, OR
+- **any single one of the 6 T4 markets** flips its F1 verdict (zero-tolerance: the ~449-market
+  mega corpus rides entirely on the cheap filter with no other on-chain coverage).
+
+The global 15% / 0.05 thresholds tolerate low-tier boundary jitter (the downstream-verdict
+criterion already strips MM-label noise); the T4 single-flip trigger covers the blind spot where
+2 of 6 flips is 33% of the tier yet only 5% of the global 40. Escalation self-adjudicates:
+expand T4 on-chain — if the larger sample agrees, the flip was boundary noise (filter confirmed);
+if it also diverges, a corrupted mega tier was caught before the headline. NegRisk-decoder
+validation (A1.3) gates the negRisk markets within the subset.
