@@ -118,6 +118,37 @@ def map_aggressor_fills(legs: list[dict], token_ids, exchange: str) -> list[dict
     return list(fills.values())
 
 
+def orderbook_aggregate(token_ids) -> dict:
+    """The subgraph's OWN per-market aggregate (indexer-computed, independent of our pagination).
+
+    Σ tradesQuantity over the market's tokens == the total OrderFilled leg count. Comparing it to
+    the number of legs we paginated is an exact, free check that our pagination was complete — the
+    silent-omission trigger for A5's exclude branch.
+    """
+    tokens = [str(t) for t in token_ids]
+    q = ("query($ids:[ID!]){ orderbooks(where:{id_in:$ids}){ id tradesQuantity "
+         "scaledCollateralVolume } }")
+    obs = _gq(q, {"ids": tokens})["orderbooks"]
+    return {"trades_quantity": sum(int(o["tradesQuantity"]) for o in obs),
+            "scaled_collateral_volume": sum(float(o["scaledCollateralVolume"]) for o in obs),
+            "n_orderbooks": len(obs),
+            "per_token": {o["id"]: int(o["tradesQuantity"]) for o in obs}}
+
+
+def fetch_market_legs_checked(token_ids) -> tuple[list[dict], dict]:
+    """Complete legs + a completeness verdict vs the subgraph's own tradesQuantity aggregate.
+
+    `complete` False => our pagination under-read the subgraph (NOT the subgraph missing data);
+    such a market is flagged for re-pull / getLogs spot-check / the A5 exclude branch.
+    """
+    legs = fetch_market_legs(token_ids)
+    agg = orderbook_aggregate(token_ids)
+    meta = {"n_legs": len(legs), "trades_quantity": agg["trades_quantity"],
+            "scaled_collateral_volume": agg["scaled_collateral_volume"],
+            "complete": bool(len(legs) == agg["trades_quantity"])}
+    return legs, meta
+
+
 def market_tape(token_ids, exchange: str) -> list[dict]:
     """Convenience: complete canonical aggressor tape for a market (raw-integer fills)."""
     return map_aggressor_fills(fetch_market_legs(token_ids), token_ids, exchange)
