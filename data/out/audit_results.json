@@ -1,0 +1,2113 @@
+{
+  "n": 300,
+  "false_inclusion": [
+    10,
+    150
+  ],
+  "false_exclusion": [
+    24,
+    150
+  ],
+  "rows": [
+    {
+      "slug": "will-anyone-say-polymarket-during-south-parks-prediction-market-episode-556",
+      "tier": "T1",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "will-russia-enter-verkhnia-tersa-by-march-31-2026",
+      "tier": "T1",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "will-trump-nominate-ted-mckinney-for-agriculture-secretary",
+      "tier": "T1",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "will-donald-trump-say-world-war-3-during-michigan-town-hall",
+      "tier": "T1",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "amzn-up-or-down-on-february-6-2026",
+      "tier": "T1",
+      "classifier": "event",
+      "truth": "recurring",
+      "agree": false
+    },
+    {
+      "slug": "will-trump-win-the-2024-iowa-caucus",
+      "tier": "T1",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "will-the-celtics-win-the-2024-nba-finals-4-2",
+      "tier": "T1",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "andrew-tate-of-tweets-february-24-march-3-2026-190-219",
+      "tier": "T1",
+      "classifier": "event",
+      "truth": "recurring",
+      "agree": false
+    },
+    {
+      "slug": "will-spo-win-the-most-seats-in-the-2024-austrian-legislative-election",
+      "tier": "T1",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "will-trump-say-crypto-at-his-rally",
+      "tier": "T1",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "jim-miller-vs-chase-hooper",
+      "tier": "T1",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "nhl-playoffs-1st-round-3-first-round-upsets",
+      "tier": "T1",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "will-tessa-thompson-win-best-actress-at-the-98th-academy-awards",
+      "tier": "T1",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "will-falcons-win-the-iem-cologne-2025-tournament",
+      "tier": "T1",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "was-ilhan-omar-sprayed-with-a-poison-or-toxin-141",
+      "tier": "T1",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "will-jude-bellingham-be-euro-2024-top-scorer",
+      "tier": "T1",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "gavin-newsom-out-as-california-governor-in-2025",
+      "tier": "T1",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "will-pope-leo-visit-spain-first",
+      "tier": "T1",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "will-andrew-garfield-be-nominated-for-best-supporting-actor-at-the-98th-academy-awards",
+      "tier": "T1",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "chidi-njokuani-vs-elizeu-zaleski-dos-santos",
+      "tier": "T1",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "will-israel-strike-iran-on-wednesday-oct-23",
+      "tier": "T1",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "nba-2025-26-apg-leader-lebron-james",
+      "tier": "T1",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "will-the-dallas-cowboys-win-the-nfc-east",
+      "tier": "T1",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "will-evangelos-venizelos-be-next-greek-president",
+      "tier": "T1",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "will-run-away-be-the-2-global-netflix-show-this-week-january-6-2026",
+      "tier": "T1",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "will-lisa-murkowski-vote-to-confirm-pete-hegseth-as-secretary-of-defense",
+      "tier": "T1",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "will-chelsea-win-vs-manchester-city",
+      "tier": "T1",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "msft-up-or-down-on-december-8-2025",
+      "tier": "T1",
+      "classifier": "event",
+      "truth": "recurring",
+      "agree": false
+    },
+    {
+      "slug": "will-al-ain-beat-manchester-city",
+      "tier": "T1",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "will-trump-talk-about-crypto-by-next-friday",
+      "tier": "T1",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "will-trump-say-soleimani-during-medal-of-honor-ceremony-on-march-2-581-172-664",
+      "tier": "T1",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "arb-above-1pt25-on-april-7",
+      "tier": "T1",
+      "classifier": "event",
+      "truth": "recurring",
+      "agree": false
+    },
+    {
+      "slug": "will-end-of-beginning-djo-be-the-1-song-on-us-spotify-this-week-224",
+      "tier": "T1",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "will-mouz-win-iem-rio-2024",
+      "tier": "T1",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "india-x-pakistan-military-clash-by-november-30",
+      "tier": "T1",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "will-joe-burrow-win-the-202526-nfl-mvp-award",
+      "tier": "T1",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "russian-nuke-in-space-in-2024",
+      "tier": "T1",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "will-all-remaining-trump-cabinet-picks-be-confirmed",
+      "tier": "T1",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "val-fnc1-ulf-2026-04-01-game1",
+      "tier": "T1",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "will-solana-reach-100-february-16-22",
+      "tier": "T1",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "highest-temperature-in-miami-on-february-15-2026-76-77f",
+      "tier": "T1",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "btc-updown-5m-1775996100",
+      "tier": "T1",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "btc-updown-15m-1766952900",
+      "tier": "T1",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "eth-updown-15m-1768622400",
+      "tier": "T1",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "xrp-up-or-down-november-13-2pm-et",
+      "tier": "T1",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "btc-updown-5m-1777332900",
+      "tier": "T1",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "eth-updown-15m-1761023700",
+      "tier": "T1",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "bitcoin-up-or-down-april-14-2026-7am-et",
+      "tier": "T1",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "xrp-above-2pt2-on-november-15",
+      "tier": "T1",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "solana-above-240-on-october-27",
+      "tier": "T1",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "dota2-tundra-mouz-2025-11-27",
+      "tier": "T1",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "bitcoin-up-or-down-august-6-2am-et",
+      "tier": "T1",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "dota2-navi-xctn-2026-02-20",
+      "tier": "T1",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "highest-temperature-in-nyc-on-april-15-2026-86-87f",
+      "tier": "T1",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "will-obama-say-democracy-3-or-more-times-at-dnc-speech",
+      "tier": "T1",
+      "classifier": "recurring",
+      "truth": "event",
+      "agree": false
+    },
+    {
+      "slug": "eth-updown-15m-1769191200",
+      "tier": "T1",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "uef-cyp-aut-2025-11-15-cyp",
+      "tier": "T1",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "eth-updown-15m-1770148800",
+      "tier": "T1",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "ethereum-above-4800-on-september-17",
+      "tier": "T1",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "ethereum-up-or-down-march-2-12pm-et",
+      "tier": "T1",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "ethereum-up-or-down-november-19-8am-et",
+      "tier": "T1",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "eth-updown-15m-1770385500",
+      "tier": "T1",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "ethereum-up-or-down-november-30-4am-et",
+      "tier": "T1",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "cfb-lsu-ala-2025-11-08-spread-home-10pt5",
+      "tier": "T1",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "wta-gabriel-leama-2026-02-17",
+      "tier": "T1",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "val-t1a-gena-2026-04-02",
+      "tier": "T1",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "cfb-uab-uconn-2025-11-01-total-62pt5",
+      "tier": "T1",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "ethereum-up-or-down-december-6-10am-et",
+      "tier": "T1",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "eth-updown-15m-1767770100",
+      "tier": "T1",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "btc-updown-5m-1771086300",
+      "tier": "T1",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "will-monthly-inflation-increase-by-0pt4-in-september",
+      "tier": "T1",
+      "classifier": "recurring",
+      "truth": "event",
+      "agree": false
+    },
+    {
+      "slug": "eth-updown-5m-1774968000",
+      "tier": "T1",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "bun-uni-ein-2026-02-06-draw",
+      "tier": "T1",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "eth-updown-15m-1764664200",
+      "tier": "T1",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "wimbledon-draper-vs-baez",
+      "tier": "T1",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "epl-liv-wol-2025-12-27-total-2pt5",
+      "tier": "T1",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "will-another-game-win-game-of-the-year",
+      "tier": "T2",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "will-amanda-anisimova-win-the-2025-us-open",
+      "tier": "T2",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "will-lando-norris-finish-second-in-the-2025-drivers-championship",
+      "tier": "T2",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "will-elon-tweet-180194-times-june-27july-4",
+      "tier": "T2",
+      "classifier": "event",
+      "truth": "recurring",
+      "agree": false
+    },
+    {
+      "slug": "trump-tariff-on-eu-alcohol-before-may",
+      "tier": "T2",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "will-350-400k-federal-employees-accept-the-buyout",
+      "tier": "T2",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "will-trump-say-kamala-during-60-minutes-on-november-2",
+      "tier": "T2",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "congress-passes-bill-banning-tiktok-by-april-30",
+      "tier": "T2",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "will-megaeth-perform-an-airdrop-by-january-31-933-879-443",
+      "tier": "T2",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "will-fernando-mendoza-be-the-first-pick-of-the-2026-nfl-draft",
+      "tier": "T2",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "euroleague-baskonia-munchen-2025-11-21",
+      "tier": "T2",
+      "classifier": "event",
+      "truth": "recurring",
+      "agree": false
+    },
+    {
+      "slug": "will-jurassic-world-rebirth-have-the-best-domestic-opening-weekend-in-2025",
+      "tier": "T2",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "will-iran-name-a-successor-to-khamenei-by-march-4-844-575",
+      "tier": "T2",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "us-open-sabalenka-vs-qinwen",
+      "tier": "T2",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "successful-ukraine-counter-attack-in-donbass",
+      "tier": "T2",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "will-gallego-win-arizona-senate-election-by-0-1",
+      "tier": "T2",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "will-tulane-make-the-college-football-playoff",
+      "tier": "T2",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "will-fa-win-the-most-seats-in-the-2026-costa-rican-legislative-assembly-election",
+      "tier": "T2",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "current-shutdown-longest-in-us-history",
+      "tier": "T2",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "reform-wins-the-second-most-seats-in-next-uk-election",
+      "tier": "T2",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "will-ryan-reynolds-be-ranked-1-globally-in-googles-year-in-search-2025-actors",
+      "tier": "T2",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "will-the-pittsburgh-steelers-win-the-afc-north-1",
+      "tier": "T2",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "tsla-quarterly-earnings-nongaap-eps-01-28-2026-0pt45",
+      "tier": "T2",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "will-italy-qualify-for-the-2026-fifa-world-cup",
+      "tier": "T2",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "will-jan-krzysztof-duda-win-the-2024-world-blitz-championship-open",
+      "tier": "T2",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "astronomer-divorce-parlay",
+      "tier": "T2",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "will-buffett-say-trump-during-may-3-shareholders-meeting",
+      "tier": "T2",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "france-wins-the-most-gold-medals-in-2024-paris-olympics",
+      "tier": "T2",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "will-microstrategy-announce-bankruptcy-in-2025",
+      "tier": "T2",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "will-the-gatorade-shower-at-super-bowl-lx-be-blue",
+      "tier": "T2",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "will-sweden-join-nato-by-february-29",
+      "tier": "T2",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "will-michael-kim-win-the-2026-masters-tournament",
+      "tier": "T2",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "will-trump-meet-with-elon-musk-by-december-31",
+      "tier": "T2",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "will-a-republican-win-idaho-in-the-2024-us-presidential-election",
+      "tier": "T2",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "will-ng-dip-to-2-50-by-april-20-2026",
+      "tier": "T2",
+      "classifier": "event",
+      "truth": "recurring",
+      "agree": false
+    },
+    {
+      "slug": "will-anthropic-have-the-top-ai-model-at-the-end-of-january-2026",
+      "tier": "T2",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "lee-jae-myung-arrested-in-2025",
+      "tier": "T2",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "will-flyquest-win-lol-worlds-2025",
+      "tier": "T2",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "btc-updown-15m-1765166400",
+      "tier": "T2",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "nfl-dal-lv-2025-11-17-total-50pt5",
+      "tier": "T2",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "btc-updown-15m-1771543800",
+      "tier": "T2",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "will-the-price-of-bitcoin-be-between-92000-94000-on-november-28",
+      "tier": "T2",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "col-shk-sam-2026-02-19-sam",
+      "tier": "T2",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "bitcoin-above-66k-on-march-9",
+      "tier": "T2",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "btc-updown-5m-1771102200",
+      "tier": "T2",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "nba-mem-por-2026-02-07-spread-home-9pt5",
+      "tier": "T2",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "btc-updown-5m-1774867500",
+      "tier": "T2",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "nba-atl-sac-2025-11-12-spread-away-4pt5",
+      "tier": "T2",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "btc-updown-15m-1769876100",
+      "tier": "T2",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "btc-updown-5m-1776228300",
+      "tier": "T2",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "btc-updown-5m-1775039700",
+      "tier": "T2",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "will-the-highest-temperature-in-nyc-be-33f-or-below-on-february-22",
+      "tier": "T2",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "elon-musk-of-tweets-december-16-december-23-0-19",
+      "tier": "T2",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "btc-updown-5m-1776876600",
+      "tier": "T2",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "ethereum-above-2000-on-february-14",
+      "tier": "T2",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "bitcoin-up-or-down-on-february-13",
+      "tier": "T2",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "btc-updown-5m-1773857100",
+      "tier": "T2",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "nba-gsw-dal-2026-01-22-spread-away-6pt5",
+      "tier": "T2",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "btc-updown-5m-1775486400",
+      "tier": "T2",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "acn-civ-bur-2026-01-06-civ",
+      "tier": "T2",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "btc-updown-5m-1776412800",
+      "tier": "T2",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "sea-cre-cag-2026-01-08-cag",
+      "tier": "T2",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "nba-lal-cle-2026-01-28-total-234pt5",
+      "tier": "T2",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "btc-updown-15m-1769184000",
+      "tier": "T2",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "lal-bet-mad-2025-10-27-draw",
+      "tier": "T2",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "elon-musk-of-tweets-april-14-april-21-540-559",
+      "tier": "T2",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "eth-updown-15m-1760933700",
+      "tier": "T2",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "fl1-lil-str-2026-01-25-total-2pt5",
+      "tier": "T2",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "ucl-qar1-new-2026-02-18-btts",
+      "tier": "T2",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "nfl-ten-lac-2024-11-10",
+      "tier": "T2",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "elon-musk-of-tweets-december-26-january-2-140-159",
+      "tier": "T2",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "nba-hou-atl-2025-10-16",
+      "tier": "T2",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "btc-updown-5m-1775637300",
+      "tier": "T2",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "dota2-pari-heroic-2025-12-11",
+      "tier": "T2",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "bitcoin-up-or-down-november-7-1pm-et",
+      "tier": "T2",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "btc-updown-5m-1775650200",
+      "tier": "T2",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "bernie-sanders-votes-to-confirm-tulsi-gabbard",
+      "tier": "T3",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "will-elon-tweet-900-or-more-times-feb-21-28",
+      "tier": "T3",
+      "classifier": "event",
+      "truth": "recurring",
+      "agree": false
+    },
+    {
+      "slug": "will-microsoft-be-the-largest-company-in-the-world-by-market-cap-on-march-31-889",
+      "tier": "T3",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "another-israeli-military-action-against-iran-in-2024",
+      "tier": "T3",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "will-the-us-acquire-greenland-before-july",
+      "tier": "T3",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "will-nicuor-dan-advance-to-the-romanian-presidential-election-runoff",
+      "tier": "T3",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "will-elena-lasconi-win-the-2024-romanian-presidential-election",
+      "tier": "T3",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "will-the-pittsburgh-penguins-win-the-2025-stanley-cup",
+      "tier": "T3",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "us-strikes-iran-by-february-19-2026-992",
+      "tier": "T3",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "will-the-us-collect-less-than-100b-in-revenue-in-2025",
+      "tier": "T3",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "will-the-oklahoma-city-thunder-win-the-western-conference",
+      "tier": "T3",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "will-donald-trump-be-the-first-leader-out-in-2025",
+      "tier": "T3",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "will-rory-mcilroy-win-the-2026-masters-tournament",
+      "tier": "T3",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "will-auburn-win-the-2025-college-football-playoff",
+      "tier": "T3",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "will-a-candidate-from-another-party-win-minnesota-presidential-election",
+      "tier": "T3",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "1-trump-vs-harris-debate-before-election",
+      "tier": "T3",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "another-country-wins-the-most-gold-medals-in-2024-paris-olympics",
+      "tier": "T3",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "will-another-party-win-the-third-most-seats-in-the-next-canadian-election",
+      "tier": "T3",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "will-justin-bieber-be-the-top-spotify-artist-for-2025-354",
+      "tier": "T3",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "will-kamala-harris-be-the-2024-democratic-vp-nominee",
+      "tier": "T3",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "will-the-patriots-win-the-afc-championship",
+      "tier": "T3",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "will-lebron-james-lead-the-nba-in-scoring",
+      "tier": "T3",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "will-3-fed-rate-cuts-happen-in-2025",
+      "tier": "T3",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "will-elon-tweet-250-274-times-oct-4",
+      "tier": "T3",
+      "classifier": "event",
+      "truth": "recurring",
+      "agree": false
+    },
+    {
+      "slug": "will-another-man-be-the-democratic-presidential-nominee",
+      "tier": "T3",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "will-a-democrat-win-pennsylvania-us-senate-election",
+      "tier": "T3",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "will-aristides-teixeira-win-the-2026-portugal-presidential-election",
+      "tier": "T3",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "biden-removed-via-25th-amendment-before-election",
+      "tier": "T3",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "maduro-out-by-march-31-2026-187-483",
+      "tier": "T3",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "will-there-be-170000000-175000000-votes-cast-in-the-us-presidential-election",
+      "tier": "T3",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "will-lebron-james-win-the-2024-25-nba-mvp",
+      "tier": "T3",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "will-the-san-francisco-49ers-win-super-bowl-2026",
+      "tier": "T3",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "will-maccabi-tlv-win-the-uefa-europa-league",
+      "tier": "T3",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "will-kendrick-lamar-be-the-top-spotify-artist-for-2025",
+      "tier": "T3",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "will-a-republican-win-virginia-in-the-2024-us-presidential-election",
+      "tier": "T3",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "will-the-government-shutdown-last-1-day-or-more-842",
+      "tier": "T3",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "will-elon-tweet-255-or-more-times-august-1august-8",
+      "tier": "T3",
+      "classifier": "event",
+      "truth": "recurring",
+      "agree": false
+    },
+    {
+      "slug": "solana-above-175-on-february-28",
+      "tier": "T3",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "elon-musk-of-tweets-april-17-april-24-180-199",
+      "tier": "T3",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "elon-musk-of-tweets-december-2-december-9-460-479",
+      "tier": "T3",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "lol-dnf-drx-2026-02-19",
+      "tier": "T3",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "mlb-mil-chc-2025-10-09",
+      "tier": "T3",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "bitcoin-up-or-down-on-may-20",
+      "tier": "T3",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "cs2-fx-faze-2025-11-27",
+      "tier": "T3",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "dota2-sar1-mouz-2026-04-22",
+      "tier": "T3",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "nhl-fla-tor-2025-05-18",
+      "tier": "T3",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "nba-was-cle-2026-04-12",
+      "tier": "T3",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "nhl-las-lak-2026-01-14",
+      "tier": "T3",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "ucl-ben-kar-2025-09-16-ben",
+      "tier": "T3",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "will-ethereum-dip-to-2600-in-january-2026-489",
+      "tier": "T3",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "atp-alcaraz-vachero-2026-04-11",
+      "tier": "T3",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "will-bitcoin-reach-110000-by-february-28-2025",
+      "tier": "T3",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "nba-phi-lac-2026-02-02",
+      "tier": "T3",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "cs2-fal2-prv-2026-03-27",
+      "tier": "T3",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "epl-new-ast-2026-01-25-new",
+      "tier": "T3",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "cfb-iowa-vand-2025-12-31",
+      "tier": "T3",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "nba-nop-cha-2026-02-02",
+      "tier": "T3",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "mlb-det-bos-2025-09-27",
+      "tier": "T3",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "nba-orl-atl-2026-03-16",
+      "tier": "T3",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "nba-was-sac-2026-01-16",
+      "tier": "T3",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "lol-t1-cfo-2025-10-16",
+      "tier": "T3",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "nba-phx-lal-2026-04-10",
+      "tier": "T3",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "nfl-nyg-no-2025-10-05",
+      "tier": "T3",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "nba-phx-dal-2025-11-12",
+      "tier": "T3",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "bitcoin-above-112k-on-october-9",
+      "tier": "T3",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "mlb-atl-nym-2025-08-14",
+      "tier": "T3",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "nhl-fla-utah-2025-12-11",
+      "tier": "T3",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "elon-musk-of-tweets-december-23-december-30-380-399",
+      "tier": "T3",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "mlb-sea-laa-2026-04-04",
+      "tier": "T3",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "bitcoin-above-105000-on-february-7",
+      "tier": "T3",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "nfl-lac-lv-2025-01-05",
+      "tier": "T3",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "will-bitcoin-hit-100k-by-sunday-dec-22",
+      "tier": "T3",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "nba-atl-bos-2026-03-27",
+      "tier": "T3",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "nba-det-phx-2026-01-29",
+      "tier": "T3",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "will-austin-scott-be-the-first-elected-speaker-of-the-house-for-the-119th-congress",
+      "tier": "T4",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "us-forces-enter-iran-by-march-31-222-191-243-517-878-439-519",
+      "tier": "T4",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "fed-increases-interest-rates-by-25-bps-after-july-2025-meeting",
+      "tier": "T4",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "israeli-forces-enters-lebanon-in-september",
+      "tier": "T4",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "romania-presidential-election-winner-will-hunor-kelemen-win-the-romanian-presidential-election",
+      "tier": "T4",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "will-movement-for-a-better-hungary-jobbik-win-the-most-seats-in-the-next-hungarian-parliamentary-election",
+      "tier": "T4",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "will-the-montreal-canadiens-win-the-2025-stanley-cup",
+      "tier": "T4",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "will-lee-jun-seok-be-elected-the-next-president-of-south-korea",
+      "tier": "T4",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "will-andrew-cuomo-win-the-2025-nyc-mayoral-election",
+      "tier": "T4",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "will-the-colts-win-the-afc-championship",
+      "tier": "T4",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "will-biden-drop-out-of-presidential-race",
+      "tier": "T4",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "will-the-lions-win-super-bowl-2025",
+      "tier": "T4",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "will-the-san-antonio-spurs-win-the-2025-nba-finals",
+      "tier": "T4",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "will-marek-jakubiak-be-the-next-president-of-poland",
+      "tier": "T4",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "will-nikki-haley-win-the-popular-vote-in-the-2024-presidential-election",
+      "tier": "T4",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "will-a-candidate-from-another-party-win-ohio-us-senate-election",
+      "tier": "T4",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "will-israel-invade-syria-in-2024",
+      "tier": "T4",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "will-the-detroit-pistons-win-the-eastern-conference",
+      "tier": "T4",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "will-the-united-states-officially-declare-war-on-iran-before-july",
+      "tier": "T4",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "will-the-cardinals-win-super-bowl-2025",
+      "tier": "T4",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "west-ham-united-wins-the-premier-league",
+      "tier": "T4",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "will-despicable-me-4-gross-most-in-2024",
+      "tier": "T4",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "no-change-in-fed-interest-rates-after-september-2025-meeting",
+      "tier": "T4",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "will-the-miami-dolphins-win-super-bowl-2026",
+      "tier": "T4",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "will-the-fed-increase-interest-rates-by-25-bps-after-the-march-2026-meeting",
+      "tier": "T4",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "fed-increases-interest-rates-by-25-bps-after-march-2025-meeting",
+      "tier": "T4",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "will-someone-else-be-inaugurated",
+      "tier": "T4",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "will-the-indian-national-congress-inc-win-the-most-seats-in-the-2026-tamil-nadu-legislative-assembly-election",
+      "tier": "T4",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "will-octavian-berceanu-be-the-next-mayor-of-bucharest",
+      "tier": "T4",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "will-andr-ventura-win-the-2026-portugal-presidential-election",
+      "tier": "T4",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "will-the-dallas-mavericks-win-the-2025-nba-finals",
+      "tier": "T4",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "trump-out-as-president-by-march-31",
+      "tier": "T4",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "will-tj-lavin-win-the-2025-national-heads-up-poker-championship-663",
+      "tier": "T4",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "will-hillary-clinton-win-the-2024-us-presidential-election",
+      "tier": "T4",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "will-the-fed-change-rates-to-another-level-after-nov-meeting",
+      "tier": "T4",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "will-robert-f-kennedy-jr-win-the-2024-us-presidential-election",
+      "tier": "T4",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "us-strikes-iran-by-february-26-2026-368",
+      "tier": "T4",
+      "classifier": "event",
+      "truth": "event",
+      "agree": true
+    },
+    {
+      "slug": "fed-decreases-interest-rates-by-50-bps-after-july-2025-meeting",
+      "tier": "T4",
+      "classifier": "recurring",
+      "truth": "event",
+      "agree": false
+    },
+    {
+      "slug": "epl-wol-liv-2026-03-03-liv",
+      "tier": "T4",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "fed-decreases-interest-rates-by-50-bps-after-september-2025-meeting",
+      "tier": "T4",
+      "classifier": "recurring",
+      "truth": "event",
+      "agree": false
+    },
+    {
+      "slug": "will-melania-say-career-during-ai-talk-on-friday",
+      "tier": "T4",
+      "classifier": "recurring",
+      "truth": "event",
+      "agree": false
+    },
+    {
+      "slug": "fed-decreases-interest-rates-by-75-bps-after-december-2024-meeting",
+      "tier": "T4",
+      "classifier": "recurring",
+      "truth": "event",
+      "agree": false
+    },
+    {
+      "slug": "will-bitcoin-reach-150k-in-march-2026",
+      "tier": "T4",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "fed-decreases-interest-rates-by-50-bps-after-march-2025-meeting",
+      "tier": "T4",
+      "classifier": "recurring",
+      "truth": "event",
+      "agree": false
+    },
+    {
+      "slug": "democrats-win-popular-vote-by-over-7",
+      "tier": "T4",
+      "classifier": "recurring",
+      "truth": "event",
+      "agree": false
+    },
+    {
+      "slug": "fed-decreases-interest-rates-by-75-bps-after-november-2024-meeting",
+      "tier": "T4",
+      "classifier": "recurring",
+      "truth": "event",
+      "agree": false
+    },
+    {
+      "slug": "will-ethereum-hit-5000-by-december-31-796-376",
+      "tier": "T4",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "ucl-psg1-liv1-2026-04-08-psg1",
+      "tier": "T4",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "fed-decreases-interest-rates-by-25-bps-after-july-2025-meeting",
+      "tier": "T4",
+      "classifier": "recurring",
+      "truth": "event",
+      "agree": false
+    },
+    {
+      "slug": "us-strikes-iran-by-february-9-2026-113-751",
+      "tier": "T4",
+      "classifier": "recurring",
+      "truth": "event",
+      "agree": false
+    },
+    {
+      "slug": "nfl-hou-ne-2026-01-18",
+      "tier": "T4",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "us-strikes-iran-by-february-10-2026",
+      "tier": "T4",
+      "classifier": "recurring",
+      "truth": "event",
+      "agree": false
+    },
+    {
+      "slug": "us-strikes-iran-by-february-23-2026-678-563",
+      "tier": "T4",
+      "classifier": "recurring",
+      "truth": "event",
+      "agree": false
+    },
+    {
+      "slug": "will-bitcoin-dip-to-65k-in-march-2026",
+      "tier": "T4",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "thailand-strikes-cambodia-by-friday",
+      "tier": "T4",
+      "classifier": "recurring",
+      "truth": "event",
+      "agree": false
+    },
+    {
+      "slug": "will-bitcoin-reach-200k-in-october",
+      "tier": "T4",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "us-strikes-iran-by-january-23-2026-494-711-798-734-155",
+      "tier": "T4",
+      "classifier": "recurring",
+      "truth": "event",
+      "agree": false
+    },
+    {
+      "slug": "will-ethereum-reach-6000-in-january-2026",
+      "tier": "T4",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "will-south-korea-presidential-election-winner-get-over-50-of-votes",
+      "tier": "T4",
+      "classifier": "recurring",
+      "truth": "event",
+      "agree": false
+    },
+    {
+      "slug": "elon-musk-of-tweets-february-24-march-3-100-119",
+      "tier": "T4",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "bitcoin-above-100000-on-december-20",
+      "tier": "T4",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "fed-decreases-interest-rates-by-25-bps-after-january-2025-meeting",
+      "tier": "T4",
+      "classifier": "recurring",
+      "truth": "event",
+      "agree": false
+    },
+    {
+      "slug": "us-strikes-iran-by-february-20-2026-151-468-624-297-614-778-872-127-349-448-499-337-826-553",
+      "tier": "T4",
+      "classifier": "recurring",
+      "truth": "event",
+      "agree": false
+    },
+    {
+      "slug": "will-bitcoin-reach-110000-in-december",
+      "tier": "T4",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "fed-decreases-interest-rates-by-75-bps-after-january-2025-meeting",
+      "tier": "T4",
+      "classifier": "recurring",
+      "truth": "event",
+      "agree": false
+    },
+    {
+      "slug": "fed-decreases-interest-rates-by-25-bps-after-june-2025-meeting",
+      "tier": "T4",
+      "classifier": "recurring",
+      "truth": "event",
+      "agree": false
+    },
+    {
+      "slug": "fed-decreases-interest-rates-by-50-bps-after-january-2026-meeting",
+      "tier": "T4",
+      "classifier": "recurring",
+      "truth": "event",
+      "agree": false
+    },
+    {
+      "slug": "fed-decreases-interest-rates-by-25-bps-after-may-2025-meeting",
+      "tier": "T4",
+      "classifier": "recurring",
+      "truth": "event",
+      "agree": false
+    },
+    {
+      "slug": "fed-decreases-interest-rates-by-50-bps-after-may-2025-meeting",
+      "tier": "T4",
+      "classifier": "recurring",
+      "truth": "event",
+      "agree": false
+    },
+    {
+      "slug": "fed-decreases-interest-rates-by-50-bps-after-september-2024-meeting",
+      "tier": "T4",
+      "classifier": "recurring",
+      "truth": "event",
+      "agree": false
+    },
+    {
+      "slug": "elon-musk-of-tweets-february-27-march-6-0-19",
+      "tier": "T4",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "nfl-buf-den-2026-01-17",
+      "tier": "T4",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "will-bitcoin-reach-150k-in-february-2026",
+      "tier": "T4",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    },
+    {
+      "slug": "lol-al-t1-2025-10-31",
+      "tier": "T4",
+      "classifier": "recurring",
+      "truth": "recurring",
+      "agree": true
+    }
+  ]
+}
