@@ -1,0 +1,178 @@
+[
+  {
+    "slug": "will-polymarket-us-go-live-in-2025",
+    "vol": 65428102.459334,
+    "cls": "event",
+    "status": "ok",
+    "tape_source": "subgraph",
+    "n_fills": 61950,
+    "n_directional": 19903,
+    "gini": 0.9013689784843166,
+    "n_half_frac": 0.006079485504697784
+  },
+  {
+    "slug": "will-avatar-3-be-the-top-grossing-movie-of-2025",
+    "vol": 11060840.318713,
+    "cls": "event",
+    "status": "ok",
+    "tape_source": "subgraph",
+    "n_fills": 37185,
+    "n_directional": 11024,
+    "gini": 0.9152523374704709,
+    "n_half_frac": 0.001451378809869376
+  },
+  {
+    "slug": "will-the-new-york-jets-win-super-bowl-2026",
+    "vol": 57232072.113335,
+    "cls": "event",
+    "status": "ok",
+    "tape_source": "subgraph",
+    "n_fills": 40381,
+    "n_directional": 12735,
+    "gini": 0.819786492264333,
+    "n_half_frac": 0.008480565371024734
+  },
+  {
+    "slug": "will-the-san-francisco-49ers-win-super-bowl-2026",
+    "vol": 7603436.627812,
+    "cls": "event",
+    "status": "ok",
+    "tape_source": "subgraph",
+    "n_fills": 44696,
+    "n_directional": 12401,
+    "gini": 0.8869995501055885,
+    "n_half_frac": 0.0019353277961454722
+  },
+  {
+    "slug": "fed-decreases-interest-rates-by-50-bps-after-july-2025-meeting",
+    "vol": 40912544.015545,
+    "cls": "event",
+    "status": "ok",
+    "tape_source": "subgraph",
+    "n_fills": 29266,
+    "n_directional": 10820,
+    "gini": 0.9631690098463819,
+    "n_half_frac": 0.0003696857670979667
+  },
+  {
+    "slug": "will-the-tennessee-titans-win-super-bowl-2026",
+    "vol": 70848160.38227,
+    "cls": "event",
+    "status": "ok",
+    "tape_source": "subgraph",
+    "n_fills": 58796,
+    "n_directional": 20412,
+    "gini": 0.8299719404109782,
+    "n_half_frac": 0.007103664511071918
+  },
+  {
+    "slug": "will-bitcoin-reach-200000-by-december-31-2025",
+    "vol": 19275707.736605,
+    "cls": "recurring",
+    "status": "ok",
+    "tape_source": "subgraph",
+    "n_fills": 25035,
+    "n_directional": 8112,
+    "gini": 0.9317712370912887,
+    "n_half_frac": 0.0039447731755424065
+  },
+  {
+    "slug": "will-the-cleveland-browns-win-super-bowl-2026",
+    "vol": 51375598.94358,
+    "cls": "event",
+    "status": "ok",
+    "tape_source": "subgraph",
+    "n_fills": 45165,
+    "n_directional": 13992,
+    "gini": 0.8198567741107086,
+    "n_half_frac": 0.008576329331046312
+  },
+  {
+    "slug": "boxing-andrew-tate-vs-chase-demoor",
+    "vol": 5562218.182403,
+    "cls": "event",
+    "status": "ok",
+    "tape_source": "subgraph",
+    "n_fills": 10879,
+    "n_directional": 4332,
+    "gini": 0.8716841266148205,
+    "n_half_frac": 0.007848568790397045
+  },
+  {
+    "slug": "will-the-las-vegas-raiders-win-super-bowl-2026",
+    "vol": 50242113.927574,
+    "cls": "event",
+    "status": "ok",
+    "tape_source": "subgraph",
+    "n_fills": 39557,
+    "n_directional": 13096,
+    "gini": 0.838173275225816,
+    "n_half_frac": 0.006948686621869273
+  },
+  {
+    "slug": "lighter-market-cap-fdv-1b-one-day-after-launch",
+    "vol": 55056697.127347,
+    "cls": "event",
+    "status": "ok",
+    "tape_source": "subgraph",
+    "n_fills": 37994,
+    "n_directional": 11870,
+    "gini": 0.8864044662819677,
+    "n_half_frac": 0.008845829823083403
+  },
+  {
+    "slug": "will-the-miami-dolphins-win-super-bowl-2026",
+    "vol": 64086195.940181,
+    "cls": "event",
+    "status": "ok",
+    "tape_source": "subgraph",
+    "n_fills": 40703,
+    "n_directional": 13382,
+    "gini": 0.8265323771540571,
+    "n_half_frac": 0.009116723957554924
+  },
+  {
+    "slug": "will-kabuto-1st-edition-card-hit-100-by-december-31",
+    "vol": 3161718.713963,
+    "cls": "event",
+    "status": "ok",
+    "tape_source": "subgraph",
+    "n_fills": 6235,
+    "n_directional": 1706,
+    "gini": 0.8230586275201306,
+    "n_half_frac": 0.015826494724501757
+  },
+  {
+    "slug": "china-x-taiwan-military-clash-by-december-31",
+    "vol": 1365251.234422,
+    "cls": "event",
+    "status": "ok",
+    "tape_source": "subgraph",
+    "n_fills": 5329,
+    "n_directional": 2408,
+    "gini": 0.9057215378983654,
+    "n_half_frac": 0.006229235880398671
+  },
+  {
+    "slug": "nba-mem-min-2025-12-17",
+    "vol": 3098550.601584,
+    "cls": "recurring",
+    "status": "ok",
+    "tape_source": "subgraph",
+    "n_fills": 9573,
+    "n_directional": 2318,
+    "gini": 0.8549790434944167,
+    "n_half_frac": 0.0060396893874029335
+  },
+  {
+    "slug": "lighter-market-cap-fdv-2b-one-day-after-launch-332",
+    "vol": 25086666.676263,
+    "cls": "event",
+    "status": "ok",
+    "tape_source": "subgraph",
+    "n_fills": 29379,
+    "n_directional": 9010,
+    "gini": 0.8616169836466876,
+    "n_half_frac": 0.010543840177580466
+  }
+]

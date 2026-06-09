@@ -79,7 +79,14 @@ def _subgraph_tapes(m: dict, n_trades_taker: int):
     slug = m["slug"]
     cached = ingest.load_raw(f"{slug}_subgraph.json")
     if cached is not None:
-        return cached["taker"], cached["full"], cached["meta"]
+        meta = cached["meta"]
+        # Re-evaluate the completeness gate from cached counts so a gate amendment (A6 tolerance)
+        # takes effect WITHOUT re-pulling. Giants (n_legs=0) stay excluded via is_complete; the
+        # taker-mapping anomalies (n_taker < n_trades_taker) stay excluded via the taker condition —
+        # a completeness tolerance cannot admit them. Only genuinely near-complete tapes flip.
+        meta["complete"] = subgraph.is_complete(meta["n_legs"], meta["trades_quantity"])
+        meta["recovered_ok"] = bool(meta["complete"] and meta["n_taker"] >= n_trades_taker)
+        return cached["taker"], cached["full"], meta
     tokens = [str(t) for t in m["clobTokenIds"]]
     exch = _exchange_for(m)
     vol = float(m.get("volumeNum") or 0)
@@ -107,13 +114,13 @@ def _subgraph_tapes(m: dict, n_trades_taker: int):
         raise
     taker = subgraph.market_rows(tokens, exch, taker_only=True, legs=legs)
     full = subgraph.market_rows(tokens, exch, taker_only=False, legs=legs)
-    recovered_ok = bool(len(legs) == tq and len(legs) > 0 and len(taker) >= n_trades_taker)
+    recovered_ok = bool(subgraph.is_complete(len(legs), tq) and len(taker) >= n_trades_taker)
     scv_ratio = (scv / vol) if vol else None
     # A5 secondary backstop: a near-total omission flags for getLogs spot-check (does NOT gate
     # recovered_ok — the exact ΣtradesQuantity count check already proved pagination completeness).
     gamma_flag = bool(scv_ratio is not None and scv_ratio < subgraph.GAMMA_TOL_LOW)
     meta = {"trades_quantity": tq, "scaled_collateral_volume": scv, "n_legs": len(legs),
-            "complete": len(legs) == tq, "n_taker": len(taker), "n_full": len(full),
+            "complete": subgraph.is_complete(len(legs), tq), "n_taker": len(taker), "n_full": len(full),
             "recovery_ratio": (len(taker) / n_trades_taker) if n_trades_taker else None,
             "recovered_ok": recovered_ok, "gamma_volume": vol, "scv_over_gamma": scv_ratio,
             "gamma_flag": gamma_flag, "excluded_reason": None}

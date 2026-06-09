@@ -476,3 +476,54 @@ fills do.
 **Corpus impact.** A5 changes only how truncated members' tapes are *sourced*, not corpus
 composition: the frozen primary/secondary draws are preserved; truncated members are recovered in
 place (expected: all of them).
+
+### A6 — 2026-06-09, completeness-gate relative tolerance (post-run, verified-artifact correction)
+
+**What changed.** A5's completeness gate was **exact equality** — a recovered tape passed only if
+`n_legs == Σ tradesQuantity`. A6 relaxes it to a **relative tolerance**: a non-empty tape passes if
+
+> `n_legs ≥ tradesQuantity · (1 − ε)`,  with **ε = `COMPLETENESS_EPSILON` = 0.001 (0.1%)**.
+
+Nothing else moves: the giant-exclusion gate and the `n_taker ≥ n_trades_taker` aggressor-coverage
+condition are unchanged. (`pipeline/subgraph.py: is_complete()`, wired into both
+`run_market._subgraph_tapes` paths — fresh and cache-read.)
+
+**Why — a verified indexer-counting artifact, not missing data.** The full corpus run surfaced 16
+truncated markets whose paginated `orderFilledEvents` tape fell short of the subgraph's own
+`orderbook.tradesQuantity` by a stable **2–8 legs (0.001–0.026%)**. This is **not** an incomplete
+recovery:
+- It **reproduces on the quiet (unloaded) shard** and on the **plain, un-windowed** pagination path
+  (markets below the 30k windowing threshold), so it is **not** a load timeout or a window-boundary
+  bug. `dual_token_legs == 0`, so it is not negRisk dual-token double-counting either.
+- **On-chain `getLogs` confirms it.** On the smallest, shortest-lived, *largest-artifact* anomalous
+  market (`nba-mem-min-2025-12-17`, CTF, 6.4-day span, 0.026% — the worst case), an independent
+  exchange-wide `OrderFilled` sweep (token-filtered inline, 12.2M logs scanned) returns **23,190**
+  legs — **exactly the paginated tape**, **not** the indexer's 23,196. So `orderFilledEvents` is the
+  complete tape and `tradesQuantity` is the field that over-counts. (`data/out/a6_getlogs_confirmation.json`.)
+
+The tolerance therefore absorbs **only** the verified over-count; the gate stays exact in spirit.
+
+**ε is a calibration RULE, not a tuned knob — and provably not a degree of freedom.** ε is set an
+order of magnitude above the largest observed artifact (0.026%) and ~1000× below the ~100% shortfall
+of a genuinely incomplete tape. Critically, the gaps are **bimodal** — every excluded market sits at
+either **0.001–0.026%** (near-complete, n=16) or **exactly 100%** (genuine giants, n=11), with a
+**void in between**. So the admitted set is **invariant for every ε in [0.03%, 50%]** — a >1000× range
+admits the *identical 16 markets and nothing else*. There is nothing in the void to tune into; ε is
+not an outcome lever. (Verified by sweep; the chosen 0.1% sits inside the invariant band.)
+
+**Scope and outcome-neutrality (reported with and without).** A6 admits **exactly 16 markets** —
+**2.3% of corpus volume, 0.6% of count** — each having recovered **≥ 99.97%** of its tape:
+- It does **not** admit the **11 genuine giants** (gap ~100%, the real coverage gap — unchanged).
+- It does **not** admit the **3 taker-mapping anomalies** (`will-trump-visit-china`, `megaeth-fdv-1.5b`,
+  `us-escorts-…-hormuz`): their legs are complete (gap 0) but the mapped aggressor tape has fewer
+  fills than `/trades` (`n_taker < n_trades_taker`). That is a **distinct failure mode** that a
+  completeness tolerance cannot and does not absorb; it is held out for separate adjudication.
+- **The headline is unmoved.** Corpus median Gini is **0.8555 with and without** A6 (Δ = +0.00000;
+  mean 0.8402 → 0.8403). The 16 admitted markets' Ginis span **0.820–0.963** — overlapping the corpus
+  distribution, not a high-concentration subset (the lowest sit *below* the corpus median). This is
+  the cleanest evidence the change is not outcome-motivated: a falsification-adjacent gate was relaxed
+  to absorb a verified counting artifact, and it changes no result.
+
+**Corpus impact.** A6 reclassifies 16 markets from `excluded` → `ok`; the documented coverage gap
+narrows to the **11 genuine giants** only. Evidence: `data/out/a6_getlogs_confirmation.json`,
+`data/out/a6_admitted_results.json`.

@@ -48,6 +48,24 @@ GAMMA_TOL_LOW = 0.0069
 GIANT_LEGS = 400_000
 MONSTER_LEGS = 1_000_000
 
+# A6 (amendment, 2026-06-09) — RELATIVE completeness tolerance. The subgraph's own
+# `orderbook.tradesQuantity` counter over-counts the paginated `orderFilledEvents` tape by a stable
+# 0.01–0.03% on some markets. Verified an indexer-counting artifact, NOT missing data: it reproduces
+# on the quiet shard AND the plain (un-windowed) path, and getLogs on the smallest short-lived
+# anomalous market (nba-mem-min, CTF) matches the PAGINATED legs, not tradesQuantity — so
+# orderFilledEvents is the complete tape and tradesQuantity is the field that over-counts. A recovered
+# tape is complete if it recovers ≥ (1−eps) of tradesQuantity. eps is set an order of magnitude above
+# the largest observed artifact (0.03%) and ~1000× below the ~100% shortfall of a genuinely incomplete
+# tape. The admitted set is INVARIANT for any eps in [0.03%, 50%] — gaps are bimodal (0, or 0.01–0.03%,
+# or ~100%), so there is nothing in between to tune into. Frozen as a calibration RULE, never to outcomes.
+COMPLETENESS_EPSILON = 0.001
+
+
+def is_complete(n_legs: int, trades_quantity: int) -> bool:
+    """A6 completeness: a non-empty tape recovering ≥ (1−COMPLETENESS_EPSILON) of tradesQuantity.
+    Replaces the original exact-equality gate; tolerates ONLY the verified indexer-counting artifact."""
+    return n_legs > 0 and n_legs >= trades_quantity * (1 - COMPLETENESS_EPSILON)
+
 _session = requests.Session()
 _session.headers.update({"User-Agent": "tail-research/0.1 (prediction-market study)",
                          "Content-Type": "application/json"})

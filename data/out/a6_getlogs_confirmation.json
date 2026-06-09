@@ -1,0 +1,11 @@
+{
+  "slug": "nba-mem-min-2025-12-17",
+  "exchange": "0x4bfb41d5b3570defd03c39a9a4d8de6bd8b8982e",
+  "from_block": 80185531,
+  "to_block": 80461057,
+  "getlogs_legs": 23190,
+  "subgraph_n_legs": 23190,
+  "tradesQuantity": 23196,
+  "confirms_recovered": true,
+  "matches_tradesquantity": false
+}
