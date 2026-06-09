@@ -64,23 +64,28 @@ def is_timeout(msg: str) -> bool:
 
 def _gq(query: str, variables: dict, max_retries: int = 8) -> dict:
     backoff = 1.0
+    last = "unknown"          # remember WHY we kept retrying, so the final raise reflects the cause
     for _ in range(max_retries):
         try:
             r = _session.post(SUBGRAPH_EP, json={"query": query, "variables": variables},
                               timeout=60)
-        except requests.RequestException:
+        except requests.RequestException as e:
+            last = f"network error: {e}"
             time.sleep(backoff); backoff = min(backoff * 2, 30); continue
         if r.status_code in (429, 502, 503, 504):
+            last = f"HTTP {r.status_code}"
             time.sleep(backoff); backoff = min(backoff * 2, 30); continue
         j = r.json()
         if "errors" in j and not j.get("data"):
             msg = str(j["errors"])
             if is_timeout(msg):
                 # load-induced: back off HARDER (don't hammer a loaded shard), ≥3s, grow to 45s
+                last = msg[:90]
                 time.sleep(max(backoff, 3.0)); backoff = min(backoff * 2, 45); continue
             raise RuntimeError(f"subgraph error: {j['errors'][:1]}")
         return j["data"]
-    raise RuntimeError("subgraph GET failed after retries")
+    # surface the cause so is_timeout() (giant gate + run_corpus categorization) sees it
+    raise RuntimeError(f"subgraph GET failed after retries: {last}")
 
 
 _LEG_FIELDS = ("id transactionHash timestamp maker taker "

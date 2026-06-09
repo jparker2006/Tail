@@ -99,8 +99,10 @@ def _subgraph_tapes(m: dict, n_trades_taker: int):
         return _excluded("giant_skip")
     try:
         legs = subgraph.fetch_market_legs(tokens, total_legs=tq)
-    except RuntimeError as e:                     # only a GENUINE giant's timeout becomes an exclusion;
-        if subgraph.is_timeout(str(e)) and tq > subgraph.GIANT_LEGS:   # a mid-size blip re-raises (retry)
+    except RuntimeError:
+        # a GENUINE giant we couldn't recover (timeout / retry-exhaustion) -> documented gap;
+        # a mid-size failure re-raises so run_corpus RETRIES it (transient blip, NOT a gap).
+        if tq > subgraph.GIANT_LEGS:
             return _excluded("giant_timeout")
         raise
     taker = subgraph.market_rows(tokens, exch, taker_only=True, legs=legs)
