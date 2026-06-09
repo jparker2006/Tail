@@ -38,6 +38,16 @@ EXCHANGES = {CTF_EXCHANGE_V1, NEGRISK_EXCHANGE_V1}
 # falls below this — a possible gross subgraph omission for a getLogs spot-check.
 GAMMA_TOL_LOW = 0.0069
 
+# Free-tier recovery ceiling (A5 documented-exclusion of the extreme tail). The Goldsky free shard
+# goes unresponsive under sustained recovery of the very biggest markets (verified: ~80k legs
+# recovers reliably; ~430k+ persistently times out mid-recovery). To exclude ONLY genuine giants
+# (never a recoverable mid-size market on a transient blip), exclusion is gated by LEG COUNT:
+#   > MONSTER_LEGS : skip recovery outright (the 3 election monsters, 2.5-5M legs).
+#   > GIANT_LEGS   : attempt, but a persistent timeout -> A5 documented coverage gap.
+#   <= GIANT_LEGS  : full retry effort; a timeout is a transient blip to retry, NOT an exclusion.
+GIANT_LEGS = 400_000
+MONSTER_LEGS = 1_000_000
+
 _session = requests.Session()
 _session.headers.update({"User-Agent": "tail-research/0.1 (prediction-market study)",
                          "Content-Type": "application/json"})

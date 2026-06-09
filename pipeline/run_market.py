@@ -82,20 +82,39 @@ def _subgraph_tapes(m: dict, n_trades_taker: int):
         return cached["taker"], cached["full"], cached["meta"]
     tokens = [str(t) for t in m["clobTokenIds"]]
     exch = _exchange_for(m)
-    legs, comp = subgraph.fetch_market_legs_checked(tokens)
+    vol = float(m.get("volumeNum") or 0)
+    agg = subgraph.orderbook_aggregate(tokens)
+    tq, scv = agg["trades_quantity"], agg["scaled_collateral_volume"]
+
+    def _excluded(reason):
+        """A5 documented coverage gap — record exactly what we couldn't paginate (tq, volume)."""
+        meta = {"trades_quantity": tq, "scaled_collateral_volume": scv, "n_legs": 0,
+                "complete": False, "recovered_ok": False, "excluded_reason": reason,
+                "recovery_ratio": None, "n_taker": 0, "n_full": 0, "gamma_volume": vol,
+                "scv_over_gamma": (scv / vol if vol else None), "gamma_flag": None}
+        ingest.save_raw(f"{slug}_subgraph.json", {"taker": [], "full": [], "meta": meta})
+        return [], [], meta
+
+    if tq > subgraph.MONSTER_LEGS:               # the 3 election monsters — infeasible, skip outright
+        return _excluded("giant_skip")
+    try:
+        legs = subgraph.fetch_market_legs(tokens, total_legs=tq)
+    except RuntimeError as e:                     # only a GENUINE giant's timeout becomes an exclusion;
+        if subgraph.is_timeout(str(e)) and tq > subgraph.GIANT_LEGS:   # a mid-size blip re-raises (retry)
+            return _excluded("giant_timeout")
+        raise
     taker = subgraph.market_rows(tokens, exch, taker_only=True, legs=legs)
     full = subgraph.market_rows(tokens, exch, taker_only=False, legs=legs)
-    recovered_ok = bool(comp["complete"] and comp["n_legs"] > 0
-                        and len(taker) >= n_trades_taker)
-    vol = float(m.get("volumeNum") or 0)
-    scv_ratio = (comp.get("scaled_collateral_volume", 0) / vol) if vol else None
+    recovered_ok = bool(len(legs) == tq and len(legs) > 0 and len(taker) >= n_trades_taker)
+    scv_ratio = (scv / vol) if vol else None
     # A5 secondary backstop: a near-total omission flags for getLogs spot-check (does NOT gate
     # recovered_ok — the exact ΣtradesQuantity count check already proved pagination completeness).
     gamma_flag = bool(scv_ratio is not None and scv_ratio < subgraph.GAMMA_TOL_LOW)
-    meta = {**comp, "n_taker": len(taker), "n_full": len(full),
+    meta = {"trades_quantity": tq, "scaled_collateral_volume": scv, "n_legs": len(legs),
+            "complete": len(legs) == tq, "n_taker": len(taker), "n_full": len(full),
             "recovery_ratio": (len(taker) / n_trades_taker) if n_trades_taker else None,
-            "recovered_ok": recovered_ok, "gamma_volume": vol,
-            "scv_over_gamma": scv_ratio, "gamma_flag": gamma_flag}
+            "recovered_ok": recovered_ok, "gamma_volume": vol, "scv_over_gamma": scv_ratio,
+            "gamma_flag": gamma_flag, "excluded_reason": None}
     ingest.save_raw(f"{slug}_subgraph.json", {"taker": taker, "full": full, "meta": meta})
     return taker, full, meta
 
@@ -118,7 +137,8 @@ def _market_tapes(m: dict):
                  "subgraph_complete": comp["complete"], "n_legs": comp["n_legs"],
                  "trades_quantity": comp["trades_quantity"],
                  "scaled_collateral_volume": comp["scaled_collateral_volume"],
-                 "scv_over_gamma": comp.get("scv_over_gamma"), "gamma_flag": comp.get("gamma_flag")})
+                 "scv_over_gamma": comp.get("scv_over_gamma"), "gamma_flag": comp.get("gamma_flag"),
+                 "excluded_reason": comp.get("excluded_reason")})
     return sg_taker, sg_full, meta
 
 
@@ -146,7 +166,7 @@ def run_market(m: dict, use_cache: bool = True) -> dict:
         result["detruncation"] = {k: tape_meta.get(k) for k in
                                   ("recovery_ratio", "subgraph_complete", "n_legs",
                                    "trades_quantity", "scaled_collateral_volume",
-                                   "scv_over_gamma", "gamma_flag")}
+                                   "scv_over_gamma", "gamma_flag", "excluded_reason")}
     if tape_meta["source"] == "excluded":                  # A5 coverage gap (reported with/without)
         result["status"] = "excluded"
         with open(rpath, "w") as f:
