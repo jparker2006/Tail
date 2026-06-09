@@ -77,32 +77,92 @@ _LEG_FIELDS = ("id transactionHash timestamp maker taker "
                "makerAssetId takerAssetId makerAmountFilled takerAmountFilled")
 
 
-def fetch_market_legs(token_ids) -> list[dict]:
+# Plain id_gt pagination DEGRADES on huge markets: the makerAssetId filter + id_gt scan grows as
+# the cursor skips across sparse history (Trump-2024 = 5.1M legs, 0.4s→6s/page → timeout). Bounding
+# each query to a timestamp WINDOW keeps the scan flat (~0.3s/page even deep into a dense window).
+# But fill density is wildly non-uniform (months sparse, then millions in a day), so FIXED windows
+# either over-window the sparse stretch or let a dense one go deep. So we ADAPTIVELY BISECT: a
+# window is paginated up to MAX_PAGES_PER_WINDOW; if it hits the cap it's too dense and is split in
+# time and re-processed, until every leaf window finishes shallow. Small markets skip all of this.
+WINDOW_THRESHOLD = 30_000     # below this, plain (unwindowed) pagination is fine
+MAX_PAGES_PER_WINDOW = 60     # a window needing more pages is too dense -> bisect by time
+
+
+def _field_time_range(field: str, tokens: list[str]):
+    # orderBy:timestamp + _in is too heavy (times out); single-token equality is index-friendly.
+    # (Leg id is txhash-based, NOT time-ordered, so the range MUST come from orderBy:timestamp.)
+    q = ("query($a:String!){ orderFilledEvents(first:1, orderBy:timestamp, orderDirection:%s, "
+         "where:{" + field + ":$a}){ timestamp } }")
+    tmins, tmaxs = [], []
+    for tok in tokens:
+        lo = _gq(q % "asc", {"a": tok})["orderFilledEvents"]
+        hi = _gq(q % "desc", {"a": tok})["orderFilledEvents"]
+        if lo:
+            tmins.append(int(lo[0]["timestamp"]))
+        if hi:
+            tmaxs.append(int(hi[0]["timestamp"]))
+    if not tmins:
+        return None, None
+    return min(tmins), max(tmaxs)
+
+
+def _fetch_window(field: str, tokens: list[str], legs: dict, t0, t1, pages: list,
+                  maxpages: int | None) -> bool:
+    """Paginate [t0,t1) by id_gt (or the whole field if t0 is None). Returns True if the window was
+    exhausted, False if it hit `maxpages` (too dense — caller bisects). Legs already added stay
+    (dedup by id), so re-processing sub-windows only adds redundant fetches, never drops a leg."""
+    win = "" if t0 is None else ", timestamp_gte:$t0, timestamp_lt:$t1"
+    decl = "" if t0 is None else ", $t0:BigInt!, $t1:BigInt!"
+    q = ("query($t:[String!], $l:ID!" + decl + "){ orderFilledEvents(first:1000, orderBy:id, "
+         "where:{" + field + "_in:$t" + win + ", id_gt:$l}){ " + _LEG_FIELDS + " } }")
+    last, local = "", 0
+    while True:
+        v = {"t": tokens, "l": last}
+        if t0 is not None:
+            v["t0"], v["t1"] = t0, t1
+        rows = _gq(q, v)["orderFilledEvents"]
+        if not rows:
+            return True
+        for r in rows:
+            legs[r["id"]] = r
+        last = rows[-1]["id"]
+        pages[0] += 1
+        local += 1
+        if pages[0] % 50 == 0:        # heartbeat for big recoveries (mega-market visibility)
+            print(f"    [subgraph] {len(legs):,} legs ({pages[0]} pages)", flush=True)
+        if len(rows) < 1000:
+            return True
+        if maxpages is not None and local >= maxpages:
+            return False              # too dense — caller splits this window by time
+
+
+def fetch_market_legs(token_ids, total_legs: int | None = None) -> list[dict]:
     """Every OrderFilled leg touching this market's tokens, complete (cursor-paged, no cap).
 
-    A market token can sit on either side of a fill, so we union makerAssetId_in and
-    takerAssetId_in and dedup by leg id.
+    Unions makerAssetId_in / takerAssetId_in (a token can sit on either side) and dedups by leg id.
+    Large markets recover via ADAPTIVE timestamp-window bisection so every query stays shallow
+    regardless of density.
     """
     tokens = [str(t) for t in token_ids]
+    if total_legs is None:
+        total_legs = orderbook_aggregate(token_ids)["trades_quantity"]
     legs: dict[str, dict] = {}
-    pages = 0
+    pages = [0]
     for field in ("makerAssetId", "takerAssetId"):
-        q = ("query($t:[String!],$last:ID!){ orderFilledEvents(first:1000, orderBy:id, "
-             "where:{" + field + "_in:$t, id_gt:$last}){ " + _LEG_FIELDS + " } }")
-        last = ""
-        while True:
-            rows = _gq(q, {"t": tokens, "last": last})["orderFilledEvents"]
-            if not rows:
-                break
-            for r in rows:
-                legs[r["id"]] = r
-            last = rows[-1]["id"]
-            pages += 1
-            if pages % 50 == 0:        # heartbeat for big recoveries (mega-market visibility)
-                print(f"    [subgraph] {len(legs):,} legs ({pages} pages, {tokens[0][:10]}…)",
-                      flush=True)
-            if len(rows) < 1000:
-                break
+        if total_legs < WINDOW_THRESHOLD:               # small market: plain, uncapped pagination
+            _fetch_window(field, tokens, legs, None, None, pages, None)
+            continue
+        tmin, tmax = _field_time_range(field, tokens)
+        if tmin is None:
+            continue
+        stack = [(tmin, tmax + 1)]                       # adaptive: bisect any window that caps out
+        while stack:
+            a, b = stack.pop()
+            if _fetch_window(field, tokens, legs, a, b, pages, MAX_PAGES_PER_WINDOW) or b - a <= 1:
+                continue
+            mid = (a + b) // 2
+            stack.append((mid, b))
+            stack.append((a, mid))                       # process earlier half first (LIFO)
     return list(legs.values())
 
 
@@ -165,8 +225,8 @@ def fetch_market_legs_checked(token_ids) -> tuple[list[dict], dict]:
     `complete` False => our pagination under-read the subgraph (NOT the subgraph missing data);
     such a market is flagged for re-pull / getLogs spot-check / the A5 exclude branch.
     """
-    legs = fetch_market_legs(token_ids)
     agg = orderbook_aggregate(token_ids)
+    legs = fetch_market_legs(token_ids, total_legs=agg["trades_quantity"])  # reuse count for windowing
     meta = {"n_legs": len(legs), "trades_quantity": agg["trades_quantity"],
             "scaled_collateral_volume": agg["scaled_collateral_volume"],
             "complete": bool(len(legs) == agg["trades_quantity"])}
