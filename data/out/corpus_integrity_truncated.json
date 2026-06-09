@@ -1,0 +1,119 @@
+{
+  "checked": 1283,
+  "containment_failures": [
+    {
+      "slug": "megaeth-market-cap-fdv-1pt5b-one-day-after-launch-371-844-879-681",
+      "trades_keys": 5725,
+      "sg_keys": 3007,
+      "missing": 2718,
+      "missing_frac": 0.4748,
+      "scv_over_gamma": 0.43327404590926044
+    },
+    {
+      "slug": "us-escorts-commercial-ship-through-hormuz-by-april-30-894",
+      "trades_keys": 4452,
+      "sg_keys": 4389,
+      "missing": 63,
+      "missing_frac": 0.0142,
+      "scv_over_gamma": 1.021071387121823
+    },
+    {
+      "slug": "us-x-iran-ceasefire-extended-by-april-22-2026",
+      "trades_keys": 8000,
+      "sg_keys": 24966,
+      "missing": 5110,
+      "missing_frac": 0.6388,
+      "scv_over_gamma": 0.310764000067036
+    },
+    {
+      "slug": "will-jake-paul-win-his-boxing-match-against-anthony-joshua",
+      "trades_keys": 7149,
+      "sg_keys": 19338,
+      "missing": 1,
+      "missing_frac": 0.0001,
+      "scv_over_gamma": 0.8469451637150367
+    },
+    {
+      "slug": "will-rafael-lpez-aliaga-finish-in-second-place-in-the-first-round-of-the-2026-peruvian-presidential-election",
+      "trades_keys": 8000,
+      "sg_keys": 11217,
+      "missing": 324,
+      "missing_frac": 0.0405,
+      "scv_over_gamma": 0.7664693214220085
+    },
+    {
+      "slug": "will-roberto-snchez-palomino-finish-in-second-place-in-the-first-round-of-the-2026-peruvian-presidential-election",
+      "trades_keys": 8000,
+      "sg_keys": 16472,
+      "missing": 495,
+      "missing_frac": 0.0619,
+      "scv_over_gamma": 0.9702321350135834
+    },
+    {
+      "slug": "will-the-next-prime-minister-of-hungary-be-istvn-kapitny",
+      "trades_keys": 8000,
+      "sg_keys": 26854,
+      "missing": 761,
+      "missing_frac": 0.0951,
+      "scv_over_gamma": 0.47880074510256704
+    },
+    {
+      "slug": "will-the-next-prime-minister-of-hungary-be-lszl-toroczkai",
+      "trades_keys": 8000,
+      "sg_keys": 22060,
+      "missing": 21,
+      "missing_frac": 0.0026,
+      "scv_over_gamma": 0.7770995080784696
+    },
+    {
+      "slug": "will-the-next-prime-minister-of-hungary-be-pter-magyar",
+      "trades_keys": 8000,
+      "sg_keys": 59202,
+      "missing": 2119,
+      "missing_frac": 0.2649,
+      "scv_over_gamma": 1.1611460762596895
+    },
+    {
+      "slug": "will-the-next-prime-minister-of-hungary-be-viktor-orbn",
+      "trades_keys": 8000,
+      "sg_keys": 52582,
+      "missing": 454,
+      "missing_frac": 0.0568,
+      "scv_over_gamma": 0.9526082043268636
+    },
+    {
+      "slug": "will-trump-visit-china-by-may-15-835-774-595",
+      "trades_keys": 8000,
+      "sg_keys": 3395,
+      "missing": 7615,
+      "missing_frac": 0.9519,
+      "scv_over_gamma": 0.03163812279777584
+    }
+  ],
+  "gamma_failures": [
+    {
+      "slug": "romania-presidential-election-winner-will-hunor-kelemen-win-the-romanian-presidential-election",
+      "scv_over_gamma": 0.004882562971162894
+    },
+    {
+      "slug": "will-frances-fitzgerald-win-the-irish-presidential-election",
+      "scv_over_gamma": 0.004038760511933389
+    },
+    {
+      "slug": "will-new-hampshire-be-the-closest-state",
+      "scv_over_gamma": 0.005213458284952595
+    },
+    {
+      "slug": "will-the-democratic-candidate-win-nevada-by-3pt0-4pt0",
+      "scv_over_gamma": 0.0030486922564317417
+    },
+    {
+      "slug": "will-the-democratic-candidate-win-pennsylvania-by-1pt5-2pt0",
+      "scv_over_gamma": 0.0027412999732523238
+    },
+    {
+      "slug": "will-the-republican-candidate-win-iowa-by-9pt0-10pt0",
+      "scv_over_gamma": 0.005096385743609524
+    }
+  ]
+}

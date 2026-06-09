@@ -1,0 +1,47 @@
+[
+  {
+    "slug": "trump-declassifies-new-ufo-files-by-april-30",
+    "missing": 194,
+    "breakdown": {
+      "tx_absent (source undercount)": 194
+    },
+    "dominant": "tx_absent (source undercount)",
+    "nonexch_takers": {}
+  },
+  {
+    "slug": "will-the-indian-national-congress-inc-win-the-most-seats-in-the-2026-tamil-nadu-legislative-assembly-election",
+    "missing": 165,
+    "breakdown": {
+      "tx_absent (source undercount)": 165
+    },
+    "dominant": "tx_absent (source undercount)",
+    "nonexch_takers": {}
+  },
+  {
+    "slug": "will-the-freedom-movement-gs-be-part-of-the-next-government-of-slovenia-786",
+    "missing": 28,
+    "breakdown": {
+      "tx_absent (source undercount)": 28
+    },
+    "dominant": "tx_absent (source undercount)",
+    "nonexch_takers": {}
+  },
+  {
+    "slug": "will-alfonso-lpez-chau-finish-in-second-place-in-the-first-round-of-the-2026-peruvian-presidential-election",
+    "missing": 4,
+    "breakdown": {
+      "tx_absent (source undercount)": 4
+    },
+    "dominant": "tx_absent (source undercount)",
+    "nonexch_takers": {}
+  },
+  {
+    "slug": "will-carlos-lvarez-finish-in-second-place-in-the-first-round-of-the-2026-peruvian-presidential-election",
+    "missing": 1,
+    "breakdown": {
+      "tx_absent (source undercount)": 1
+    },
+    "dominant": "tx_absent (source undercount)",
+    "nonexch_takers": {}
+  }
+]

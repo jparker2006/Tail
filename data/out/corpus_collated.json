@@ -1,0 +1,181 @@
+{
+  "inventory": {
+    "n_total": 2755,
+    "by_status": {
+      "excluded": 11,
+      "ok": 2660,
+      "timeout": 35,
+      "thin": 49
+    },
+    "by_class_ok": {
+      "event": 1877,
+      "recurring": 783
+    },
+    "by_tier_ok": {
+      "T4": 459,
+      "T3": 750,
+      "T2": 743,
+      "T1": 708
+    },
+    "n_detruncated_ok": 1290
+  },
+  "coverage": {
+    "giants_legit_gap": {
+      "n": 11,
+      "vol_share": 0.1508,
+      "markets": [
+        "bournemouth-wins-the-premier-league",
+        "liverpool-wins-the-premier-league",
+        "nottingham-forest-wins-the-premier-league",
+        "will-aston-villa-win-the-uefa-champions-league",
+        "will-celtic-win-the-uefa-champions-league",
+        "will-donald-trump-be-inaugurated",
+        "will-donald-trump-win-the-2024-us-presidential-election",
+        "will-kamala-harris-win-the-2024-us-presidential-election",
+        "will-kamala-harris-win-the-popular-vote-in-the-2024-presidential-election",
+        "will-lille-win-the-uefa-champions-league",
+        "will-zohran-mamdani-win-the-2025-nyc-mayoral-election"
+      ]
+    },
+    "pending_a6_review": {
+      "n": 0,
+      "vol_share": 0.0,
+      "note": "tapes complete (tradesQuantity gap 2-8) or taker-count anomaly; excluded ONLY by the exact-equality gate. Awaiting the A6 tolerance-amendment decision. NOT a true coverage gap.",
+      "markets": []
+    }
+  },
+  "concentration_claim1": {
+    "_descriptive_only": "raw distributions; F1' threshold test deferred to 2.7",
+    "all_ok": {
+      "gini": {
+        "n": 2659,
+        "mean": 0.8404,
+        "min": 0.0,
+        "p10": 0.7425,
+        "p25": 0.7972,
+        "median": 0.8555,
+        "p75": 0.8978,
+        "p90": 0.9268,
+        "max": 0.9853
+      },
+      "gini_hist": {
+        "[0.00,0.50)": 7,
+        "[0.50,0.60)": 34,
+        "[0.60,0.70)": 102,
+        "[0.70,0.80)": 542,
+        "[0.80,0.90)": 1346,
+        ">=0.90": 628
+      },
+      "n_half_frac": {
+        "n": 2659,
+        "mean": 0.015,
+        "min": 0.0001,
+        "p10": 0.0025,
+        "p25": 0.0055,
+        "median": 0.0106,
+        "p75": 0.02,
+        "p90": 0.031,
+        "max": 0.2927
+      },
+      "n_directional": {
+        "n": 2660,
+        "mean": 2481.2602,
+        "min": 30,
+        "p10": 86.0,
+        "p25": 190.75,
+        "median": 643.0,
+        "p75": 1966.5,
+        "p90": 6911.8,
+        "max": 44829
+      }
+    },
+    "by_class": {
+      "event": {
+        "gini": {
+          "n": 1876,
+          "mean": 0.8462,
+          "min": 0.0,
+          "p10": 0.7382,
+          "p25": 0.8108,
+          "median": 0.8652,
+          "p75": 0.9041,
+          "p90": 0.932,
+          "max": 0.9853
+        },
+        "gini_hist": {
+          "[0.00,0.50)": 6,
+          "[0.50,0.60)": 29,
+          "[0.60,0.70)": 76,
+          "[0.70,0.80)": 286,
+          "[0.80,0.90)": 963,
+          ">=0.90": 516
+        },
+        "n_half_frac": {
+          "n": 1876,
+          "mean": 0.0141,
+          "min": 0.0001,
+          "p10": 0.0021,
+          "p25": 0.0045,
+          "median": 0.0093,
+          "p75": 0.0182,
+          "p90": 0.0303,
+          "max": 0.2927
+        },
+        "n_directional": {
+          "n": 1877,
+          "mean": 2946.2158,
+          "min": 30,
+          "p10": 84.0,
+          "p25": 181.0,
+          "median": 640.0,
+          "p75": 2786.0,
+          "p90": 8993.8,
+          "max": 44829
+        }
+      },
+      "recurring": {
+        "gini": {
+          "n": 783,
+          "mean": 0.8264,
+          "min": 0.1392,
+          "p10": 0.7471,
+          "p25": 0.7809,
+          "median": 0.8312,
+          "p75": 0.8803,
+          "p90": 0.9095,
+          "max": 0.9823
+        },
+        "gini_hist": {
+          "[0.00,0.50)": 1,
+          "[0.50,0.60)": 5,
+          "[0.60,0.70)": 26,
+          "[0.70,0.80)": 256,
+          "[0.80,0.90)": 383,
+          ">=0.90": 112
+        },
+        "n_half_frac": {
+          "n": 783,
+          "mean": 0.0172,
+          "min": 0.0001,
+          "p10": 0.0051,
+          "p25": 0.0085,
+          "median": 0.0146,
+          "p75": 0.0229,
+          "p90": 0.0325,
+          "max": 0.1351
+        },
+        "n_directional": {
+          "n": 783,
+          "mean": 1366.6731,
+          "min": 31,
+          "p10": 96.2,
+          "p25": 228.5,
+          "median": 652.0,
+          "p75": 1359.0,
+          "p90": 2406.8,
+          "max": 26525
+        }
+      }
+    }
+  }
+}

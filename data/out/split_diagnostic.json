@@ -1,0 +1,90 @@
+[
+  {
+    "slug": "will-trump-visit-china-by-may-15-835-774-595",
+    "missing": 7615,
+    "tx_present": 0,
+    "key_in_full": 0,
+    "tx_absent": 7615,
+    "verdict": "SOURCE UNDERCOUNT (legs absent)"
+  },
+  {
+    "slug": "us-x-iran-ceasefire-extended-by-april-22-2026",
+    "missing": 5110,
+    "tx_present": 0,
+    "key_in_full": 0,
+    "tx_absent": 5110,
+    "verdict": "SOURCE UNDERCOUNT (legs absent)"
+  },
+  {
+    "slug": "megaeth-market-cap-fdv-1pt5b-one-day-after-launch-371-844-879-681",
+    "missing": 2718,
+    "tx_present": 0,
+    "key_in_full": 0,
+    "tx_absent": 2718,
+    "verdict": "SOURCE UNDERCOUNT (legs absent)"
+  },
+  {
+    "slug": "will-the-next-prime-minister-of-hungary-be-lszl-toroczkai",
+    "missing": 21,
+    "tx_present": 0,
+    "key_in_full": 0,
+    "tx_absent": 21,
+    "verdict": "SOURCE UNDERCOUNT (legs absent)"
+  },
+  {
+    "slug": "will-the-next-prime-minister-of-hungary-be-lszl-toroczkai",
+    "missing": 21,
+    "tx_present": 0,
+    "key_in_full": 0,
+    "tx_absent": 21,
+    "verdict": "SOURCE UNDERCOUNT (legs absent)"
+  },
+  {
+    "slug": "will-roberto-snchez-palomino-finish-in-second-place-in-the-first-round-of-the-2026-peruvian-presidential-election",
+    "missing": 495,
+    "tx_present": 0,
+    "key_in_full": 0,
+    "tx_absent": 495,
+    "verdict": "SOURCE UNDERCOUNT (legs absent)"
+  },
+  {
+    "slug": "will-the-next-prime-minister-of-hungary-be-viktor-orbn",
+    "missing": 454,
+    "tx_present": 0,
+    "key_in_full": 0,
+    "tx_absent": 454,
+    "verdict": "SOURCE UNDERCOUNT (legs absent)"
+  },
+  {
+    "slug": "will-rafael-lpez-aliaga-finish-in-second-place-in-the-first-round-of-the-2026-peruvian-presidential-election",
+    "missing": 324,
+    "tx_present": 0,
+    "key_in_full": 0,
+    "tx_absent": 324,
+    "verdict": "SOURCE UNDERCOUNT (legs absent)"
+  },
+  {
+    "slug": "us-escorts-commercial-ship-through-hormuz-by-april-30-894",
+    "missing": 63,
+    "tx_present": 0,
+    "key_in_full": 0,
+    "tx_absent": 63,
+    "verdict": "SOURCE UNDERCOUNT (legs absent)"
+  },
+  {
+    "slug": "will-the-next-prime-minister-of-hungary-be-lszl-toroczkai",
+    "missing": 21,
+    "tx_present": 0,
+    "key_in_full": 0,
+    "tx_absent": 21,
+    "verdict": "SOURCE UNDERCOUNT (legs absent)"
+  },
+  {
+    "slug": "will-jake-paul-win-his-boxing-match-against-anthony-joshua",
+    "missing": 1,
+    "tx_present": 0,
+    "key_in_full": 0,
+    "tx_absent": 1,
+    "verdict": "SOURCE UNDERCOUNT (legs absent)"
+  }
+]

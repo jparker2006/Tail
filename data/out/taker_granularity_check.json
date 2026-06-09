@@ -1,0 +1,38 @@
+{
+  "all_pass": false,
+  "markets": [
+    {
+      "slug": "will-trump-visit-china-by-may-15-835-774-595",
+      "trades_truncated": true,
+      "relation": "CONTAINMENT (/trades \u2286 subgraph)",
+      "raw_trades_rows": 8000,
+      "trades_unique_keys": 8000,
+      "subgraph_aggressor_keys": 3395,
+      "trades_keys_missing_from_subgraph": 7615,
+      "subgraph_extra_keys": 3010,
+      "pass": false
+    },
+    {
+      "slug": "megaeth-market-cap-fdv-1pt5b-one-day-after-launch-371-844-879-681",
+      "trades_truncated": true,
+      "relation": "CONTAINMENT (/trades \u2286 subgraph)",
+      "raw_trades_rows": 5725,
+      "trades_unique_keys": 5725,
+      "subgraph_aggressor_keys": 3007,
+      "trades_keys_missing_from_subgraph": 2718,
+      "subgraph_extra_keys": 0,
+      "pass": false
+    },
+    {
+      "slug": "us-escorts-commercial-ship-through-hormuz-by-april-30-894",
+      "trades_truncated": true,
+      "relation": "CONTAINMENT (/trades \u2286 subgraph)",
+      "raw_trades_rows": 4452,
+      "trades_unique_keys": 4452,
+      "subgraph_aggressor_keys": 4389,
+      "trades_keys_missing_from_subgraph": 63,
+      "subgraph_extra_keys": 0,
+      "pass": false
+    }
+  ]
+}

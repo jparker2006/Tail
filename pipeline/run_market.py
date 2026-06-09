@@ -85,7 +85,7 @@ def _subgraph_tapes(m: dict, n_trades_taker: int):
         # taker-mapping anomalies (n_taker < n_trades_taker) stay excluded via the taker condition —
         # a completeness tolerance cannot admit them. Only genuinely near-complete tapes flip.
         meta["complete"] = subgraph.is_complete(meta["n_legs"], meta["trades_quantity"])
-        meta["recovered_ok"] = bool(meta["complete"] and meta["n_taker"] >= n_trades_taker)
+        meta["recovered_ok"] = bool(meta["complete"])      # A7: A6 leg-gate is the sole reference
         return cached["taker"], cached["full"], meta
     tokens = [str(t) for t in m["clobTokenIds"]]
     exch = _exchange_for(m)
@@ -114,7 +114,11 @@ def _subgraph_tapes(m: dict, n_trades_taker: int):
         raise
     taker = subgraph.market_rows(tokens, exch, taker_only=True, legs=legs)
     full = subgraph.market_rows(tokens, exch, taker_only=False, legs=legs)
-    recovered_ok = bool(subgraph.is_complete(len(legs), tq) and len(taker) >= n_trades_taker)
+    # A7: the A6 leg-completeness gate is the sole completeness reference. The old
+    # `len(taker) >= n_trades_taker` condition was split-confounded — `/trades` includes PositionSplit
+    # rows (no OrderFilled, price 0.001/0.999, not price discovery) that the subgraph correctly omits,
+    # so it over-excluded split-heavy markets. n_trades_taker is kept for the recovery_ratio diagnostic.
+    recovered_ok = subgraph.is_complete(len(legs), tq)
     scv_ratio = (scv / vol) if vol else None
     # A5 secondary backstop: a near-total omission flags for getLogs spot-check (does NOT gate
     # recovered_ok — the exact ΣtradesQuantity count check already proved pagination completeness).
@@ -128,8 +132,11 @@ def _subgraph_tapes(m: dict, n_trades_taker: int):
     return taker, full, meta
 
 
-def _market_tapes(m: dict):
+def _market_tapes(m: dict, force_subgraph: bool = False):
     """Hybrid tape acquisition (A5): /trades primary; subgraph only when /trades is truncated.
+
+    force_subgraph re-sources an UN-truncated market from the subgraph — used to split-clean the few
+    markets whose /trades tape carries PositionSplit rows (A7); the subgraph == split-filtered /trades.
 
     Returns (taker_rows, full_rows, meta). meta['source'] ∈ {'trades','subgraph','excluded'}."""
     cid, slug = m["conditionId"], m["slug"]
@@ -138,7 +145,7 @@ def _market_tapes(m: dict):
     truncated = bool(t_meta.get("truncated") or f_meta.get("truncated"))
     meta = {"source": "trades", "trades_truncated": truncated,
             "n_trades_taker": len(taker_rows)}
-    if not truncated:
+    if not truncated and not force_subgraph:
         return taker_rows, full_rows, meta
     sg_taker, sg_full, comp = _subgraph_tapes(m, len(taker_rows))
     meta.update({"source": "subgraph" if comp["recovered_ok"] else "excluded",
@@ -151,7 +158,7 @@ def _market_tapes(m: dict):
     return sg_taker, sg_full, meta
 
 
-def run_market(m: dict, use_cache: bool = True) -> dict:
+def run_market(m: dict, use_cache: bool = True, force_subgraph: bool = False) -> dict:
     slug, cid = m["slug"], m["conditionId"]
     os.makedirs(RESULTS, exist_ok=True)
     rpath = os.path.join(RESULTS, f"{slug}.json")
@@ -161,7 +168,7 @@ def run_market(m: dict, use_cache: bool = True) -> dict:
 
     market = _market_for_truth(m)
     volume = float(m.get("volumeNum") or 0)
-    taker_rows, full_rows, tape_meta = _market_tapes(m)    # hybrid: /trades, or subgraph if truncated
+    taker_rows, full_rows, tape_meta = _market_tapes(m, force_subgraph=force_subgraph)
 
     fills, R = schema.normalize_fills(taker_rows, {}, market)
     aggressors = {f["proxy_wallet"] for f in fills}

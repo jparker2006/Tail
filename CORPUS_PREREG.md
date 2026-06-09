@@ -527,3 +527,50 @@ not an outcome lever. (Verified by sweep; the chosen 0.1% sits inside the invari
 **Corpus impact.** A6 reclassifies 16 markets from `excluded` → `ok`; the documented coverage gap
 narrows to the **11 genuine giants** only. Evidence: `data/out/a6_getlogs_confirmation.json`,
 `data/out/a6_admitted_results.json`.
+
+### A7 — 2026-06-09, drop the split-confounded aggressor-count gate (`/trades` over-reports splits)
+
+**What changed.** The subgraph completeness check had a second condition beyond A6's leg count:
+`len(taker) >= n_trades_taker` (the recovered aggressor tape must hold at least as many fills as
+`/trades`). A7 **removes it**. The **A6 leg-completeness gate is now the sole completeness reference**;
+`n_trades_taker` is retained only for the `recovery_ratio` diagnostic. (`run_market._subgraph_tapes`,
+both paths.)
+
+**Why — `/trades` over-reports position SPLITS, which are not order-book trades.** A corpus integrity
+pass (containment where `/trades` is whole; Gamma where truncated) surfaced markets where the subgraph
+aggressor tape held **fewer** fills than `/trades`. On-chain receipts settle what those extra `/trades`
+rows are: they have **zero `OrderFilled` events** — they carry `PositionSplit`/Transfer logs at price
+**0.001 / 0.999** (a user minting a complete outcome set). A split is **not an order match and not
+price discovery**; the `OrderFilled`-based subgraph correctly omits it. So the old gate compared a
+*correct* tape against a *split-inflated* `/trades` count and over-excluded split-heavy markets.
+
+**Verified at corpus scale (the cross-check, against SPLIT-FILTERED `/trades`).** Raw `/trades` is the
+contaminated reference that caused the false exclusions, so the cross-check filters splits first:
+- Un-truncated arm (`/trades` whole, the strong check): **1,375 markets, `extra = subgraph − /trades`
+  = 0 everywhere** (the subgraph never invents a trade). The only `/trades`-not-in-subgraph rows were
+  **392 across 5 markets, and 392/392 (100%) are splits** (zero `OrderFilled`, full receipt audit).
+  So **split-filtered `/trades` == the subgraph aggressor tape, exactly, corpus-wide.**
+- Across the truncated failures the same held (80/81 sampled missing txs splits); the lone non-split
+  was **1 fill (jake-paul, 0.005% of its tape)** — the same indexer dust **A6 already tolerates**. So
+  the honest statement is: the discrepancy is **position splits, with a residual that is A6-tolerance
+  dust** — keeping A6 and A7 consistent.
+
+**The `/trades` comparison is a DIAGNOSTIC, never a gate.** Because `/trades` carries splits, a
+containment-vs-raw-`/trades` check is split-confounded; it is valid only *after* split-filtering. A6's
+leg-completeness gate — subgraph-internal and getLogs-verified — is the correct and sufficient
+completeness reference. (This supersedes any notion of promoting the `/trades` key-containment check
+to a standard gate.)
+
+**Scope and outcome-neutrality.** A7 (a) **admits 3 truncated markets** the old gate wrongly excluded
+— trump-visit-china, megaeth-fdv-1.5b, us-escorts-…-hormuz (A6-complete, gap 0) — and (b)
+**split-cleans 5 un-truncated markets** whose `/trades` tapes carried split rows (trump-ufo,
+indian-national-congress, freedom-movement, alfonso/carlos 2nd-place) by re-sourcing them from the
+subgraph (`force_subgraph`; == split-filtered `/trades`, exact). Their fill counts drop by exactly the
+split count (e.g. indian-congress 1,834 → 1,669). Corpus median Gini is **0.8555 → 0.8555** (mean
+0.8402 → 0.8404) — **unchanged**. The subgraph tape is thereby *more* correct than `/trades` for
+attribution: it excludes non-discovery splits by construction.
+
+**Corpus impact.** Excluded set = the **11 genuine giants only** (verified: result-cache tally
+`ok 2,660 / excluded 11 / thin 49`, + 35 unresolved timeouts pending a quiet-shard retry). Evidence:
+`data/out/corpus_integrity_{truncated,untruncated}.json`, `data/out/split_diagnostic*.json`,
+`data/out/a7_results.json`.
