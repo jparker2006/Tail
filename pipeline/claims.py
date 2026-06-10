@@ -211,6 +211,8 @@ def claim3(fills: list[dict], R: int, mm_set: set, bin_s: int = 300,
     null_peaks = np.array(null_peaks)
     p95 = float(np.percentile(null_peaks, 95))
     pval = float((null_peaks >= peak).mean())
+    fpr_gate = max(0.15, p95)
+    fpr_m = float((null_peaks >= fpr_gate).mean())
 
     # price-chasing confound: does small flow follow PRICE as much as big-wallet flow?
     conf = lagged_xcorr(dprice, sf, max_lag_bins)
@@ -221,5 +223,6 @@ def claim3(fills: list[dict], R: int, mm_set: set, bin_s: int = 300,
             "rho_curve": {str(k): v for k, v in rhos.items()},
             "peak_rho": peak, "peak_lag_bins": peak_tau, "peak_lag_min": peak_tau * bin_s / 60,
             "nonpos_best_rho": nonpos_best, "null_p95": p95, "pval": pval,
+            "fpr_m": fpr_m, "fpr_gate": fpr_gate,
             "confound_price_peak_rho": conf_peak, "rho0": rhos[0],
             "f3_pass": bool(f3)}

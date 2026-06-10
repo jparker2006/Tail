@@ -14,10 +14,10 @@ F2': fraction of markets whose top-K (K=10) movers beat Null B at the 95th pct, 
   baseline (one-sided binomial). Smart iff sig>5% under Null B; rich-not-smart iff sig>Null A but not
   B; else no edge.
 F3': among in-scope Claim-3 markets (status ok AND n_bins_active >= M=48), fraction with f3_pass
-  (peak rho>=0.15 AND >own null p95 AND positive-lag-beats-nonpositive). Benchmarked vs the calibrated
-  per-market FPR (mean of FPR_m = P_null(peak >= max(0.15, null_p95))); the null_peaks array is not
-  cached, so the exact FPR is a flagged recompute — here we bound it (FPR_m = 0.05 where null_p95>=0.15,
-  else <=0.05) so the flat-5% binomial is the CONSERVATIVE benchmark. Thin markets in a separate denom.
+  (peak rho>=0.15 AND >own null p95 AND positive-lag-beats-nonpositive). Benchmarked vs the
+  calibrated per-market FPR (mean of FPR_m = P_null(peak >= max(0.15, null_p95))) when the
+  per-market claim3 cache includes fpr_m; reports both mean-FPR binomial and Poisson-binomial
+  tails. Thin markets in a separate denom.
 """
 from __future__ import annotations
 
@@ -113,6 +113,22 @@ def f2_prime(rows, label):
             "binom_p_vs_5pct_A": bt_a.pvalue, "verdict_counts": vd, "edge": edge}
 
 
+def poisson_binom_sf(probs, k):
+    """P[X >= k] for independent, non-identical Bernoulli probabilities."""
+    if k <= 0:
+        return 1.0
+    ps = np.array([p for p in probs if p is not None], float)
+    n = int(ps.size)
+    if k > n:
+        return 0.0
+    dp = np.zeros(n + 1)
+    dp[0] = 1.0
+    for i, p in enumerate(ps, start=1):
+        dp[1:i + 1] = dp[1:i + 1] * (1.0 - p) + dp[:i] * p
+        dp[0] *= 1.0 - p
+    return float(dp[k:].sum())
+
+
 def f3_prime(rows, label):
     cs = [r.get("claim3") for r in rows if r.get("claim3")]
     inscope = [c for c in cs if c.get("peak_rho") is not None and c.get("n_bins_active", 0) >= M_ECHO]
@@ -121,13 +137,27 @@ def f3_prime(rows, label):
     npass = sum(1 for c in inscope if c.get("f3_pass"))
     frac = npass / n if n else 0.0
     bt = binomtest(npass, n, 0.05, alternative="greater") if n else None
-    # calibrated FPR bound from cached null_p95 (exact needs the null_peaks array — flagged recompute)
-    fpr_known_005 = sum(1 for c in inscope if (c.get("null_p95") or 0) >= 0.15)  # FPR_m == 0.05
+    fprs = [c.get("fpr_m") for c in inscope if c.get("fpr_m") is not None]
+    if len(fprs) == n and n:
+        mean_fpr = float(np.mean(fprs))
+        expected = float(np.sum(fprs))
+        bt_cal = binomtest(npass, n, mean_fpr, alternative="greater")
+        pb_p = poisson_binom_sf(fprs, npass)
+        verdict = ("ABOVE CALIBRATED NULL" if frac > mean_fpr and pb_p < 0.05
+                   else "NOT ABOVE CALIBRATED NULL")
+        note = "calibrated FPR from each market's circular-shift null distribution"
+    else:
+        mean_fpr = expected = bt_cal = pb_p = verdict = None
+        note = f"missing fpr_m for {n - len(fprs)} in-scope markets; rerun claim3 FPR recompute"
     return {"label": label, "n_inscope": n, "n_excluded_thin": excluded,
             "n_f3_pass": npass, "frac_f3_pass": frac,
             "binom_p_vs_flat5pct": (bt.pvalue if bt else None),
-            "n_with_FPR_eq_005": fpr_known_005,
-            "note": "calibrated mean FPR <= 0.05 (flat-5% binom is conservative); exact FPR = recompute"}
+            "mean_calibrated_fpr": mean_fpr,
+            "expected_passes_calibrated": expected,
+            "binom_p_vs_calibrated_fpr": (bt_cal.pvalue if bt_cal else None),
+            "poisson_binom_p_vs_calibrated_fpr": pb_p,
+            "verdict": verdict,
+            "note": note}
 
 
 def gini_boundary_check(rows):
@@ -183,6 +213,11 @@ def main():
     print(f"  in-scope (co-active >= {M_ECHO} bins): {f3['n_inscope']}   excluded-thin: {f3['n_excluded_thin']}")
     print(f"  f3_pass: {f3['n_f3_pass']}/{f3['n_inscope']} = {f3['frac_f3_pass']*100:.1f}%   "
           f"binom p vs flat-5%: {f3['binom_p_vs_flat5pct']:.2e}")
+    if f3["mean_calibrated_fpr"] is not None:
+        print(f"  calibrated expected: {f3['expected_passes_calibrated']:.1f}/"
+              f"{f3['n_inscope']} = {f3['mean_calibrated_fpr']*100:.2f}%   "
+              f"poisson-binomial p: {f3['poisson_binom_p_vs_calibrated_fpr']:.2e}")
+        print(f"  >>> F3' {f3['verdict']}")
     print(f"  {f3['note']}")
 
     print("\n--- recurring contrast (NOT headline) ---")

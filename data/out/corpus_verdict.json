@@ -129,8 +129,12 @@
     "n_f3_pass": 58,
     "frac_f3_pass": 0.030382399161864852,
     "binom_p_vs_flat5pct": 0.9999903503631778,
-    "n_with_FPR_eq_005": 156,
-    "note": "calibrated mean FPR <= 0.05 (flat-5% binom is conservative); exact FPR = recompute"
+    "mean_calibrated_fpr": 0.0073540073336825565,
+    "expected_passes_calibrated": 14.0388,
+    "binom_p_vs_calibrated_fpr": 9.434359826120249e-19,
+    "poisson_binom_p_vs_calibrated_fpr": 8.663640341367678e-20,
+    "verdict": "ABOVE CALIBRATED NULL",
+    "note": "calibrated FPR from each market's circular-shift null distribution"
   },
   "F3prime_recurring": {
     "label": "recurring/contrast",
@@ -139,8 +143,12 @@
     "n_f3_pass": 105,
     "frac_f3_pass": 0.18716577540106952,
     "binom_p_vs_flat5pct": 2.7237010980559305e-31,
-    "n_with_FPR_eq_005": 176,
-    "note": "calibrated mean FPR <= 0.05 (flat-5% binom is conservative); exact FPR = recompute"
+    "mean_calibrated_fpr": null,
+    "expected_passes_calibrated": null,
+    "binom_p_vs_calibrated_fpr": null,
+    "poisson_binom_p_vs_calibrated_fpr": null,
+    "verdict": null,
+    "note": "missing fpr_m for 561 in-scope markets; rerun claim3 FPR recompute"
   },
   "result_check_gini_boundary": {
     "near_floor_30_50": {

@@ -1,0 +1,11 @@
+{
+  "label": "event/headline",
+  "n_event_ok": 1912,
+  "n_claim3_inscope": 1909,
+  "n_claim3_excluded": 3,
+  "n_f3_pass": 58,
+  "frac_f3_pass": 0.030382399161864852,
+  "mean_calibrated_fpr": 0.0073540073336825565,
+  "expected_passes_calibrated": 14.0388,
+  "n_result_claim3_changed": 1912
+}
