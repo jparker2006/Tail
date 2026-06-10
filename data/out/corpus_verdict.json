@@ -1,0 +1,165 @@
+{
+  "n_ok_total": 2695,
+  "n_event": 1912,
+  "n_recurring": 783,
+  "F1prime_event": {
+    "label": "event/headline",
+    "n": 1912,
+    "gini_interval": {
+      "n": 1911,
+      "median": 0.865848859049076,
+      "mean": 0.8469780088101908,
+      "p25": 0.8120557610315153,
+      "p75": 0.9040420177590606,
+      "p10": 0.7399977624931229,
+      "p90": 0.9318925267911271
+    },
+    "gini_perfill": {
+      "n": 1912,
+      "median": 0.6998095784372239,
+      "mean": 0.698665703260648,
+      "p25": 0.6297168400992206,
+      "p75": 0.7753286797971507,
+      "p10": 0.5638072886931433,
+      "p90": 0.837742625503478
+    },
+    "nhalf_frac_interval": {
+      "n": 1911,
+      "median": 0.009186351706036745,
+      "mean": 0.013984403254122259,
+      "p25": 0.004431620014736214,
+      "p75": 0.018009009009009008,
+      "p10": 0.0020597322348094747,
+      "p90": 0.030120481927710843
+    },
+    "nhalf_frac_perfill": {
+      "n": 1912,
+      "median": 0.03057199181783709,
+      "mean": 0.03303817561747425,
+      "p25": 0.012987012987012988,
+      "p75": 0.049011027981787816,
+      "p10": 0.004273504273504274,
+      "p90": 0.06480703392468098
+    },
+    "median_N_half_interval": 5.0,
+    "death_interval": false,
+    "death_perfill": false,
+    "per_market_disagree_frac": 0.2904238618524333,
+    "verdict": "SURVIVES (both methods)"
+  },
+  "F1prime_recurring": {
+    "label": "recurring/contrast",
+    "n": 783,
+    "gini_interval": {
+      "n": 783,
+      "median": 0.8311533465279779,
+      "mean": 0.8263733681387466,
+      "p25": 0.7809422881776763,
+      "p75": 0.8802650450382892,
+      "p10": 0.7471467334608907,
+      "p90": 0.9094612309205067
+    },
+    "gini_perfill": {
+      "n": 783,
+      "median": 0.6419337613484106,
+      "mean": 0.6495930145905088,
+      "p25": 0.5911899561802588,
+      "p75": 0.7050201156182633,
+      "p10": 0.5479383580220821,
+      "p90": 0.7704248201798919
+    },
+    "nhalf_frac_interval": {
+      "n": 783,
+      "median": 0.014563106796116505,
+      "mean": 0.017232511327296984,
+      "p25": 0.008456697418293642,
+      "p75": 0.02287895310796074,
+      "p10": 0.005140439681149525,
+      "p90": 0.032520325203252036
+    },
+    "nhalf_frac_perfill": {
+      "n": 783,
+      "median": 0.04501607717041801,
+      "mean": 0.04569127249054245,
+      "p25": 0.03153750518027352,
+      "p75": 0.058411195961845616,
+      "p10": 0.020989040231067655,
+      "p90": 0.07026720868374452
+    },
+    "median_N_half_interval": 8.0,
+    "death_interval": false,
+    "death_perfill": false,
+    "per_market_disagree_frac": 0.4329501915708812,
+    "verdict": "SURVIVES (both methods)"
+  },
+  "F2prime_event": {
+    "label": "event/headline",
+    "n": 1912,
+    "frac_beats_B": 0.2280334728033473,
+    "n_beats_B": 436,
+    "binom_p_vs_5pct_B": 1.2896037158344796e-156,
+    "frac_beats_A": 0.12186192468619247,
+    "binom_p_vs_5pct_A": 7.231477417635649e-35,
+    "verdict_counts": {
+      "supported": 436,
+      "rich-not-smart": 64,
+      "not-supported": 1412
+    },
+    "edge": "SMART (beats Null B above chance)"
+  },
+  "F2prime_recurring": {
+    "label": "recurring/contrast",
+    "n": 783,
+    "frac_beats_B": 0.15964240102171137,
+    "n_beats_B": 125,
+    "binom_p_vs_5pct_B": 5.6412575982863964e-30,
+    "frac_beats_A": 0.10344827586206896,
+    "binom_p_vs_5pct_A": 1.0101336600638793e-09,
+    "verdict_counts": {
+      "supported": 125,
+      "rich-not-smart": 35,
+      "not-supported": 623
+    },
+    "edge": "SMART (beats Null B above chance)"
+  },
+  "F3prime_event": {
+    "label": "event/headline",
+    "n_inscope": 1909,
+    "n_excluded_thin": 3,
+    "n_f3_pass": 58,
+    "frac_f3_pass": 0.030382399161864852,
+    "binom_p_vs_flat5pct": 0.9999903503631778,
+    "n_with_FPR_eq_005": 156,
+    "note": "calibrated mean FPR <= 0.05 (flat-5% binom is conservative); exact FPR = recompute"
+  },
+  "F3prime_recurring": {
+    "label": "recurring/contrast",
+    "n_inscope": 561,
+    "n_excluded_thin": 222,
+    "n_f3_pass": 105,
+    "frac_f3_pass": 0.18716577540106952,
+    "binom_p_vs_flat5pct": 2.7237010980559305e-31,
+    "n_with_FPR_eq_005": 176,
+    "note": "calibrated mean FPR <= 0.05 (flat-5% binom is conservative); exact FPR = recompute"
+  },
+  "result_check_gini_boundary": {
+    "near_floor_30_50": {
+      "n": 62,
+      "median": 0.7117695457404145,
+      "mean": 0.6917440648776059,
+      "p25": 0.6023859608456776,
+      "p75": 0.7865404046525133,
+      "p10": 0.5185254047924985,
+      "p90": 0.8408879983890627
+    },
+    "above_50": {
+      "n": 1849,
+      "median": 0.8690340457988286,
+      "mean": 0.8521832573357832,
+      "p25": 0.8175129342048306,
+      "p75": 0.9049621114867099,
+      "p10": 0.7550854556375586,
+      "p90": 0.932335070878664
+    }
+  }
+}
