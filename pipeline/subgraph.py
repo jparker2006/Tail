@@ -118,12 +118,24 @@ _LEG_FIELDS = ("id transactionHash timestamp maker taker "
 # window is paginated up to MAX_PAGES_PER_WINDOW; if it hits the cap it's too dense and is split in
 # time and re-processed, until every leaf window finishes shallow. Small markets skip all of this.
 WINDOW_THRESHOLD = 30_000     # below this, plain (unwindowed) pagination is fine
-MAX_PAGES_PER_WINDOW = 60     # a window needing more pages is too dense -> bisect by time
+MAX_PAGES_PER_WINDOW = 20     # a window needing more pages is too dense -> bisect by time
+# (lowered 60->20 for the ~380k-leg free-tier-ceiling markets: shallower id-cursors per window keep
+#  each page query light enough to clear the free Goldsky shard's per-query timeout. Operational
+#  pagination tactic only — changes NO result, NO completeness/claim threshold.)
+
+
+# Window-bound discovery uses orderBy:timestamp, which needs an (asset, timestamp) composite index.
+# Goldsky indexes makerAssetId but NOT takerAssetId: on ~190k-row tokens, orderBy:timestamp
+# where:{takerAssetId:$tok} times out even at first:1 on a fresh shard (verified — the SECOND wall
+# behind the ~380k-leg timeouts, after cursor depth). So bounds are ALWAYS taken from the indexed
+# field and reused for both passes — they only need to CONTAIN the legs (bisection adapts density;
+# dedup makes an over-wide window harmless), and is_complete is the real completeness gate. Padded
+# generously so a token's taker-side edge legs (a buy slightly outside the maker-side span) are kept.
+TIME_PAD = 7 * 24 * 3600       # 7 days each side
 
 
 def _field_time_range(field: str, tokens: list[str]):
-    # orderBy:timestamp + _in is too heavy (times out); single-token equality is index-friendly.
-    # (Leg id is txhash-based, NOT time-ordered, so the range MUST come from orderBy:timestamp.)
+    # single-token equality + orderBy:timestamp; raises (via _gq) if `field` lacks the composite index.
     q = ("query($a:String!){ orderFilledEvents(first:1, orderBy:timestamp, orderDirection:%s, "
          "where:{" + field + ":$a}){ timestamp } }")
     tmins, tmaxs = [], []
@@ -137,6 +149,20 @@ def _field_time_range(field: str, tokens: list[str]):
     if not tmins:
         return None, None
     return min(tmins), max(tmaxs)
+
+
+def _indexed_time_range(tokens: list[str]):
+    """[tmin, tmax] (padded) containing every leg, via whichever asset field carries the
+    (asset, timestamp) index. makerAssetId first (the indexed one); fall back to takerAssetId only
+    if maker has no legs/index. Returns (None, None) only if neither field yields a range."""
+    for field in ("makerAssetId", "takerAssetId"):
+        try:
+            tmin, tmax = _field_time_range(field, tokens)
+        except RuntimeError:                       # this field's orderBy:timestamp is index-less
+            continue
+        if tmin is not None:
+            return tmin - TIME_PAD, tmax + TIME_PAD
+    return None, None
 
 
 def _fetch_window(field: str, tokens: list[str], legs: dict, t0, t1, pages: list,
@@ -181,13 +207,18 @@ def fetch_market_legs(token_ids, total_legs: int | None = None) -> list[dict]:
         total_legs = orderbook_aggregate(token_ids)["trades_quantity"]
     legs: dict[str, dict] = {}
     pages = [0]
-    for field in ("makerAssetId", "takerAssetId"):
-        if total_legs < WINDOW_THRESHOLD:               # small market: plain, uncapped pagination
+    if total_legs < WINDOW_THRESHOLD:                    # small market: plain, uncapped pagination
+        for field in ("makerAssetId", "takerAssetId"):
             _fetch_window(field, tokens, legs, None, None, pages, None)
-            continue
-        tmin, tmax = _field_time_range(field, tokens)
-        if tmin is None:
-            continue
+        return list(legs.values())
+    # window bounds taken ONCE from the indexed field, reused for both passes (takerAssetId's
+    # orderBy:timestamp is index-less at scale). Pagination below is orderBy:id (always indexed).
+    tmin, tmax = _indexed_time_range(tokens)
+    if tmin is None:                                     # neither field yields a range: plain fallback
+        for field in ("makerAssetId", "takerAssetId"):
+            _fetch_window(field, tokens, legs, None, None, pages, None)
+        return list(legs.values())
+    for field in ("makerAssetId", "takerAssetId"):
         stack = [(tmin, tmax + 1)]                       # adaptive: bisect any window that caps out
         while stack:
             a, b = stack.pop()
