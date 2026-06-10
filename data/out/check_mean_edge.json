@@ -1,0 +1,22 @@
+{
+  "event": {
+    "cls": "event",
+    "n": 1912,
+    "median_rank": 0.35415,
+    "mean_rank": 0.44733969665271966,
+    "median_pval": 0.64585,
+    "frac_obs_above_nullB_mean": 0.4393305439330544,
+    "binom_p_above_mean_vs_0.5": 0.9999999522230806,
+    "wilcoxon_p_rank_gt_0.5": 0.9999999986206041
+  },
+  "recurring": {
+    "cls": "recurring",
+    "n": 783,
+    "median_rank": 0.36950000000000005,
+    "mean_rank": 0.4498062579821201,
+    "median_pval": 0.6305,
+    "frac_obs_above_nullB_mean": 0.4444444444444444,
+    "binom_p_above_mean_vs_0.5": 0.9991776265847762,
+    "wilcoxon_p_rank_gt_0.5": 0.9999296086185253
+  }
+}
