@@ -1,0 +1,11 @@
+{
+  "label": "recurring",
+  "n_ok": 783,
+  "n_claim3_inscope": 561,
+  "n_claim3_excluded": 222,
+  "n_f3_pass": 105,
+  "frac_f3_pass": 0.18716577540106952,
+  "mean_calibrated_fpr": 0.025750089126559714,
+  "expected_passes_calibrated": 14.4458,
+  "n_result_claim3_changed": 585
+}

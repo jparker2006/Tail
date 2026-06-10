@@ -33,8 +33,18 @@ import schema
 
 MANIFEST = os.path.join("data", "out", "corpus_run_manifest.json")
 PRIMARY = os.path.join("data", "out", "corpus_primary.json")
+SECONDARY = os.path.join("data", "out", "corpus_secondary.json")
 RESULTS = os.path.join(ingest.RAW_DIR, "results")
 OUT = os.path.join("data", "out", "corpus_f1_riders.json")
+
+
+def _markets_union():
+    """slug -> metadata across both frames (event in primary, recurring in secondary)."""
+    return {m["slug"]: m for m in _load(PRIMARY)["markets"] + _load(SECONDARY)["markets"]}
+
+
+def _out_for(cls):
+    return OUT if cls == "event" else OUT.replace(".json", f"_{cls}.json")
 
 BANDS = (0.10, 0.15, 0.20)
 WINDOWS = (10, 25, 50, 100)
@@ -101,10 +111,11 @@ def _verdict(conc):
     return bool(g >= GINI_FLOOR and nhf <= NHF_CEIL)
 
 
-def main():
+def main(cls="event"):
     rows = _load(MANIFEST)["rows"]
-    markets = {m["slug"]: m for m in _load(PRIMARY)["markets"]}
-    slugs = [s for s, r in rows.items() if r.get("status") == "ok" and r.get("cls") == "event"]
+    markets = _markets_union()
+    slugs = [s for s, r in rows.items() if r.get("status") == "ok" and r.get("cls") == cls]
+    print(f"(class={cls})", flush=True)
 
     # accumulators: per setting -> list of (gini, verdict); per market -> invariance flags
     flat_g = {b: [] for b in BANDS}
@@ -158,7 +169,7 @@ def main():
         a = np.array([x for x in xs if x is not None], float)
         return float(np.median(a)) if a.size else None
 
-    out = {"label": "event/headline", "n_event_ok": len(slugs), "n_eval": n_eval,
+    out = {"label": cls, "n_ok": len(slugs), "n_eval": n_eval,
            "method": "interval (per-fill is the unchanged companion; no window grid)",
            "guard_fail_count": len(guard_fail), "guard_fail_sample": guard_fail[:5],
            "flatness_band_median_gini": {str(b): med(flat_g[b]) for b in BANDS},
@@ -170,9 +181,9 @@ def main():
            "frac_invariant_offset": inv_off / n_eval,
            "frac_invariant_all_riders": inv_all / n_eval,
            "frac_pass_all_flatness_bands": pass_all_flat / n_eval}
-    json.dump(out, open(OUT, "w"), indent=2)
+    json.dump(out, open(_out_for(cls), "w"), indent=2)
 
-    print("\n--- F1' RIDERS (event headline, interval) ---")
+    print(f"\n--- F1' RIDERS ({cls}, interval) ---")
     print(f"  baseline reproduction guard failures: {len(guard_fail)} / {n_eval}")
     print(f"  flatness {{0.10,0.15,0.20}} median Gini: "
           f"{[round(out['flatness_band_median_gini'][str(b)],4) for b in BANDS]}")
@@ -184,10 +195,10 @@ def main():
           f"window {out['frac_invariant_window']*100:.1f}%  offset {out['frac_invariant_offset']*100:.1f}%")
     print(f"  invariant across ALL riders: {out['frac_invariant_all_riders']*100:.1f}%  | "
           f"pass at all 3 flatness bands: {out['frac_pass_all_flatness_bands']*100:.1f}%")
-    print(f"\n-> {OUT}")
+    print(f"\n-> {_out_for(cls)}")
 
 
 if __name__ == "__main__":
     import sys
     sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-    main()
+    main(sys.argv[1] if len(sys.argv) > 1 else "event")

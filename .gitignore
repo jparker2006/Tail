@@ -17,3 +17,6 @@ data/raw/
 demo/node_modules/
 demo/.next/
 demo/out/
+
+# local runtime state (scheduled tasks, locks)
+.claude/

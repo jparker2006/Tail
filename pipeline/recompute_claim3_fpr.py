@@ -21,6 +21,7 @@ import schema
 
 MANIFEST = os.path.join("data", "out", "corpus_run_manifest.json")
 PRIMARY = os.path.join("data", "out", "corpus_primary.json")
+SECONDARY = os.path.join("data", "out", "corpus_secondary.json")
 RESULTS = os.path.join(ingest.RAW_DIR, "results")
 OUT = os.path.join("data", "out", "corpus_f3_calibration.json")
 
@@ -81,12 +82,12 @@ def cached_mm_set(market: dict, result: dict) -> tuple[list[dict], int, set[str]
     return fills, R, mm_set
 
 
-def main() -> None:
+def main(cls="event") -> None:
     manifest = load_json(MANIFEST)["rows"]
-    markets = {m["slug"]: m for m in load_json(PRIMARY)["markets"]}
+    markets = {m["slug"]: m for m in load_json(PRIMARY)["markets"] + load_json(SECONDARY)["markets"]}
     slugs = [
         slug for slug, row in manifest.items()
-        if row.get("status") == "ok" and row.get("cls") == "event"
+        if row.get("status") == "ok" and row.get("cls") == cls
     ]
 
     started = time.time()
@@ -126,8 +127,8 @@ def main() -> None:
             )
 
     summary = {
-        "label": "event/headline",
-        "n_event_ok": len(slugs),
+        "label": cls,
+        "n_ok": len(slugs),
         "n_claim3_inscope": len(fprs),
         "n_claim3_excluded": excluded_claim3,
         "n_f3_pass": n_pass,
@@ -136,10 +137,14 @@ def main() -> None:
         "expected_passes_calibrated": sum(fprs),
         "n_result_claim3_changed": n_changed,
     }
-    with open(OUT, "w") as f:
+    out_path = OUT if cls == "event" else OUT.replace(".json", f"_{cls}.json")
+    with open(out_path, "w") as f:
         json.dump(summary, f, indent=2)
-    print(f"-> {OUT}")
+    print(f"  n_f3_pass={n_pass}/{len(fprs)} frac={summary['frac_f3_pass']}  "
+          f"mean_fpr={summary['mean_calibrated_fpr']}  expected={summary['expected_passes_calibrated']}")
+    print(f"-> {out_path}")
 
 
 if __name__ == "__main__":
-    main()
+    import sys
+    main(sys.argv[1] if len(sys.argv) > 1 else "event")

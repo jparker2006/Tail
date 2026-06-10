@@ -31,10 +31,10 @@ RESULTS = fr.RESULTS
 OUT = os.path.join("data", "out", "corpus_f2_ksweep.json")
 
 
-def main():
+def main(cls="event"):
     rows = fr._load(fr.MANIFEST)["rows"]
-    markets = {m["slug"]: m for m in fr._load(fr.PRIMARY)["markets"]}
-    slugs = [s for s, r in rows.items() if r.get("status") == "ok" and r.get("cls") == "event"]
+    markets = fr._markets_union()
+    slugs = [s for s, r in rows.items() if r.get("status") == "ok" and r.get("cls") == cls]
 
     beats = {k: 0 for k in KS}
     under = {k: 0 for k in KS}
@@ -42,7 +42,7 @@ def main():
     guard_fail = []
     n_eval = 0
     t0 = time.time()
-    print(f"=== F2' K-sweep + underperform — event ok markets n={len(slugs)} ===", flush=True)
+    print(f"=== F2' K-sweep + underperform — {cls} ok markets n={len(slugs)} ===", flush=True)
     for i, slug in enumerate(slugs, 1):
         market, result = markets.get(slug), fr._load(os.path.join(RESULTS, f"{slug}.json"))
         if market is None:
@@ -81,13 +81,14 @@ def main():
                          "binom_p_vs_5pct": (bt.pvalue if bt else None)}
         return d
 
-    out = {"label": "event/headline", "n_eval": n_eval, "guard_fail_count": len(guard_fail),
+    out = {"label": cls, "n_eval": n_eval, "guard_fail_count": len(guard_fail),
            "guard_fail_sample": guard_fail[:5],
            "beats_B_by_K": report(beats, "beats_B"),
            "underperforms_B_by_K": report(under, "underperforms_B")}
-    json.dump(out, open(OUT, "w"), indent=2)
+    out_path = OUT if cls == "event" else OUT.replace(".json", f"_{cls}.json")
+    json.dump(out, open(out_path, "w"), indent=2)
 
-    print("\n--- F2' K-SWEEP (event headline) ---")
+    print(f"\n--- F2' K-SWEEP ({cls}) ---")
     print(f"  K=10 guard reproduction failures: {len(guard_fail)} / {n_eval}")
     for k in KS:
         b = out["beats_B_by_K"][str(k)]
@@ -95,10 +96,10 @@ def main():
         print(f"  K={k:2d}: beats Null B {b['count']}/{b['n']} = {b['frac']*100:.1f}%  "
               f"(p vs 5% = {b['binom_p_vs_5pct']:.2e})   | underperforms B "
               f"{u['count']}/{u['n']} = {u['frac']*100:.1f}%")
-    print(f"\n-> {OUT}")
+    print(f"\n-> {out_path}")
 
 
 if __name__ == "__main__":
     import sys
     sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-    main()
+    main(sys.argv[1] if len(sys.argv) > 1 else "event")

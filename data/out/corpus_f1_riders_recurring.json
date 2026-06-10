@@ -1,0 +1,36 @@
+{
+  "label": "recurring",
+  "n_ok": 783,
+  "n_eval": 783,
+  "method": "interval (per-fill is the unchanged companion; no window grid)",
+  "guard_fail_count": 0,
+  "guard_fail_sample": [],
+  "flatness_band_median_gini": {
+    "0.1": 0.83245056117654,
+    "0.15": 0.8311533465279779,
+    "0.2": 0.8308763097655019
+  },
+  "window_length_median_gini": {
+    "10": 0.7915192628500913,
+    "25": 0.8311533465279779,
+    "50": 0.8494521950598368,
+    "100": 0.8637755881129137
+  },
+  "phase_offset_median_gini": {
+    "0": 0.8311533465279779,
+    "6": 0.8326231707353513,
+    "12": 0.8342983327187559,
+    "18": 0.8360953052132926
+  },
+  "offsets_used": [
+    0,
+    6,
+    12,
+    18
+  ],
+  "frac_invariant_flatness": 0.9974457215836526,
+  "frac_invariant_window": 0.9412515964240102,
+  "frac_invariant_offset": 0.9553001277139208,
+  "frac_invariant_all_riders": 0.9284802043422733,
+  "frac_pass_all_flatness_bands": 0.9744572158365262
+}

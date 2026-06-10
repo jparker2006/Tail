@@ -143,12 +143,12 @@
     "n_f3_pass": 105,
     "frac_f3_pass": 0.18716577540106952,
     "binom_p_vs_flat5pct": 2.7237010980559305e-31,
-    "mean_calibrated_fpr": null,
-    "expected_passes_calibrated": null,
-    "binom_p_vs_calibrated_fpr": null,
-    "poisson_binom_p_vs_calibrated_fpr": null,
-    "verdict": null,
-    "note": "missing fpr_m for 561 in-scope markets; rerun claim3 FPR recompute"
+    "mean_calibrated_fpr": 0.025750089126559718,
+    "expected_passes_calibrated": 14.445800000000002,
+    "binom_p_vs_calibrated_fpr": 1.2825428823615364e-56,
+    "poisson_binom_p_vs_calibrated_fpr": 2.5368394863429676e-59,
+    "verdict": "ABOVE CALIBRATED NULL",
+    "note": "calibrated FPR from each market's circular-shift null distribution"
   },
   "result_check_gini_boundary": {
     "near_floor_30_50": {
