@@ -168,8 +168,14 @@ def _indexed_time_range(tokens: list[str]):
 def _fetch_window(field: str, tokens: list[str], legs: dict, t0, t1, pages: list,
                   maxpages: int | None) -> bool:
     """Paginate [t0,t1) by id_gt (or the whole field if t0 is None). Returns True if the window was
-    exhausted, False if it hit `maxpages` (too dense — caller bisects). Legs already added stay
-    (dedup by id), so re-processing sub-windows only adds redundant fetches, never drops a leg."""
+    exhausted, False if it must be BISECTED — either it hit `maxpages` (too dense to page shallow) OR
+    a page query persistently TIMED OUT at this width. The timeout case is a DETERMINISTIC dense-
+    window wall, not a transient blip: a hyper-dense stretch (e.g. everton's window at ~261k legs)
+    times out at the exact same point every run, so retrying is futile — narrowing the window by time
+    is the only fix, making each page cover fewer legs until it is light enough to serve. Bisect-on-
+    timeout applies ONLY on the windowed path (maxpages set, so the caller CAN split); on the plain
+    path a timeout still raises. Legs already added stay (dedup by id), so re-processing sub-windows
+    only adds redundant fetches, never drops a leg."""
     win = "" if t0 is None else ", timestamp_gte:$t0, timestamp_lt:$t1"
     decl = "" if t0 is None else ", $t0:BigInt!, $t1:BigInt!"
     q = ("query($t:[String!], $l:ID!" + decl + "){ orderFilledEvents(first:1000, orderBy:id, "
@@ -179,7 +185,12 @@ def _fetch_window(field: str, tokens: list[str], legs: dict, t0, t1, pages: list
         v = {"t": tokens, "l": last}
         if t0 is not None:
             v["t0"], v["t1"] = t0, t1
-        rows = _gq(q, v)["orderFilledEvents"]
+        try:
+            rows = _gq(q, v)["orderFilledEvents"]
+        except RuntimeError as e:
+            if maxpages is not None and is_timeout(str(e)):
+                return False          # too dense to serve at this width — caller bisects by time
+            raise
         if not rows:
             return True
         for r in rows:
