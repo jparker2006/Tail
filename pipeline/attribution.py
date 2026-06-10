@@ -45,7 +45,8 @@ def attribute(fills: list[dict], R: int, mm_set: set) -> dict:
             "mm_aggressor_contrib": mm_contrib}
 
 
-def interval_attribute(fills: list[dict], R: int, mm_set: set, n_per_window: int = 25) -> dict:
+def interval_attribute(fills: list[dict], R: int, mm_set: set, n_per_window: int = 25,
+                       offset: int = 0) -> dict:
     """Interval net-flow attribution (robust primary).
 
     Group fills into per-N blocks. Each block's truth-signed price move Δ* is split among the
@@ -53,6 +54,11 @@ def interval_attribute(fills: list[dict], R: int, mm_set: set, n_per_window: int
     flat bot's buys/sells cancel within a block (~0 net), so it absorbs ~no credit — which is
     exactly what fixes the per-fill print artifact. Moves with no aligned non-MM flow (e.g.
     bot/maker-driven prints) fall to an explicit `unexplained` bucket.
+
+    `offset` (CORPUS_PREREG §1.5 phase-offset robustness sweep): shift where the window grid
+    starts by `offset` fills, so the first block is the partial [0:offset) and full N-blocks
+    follow. `offset=0` is the single-grid PRIMARY and is bit-identical to the original loop
+    (block starts unchanged); the sweep never replaces the primary, it only probes it.
     """
     from collections import defaultdict
     pstar = lambda p: p if R == 1 else 1.0 - p
@@ -60,8 +66,13 @@ def interval_attribute(fills: list[dict], R: int, mm_set: set, n_per_window: int
     attributed = 0.0
     unexplained = 0.0
     prev = pstar(fills[0]["p_yes"])
-    for i in range(0, len(fills), n_per_window):
-        block = fills[i:i + n_per_window]
+    if offset and 0 < offset < len(fills):
+        starts = [0] + list(range(offset, len(fills), n_per_window))
+    else:
+        starts = list(range(0, len(fills), n_per_window))
+    for j, i in enumerate(starts):
+        end = starts[j + 1] if j + 1 < len(starts) else len(fills)
+        block = fills[i:end]
         cur = pstar(block[-1]["p_yes"])
         dstar = cur - prev
         prev = cur

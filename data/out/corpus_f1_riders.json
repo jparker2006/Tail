@@ -1,0 +1,36 @@
+{
+  "label": "event/headline",
+  "n_event_ok": 1912,
+  "n_eval": 1912,
+  "method": "interval (per-fill is the unchanged companion; no window grid)",
+  "guard_fail_count": 0,
+  "guard_fail_sample": [],
+  "flatness_band_median_gini": {
+    "0.1": 0.8664768608141533,
+    "0.15": 0.865848859049076,
+    "0.2": 0.8658073151034267
+  },
+  "window_length_median_gini": {
+    "10": 0.8219368230977415,
+    "25": 0.865848859049076,
+    "50": 0.8839205293222328,
+    "100": 0.8943197853186341
+  },
+  "phase_offset_median_gini": {
+    "0": 0.865848859049076,
+    "6": 0.866861539963629,
+    "12": 0.8669221284621368,
+    "18": 0.8645984936112471
+  },
+  "offsets_used": [
+    0,
+    6,
+    12,
+    18
+  ],
+  "frac_invariant_flatness": 0.9994769874476988,
+  "frac_invariant_window": 0.9288702928870293,
+  "frac_invariant_offset": 0.9367154811715481,
+  "frac_invariant_all_riders": 0.9074267782426778,
+  "frac_pass_all_flatness_bands": 0.9576359832635983
+}
