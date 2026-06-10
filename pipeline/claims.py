@@ -82,7 +82,8 @@ def claim2(fills: list[dict], R: int, mm_set: set, K: int = 10, B: int = 10000,
         nullB += rng.choice(pool, size=B)
 
     def summ(null):
-        return {"mean": float(null.mean()), "p95": float(np.percentile(null, 95)),
+        return {"mean": float(null.mean()), "p05": float(np.percentile(null, 5)),
+                "p95": float(np.percentile(null, 95)),
                 "pval": float((null >= observed).mean())}
 
     a, b, c = summ(nullA), summ(nullB), summ(nullC)
@@ -96,7 +97,11 @@ def claim2(fills: list[dict], R: int, mm_set: set, K: int = 10, B: int = 10000,
                         "decile": w_decile[w]} for w in topK],
         "nullA": a, "nullB": b, "nullC": c,
         "beats_A": observed > a["p95"], "beats_B": observed > b["p95"],
-        "beats_C": observed > c["p95"], "verdict": verdict, "rank_by": rank_by,
+        "beats_C": observed > c["p95"],
+        # CORPUS_PREREG F2' anti-wisdom descriptive add (NOT a kill gate): top-K systematically
+        # WRONG = observed PnL below Null B's 5th pct (the symmetric lower tail of the rich null).
+        "underperforms_B": bool(observed < b["p05"]),
+        "verdict": verdict, "rank_by": rank_by,
     }
 
 
